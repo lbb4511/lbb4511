@@ -1,6 +1,5 @@
 ### Hi there 👋
 
-<!--
 **lbb4511/lbb4511** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 Here are some ideas to get you started:
@@ -13,7 +12,10 @@ Here are some ideas to get you started:
 - 📫 How to reach me: ...
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
--->
+
+### 我在 GitHub 上的统计
+
+[![Github Stats](https://github-readme-stats.vercel.app/api?username=lbb4511&show_icons=true)](https://github.com/lbb4511)
 
 <!--events start -->
 
@@ -47,6 +49,5 @@ Here are some ideas to get you started:
 * ⭐️🏷️ [Pipe](https://hacpai.com/tag/pipe)
 
   > 
-
 
 <!--events end -->
