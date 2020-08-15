@@ -189,6 +189,11 @@ MOS（某餐厅系统）升级 jdk1.7 后维护和追加
 
 ---
 
-<!-- ### Footer
+<!-- include Footer information from the front matter
+Supported arguments:
+    - Github
+    - Blog
+    - email
+-->
 
-Last updated: May 2020 -->
+{% include cv-footer.html %}
