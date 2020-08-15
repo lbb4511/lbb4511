@@ -1,5 +1,5 @@
 ---
-layout: 简历
+layout: cv
 title: 刘贝贝
 phone: 17788567744
 email:
