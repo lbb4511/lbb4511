@@ -8,6 +8,8 @@ email:
 homepage:
   url: https://lbb4511.cn
   text: lbb4511.cn
+github: lbb4511
+blog: https://lbb4511.top
 ---
 
 # **刘贝贝**
