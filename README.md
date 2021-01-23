@@ -21,10 +21,13 @@ Here are some ideas to get you started:
 
 ### 我在黑客派的近期动态
 
-⭐️ Star [个人主页](https://github.com/lbb4511/lbb4511) 后会自动更新，最近更新时间：`2021-01-23 09:11:54`
+⭐️ Star [个人主页](https://github.com/lbb4511/lbb4511) 后会自动更新，最近更新时间：`2021-01-24 02:49:18`
 
 📝 帖子 &nbsp; 💬 评论 &nbsp; 🗣 回帖 &nbsp; 🌙 清月 &nbsp; 👨‍💻 用户 &nbsp; 🏷️ 标签 &nbsp; ⭐️ 关注 &nbsp; 👍 赞同 &nbsp; 💗 感谢 &nbsp; 💰 打赏 &nbsp; 🗃 收藏
 
+* 📝 [Windows 的 UTF-8](https://ld246.com/article/1611415187259)
+
+  > Windows 很早就支持 UTF-8 了，由于还是 bata 版（2021/1/23） [图片] 修改后对于 Java -help 出现乱码可以在系统环境变量中增加一个变量，变量名为: JAVA_TOOL_OPTIONS， 变量值为：-Dfile.encoding=UTF-8
 * 💬 [Solo v4.3.0 发布预告，即将彻底移除本地评论系统](https://ld246.com/article/1594478511380/comment/1594643704521#comments)
 
   > 感觉 Solo 可以分离成多个版本 1（社区版主要方向是上边说的）+1（独立版主要方向是现在的功能从社区中完全分离出来）+n（二次开发版可以在独立版上继承各种插件、模块等）
@@ -46,9 +49,6 @@ Here are some ideas to get you started:
 * 📝 [Linux 图像处理 (convert)](https://ld246.com/article/1561841141342)
 
   > convert 命令可以用来转换图像的格式，支持 JPG, BMP, PCX, GIF, PNG, TIFF, XPM 和 XWD 等类型，下面举几个例子: convert xxx.jpg xxx.png // 将jpeg转成png文件 convert xxx.gif xxx.bmp // 将gif转换成bmp图像 c ..
-* ⭐️🏷️ [Pipe](https://ld246.com/tag/pipe)
-
-  > 
 
 
 <!--events end -->
