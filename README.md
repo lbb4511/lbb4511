@@ -21,10 +21,13 @@ Here are some ideas to get you started:
 
 ### 我在黑客派的近期动态
 
-⭐️ Star [个人主页](https://github.com/lbb4511/lbb4511) 后会自动更新，最近更新时间：`2021-05-16 08:54:42`
+⭐️ Star [个人主页](https://github.com/lbb4511/lbb4511) 后会自动更新，最近更新时间：`2021-05-17 02:30:03`
 
 📝 帖子 &nbsp; 💬 评论 &nbsp; 🗣 回帖 &nbsp; 🌙 清月 &nbsp; 👨‍💻 用户 &nbsp; 🏷️ 标签 &nbsp; ⭐️ 关注 &nbsp; 👍 赞同 &nbsp; 💗 感谢 &nbsp; 💰 打赏 &nbsp; 🗃 收藏
 
+* 💰📝 [GitHub“用爱发电”组织邀请帖](https://ld246.com/article/1570552518797)
+
+  > [图片] 用爱发电 🇨🇳 开源爱好者组织. 用爱发电 has 89 repositories available. Follow their code on GitHub. GitHub - github.com 目录 组织详情 组织属性 加入我们 渠道 1：开源开发者认证 渠道 2：学生认证 渠道 3：爱好者认证 ..
 * 📝 [Windows 的 UTF-8](https://ld246.com/article/1611415187259)
 
   > Windows 很早就支持 UTF-8 了，由于还是 bata 版（2021/1/23） [图片] 修改后对于 java -help 出现乱码可以在系统环境变量中增加一个变量，变量名为: JAVA_TOOL_OPTIONS， 变量值为：-Dfile.encoding=UTF-8
@@ -43,12 +46,6 @@ Here are some ideas to get you started:
 * 💬 [SSL 证书快到期了](https://ld246.com/article/1562831882714/comment/1563001745601#comments)
 
   > 我用 caddy 不用管证书
-* 📝 [Git 笔记](https://ld246.com/article/1561866959849)
-
-  > [图片] 免费和开源 Git 是一个使用 GNU GPL2.0 协议的开源软件。Git 选择 GPLv2 来确保你可以自由的分享和改造自由软件，而且能确保使用它的任何用户都是自由免费的。 然而，我们确实也保留了 “Git” 和 logos 避免争议。欲知详情请看我们的商标政策。 1.常用命令 git remote ad ..
-* 📝 [Linux 图像处理 (convert)](https://ld246.com/article/1561841141342)
-
-  > convert 命令可以用来转换图像的格式，支持 JPG, BMP, PCX, GIF, PNG, TIFF, XPM 和 XWD 等类型，下面举几个例子: convert xxx.jpg xxx.png // 将jpeg转成png文件 convert xxx.gif xxx.bmp // 将gif转换成bmp图像 c ..
 
 
 <!--events end -->
