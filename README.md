@@ -21,10 +21,13 @@ Here are some ideas to get you started:
 
 ### 我在黑客派的近期动态
 
-⭐️ Star [个人主页](https://github.com/lbb4511/lbb4511) 后会自动更新，最近更新时间：`2021-05-28 02:56:53`
+⭐️ Star [个人主页](https://github.com/lbb4511/lbb4511) 后会自动更新，最近更新时间：`2021-05-28 09:17:49`
 
 📝 帖子 &nbsp; 💬 评论 &nbsp; 🗣 回帖 &nbsp; 🌙 清月 &nbsp; 👨‍💻 用户 &nbsp; 🏷️ 标签 &nbsp; ⭐️ 关注 &nbsp; 👍 赞同 &nbsp; 💗 感谢 &nbsp; 💰 打赏 &nbsp; 🗃 收藏
 
+* ⭐️🏷️ [链书](https://ld246.com/tag/chainbook)
+
+  > 
 * 💰📝 [GitHub“用爱发电”组织邀请帖](https://ld246.com/article/1570552518797)
 
   > https://github.com/Programming-With-Love 目录 组织详情 组织属性 加入我们 渠道 1：开源开发者认证 渠道 2：学生认证 渠道 3：爱好者认证 渠道 4：黑客派活跃用户认证 融入组织 基本要求 审核方式 另一种加入方式：黑客派活跃用户直接过审 组织详情 组织官网： Progra ..
@@ -43,9 +46,6 @@ Here are some ideas to get you started:
 * 📝 [Linux 查看系统信息的一些命令](https://ld246.com/article/1589183971731)
 
   > [链接] 系统 uname -a 查看内核/操作系统/CPU 信息 head -n 1 /etc/issue 查看操作系统版本 cat /proc/cpuinfo 查看 CPU 信息 hostname 查看计算机名 lspci -tv 列出所有 PCI 设备 lsusb -tv 列出所有 USB 设备 lsmod 列出 ..
-* 💬 [SSL 证书快到期了](https://ld246.com/article/1562831882714/comment/1563001745601#comments)
-
-  > 我用 caddy 不用管证书
 
 
 <!--events end -->
