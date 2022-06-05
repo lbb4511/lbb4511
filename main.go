@@ -21,6 +21,12 @@ const (
 )
 
 func main() {
+	upfile("README.md")
+	upfile("home.md")
+}
+
+func upfile(path string) {
+
 	result := map[string]interface{}{}
 	response, data, errors := gorequest.New().TLSClientConfig(&tls.Config{InsecureSkipVerify: true}).
 		Get("https://hacpai.com/api/v2/user/"+hacpaiUserName+"/events?size=8").Timeout(7*time.Second).
@@ -31,7 +37,6 @@ func main() {
 	if 0 != result["code"].(float64) {
 		logger.Fatalf("fetch events failed: %s", data)
 	}
-
 	buf := &bytes.Buffer{}
 	buf.WriteString("\n\n")
 	cstSh, _ := time.LoadLocation("Asia/Shanghai")
@@ -91,9 +96,9 @@ func main() {
 
 	fmt.Println(buf.String())
 
-	readme, err := ioutil.ReadFile("README.md")
+	readme, err := ioutil.ReadFile(path)
 	if nil != err {
-		logger.Fatalf("read README.md failed: %s", data)
+		logger.Fatalf("read %s failed: %s", path, data)
 	}
 
 	startFlag := []byte("<!--events start -->")
@@ -106,7 +111,7 @@ func main() {
 	copy(newAfterEnd, afterEnd)
 	newReadme := append(newBeforeStart, buf.Bytes()...)
 	newReadme = append(newReadme, newAfterEnd...)
-	if err := ioutil.WriteFile("README.md", newReadme, 0644); nil != err {
-		logger.Fatalf("write README.md failed: %s", data)
+	if err := ioutil.WriteFile(path, newReadme, 0644); nil != err {
+		logger.Fatalf("write %s failed: %s", path, data)
 	}
 }
