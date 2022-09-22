@@ -7,10 +7,13 @@
 
 ### 我在黑客派的近期动态
 
-⭐️ Star [个人主页](https://github.com/lbb4511/lbb4511) 后会自动更新，最近更新时间：`2022-09-22 02:23:46`
+⭐️ Star [个人主页](https://github.com/lbb4511/lbb4511) 后会自动更新，最近更新时间：`2022-09-23 02:20:36`
 
 📝 帖子 &nbsp; 💬 评论 &nbsp; 🗣 回帖 &nbsp; 🌙 清月 &nbsp; 👨‍💻 用户 &nbsp; 🏷️ 标签 &nbsp; ⭐️ 关注 &nbsp; 👍 赞同 &nbsp; 💗 感谢 &nbsp; 💰 打赏 &nbsp; 🗃 收藏
 
+* 📝 [开发者用搜索引擎](https://ld246.com/article/1663808339376)
+
+  > 百度推出开发者用[链接] beta 版，无广告。[图片]
 * 💬 [GitHub 的 raw.githubusercontent.com 无法链接](https://ld246.com/article/1593400989089/comment/1662733072307#comments)
 
   > [链接] [图片]
@@ -29,9 +32,6 @@
 * 💬 [Solo v4.3.0 发布预告，即将彻底移除本地评论系统](https://ld246.com/article/1594478511380/comment/1594643704521#comments)
 
   > 感觉 Solo 可以分离成多个版本 1（社区版主要方向是上边说的）+1（独立版主要方向是现在的功能从社区中完全分离出来）+n（二次开发版可以在独立版上继承各种插件、模块等）
-* 📝 [GitHub 的 raw.githubusercontent.com 无法链接](https://ld246.com/article/1593400989089)
-
-  > 修改 Hosts 临时解决 GitHub 的 raw.githubusercontent.com 无法链接 通过 IPAddress.com 首页,输入 raw.githubusercontent.com 查询到真实 IP 地址 199.232.28.133 C:\Windows\System32\drivers\et ..
 
 
 <!--events end -->
