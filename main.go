@@ -22,7 +22,6 @@ const (
 
 func main() {
 	upfile("README.md")
-	upfile("home.md")
 }
 
 func upfile(path string) {
