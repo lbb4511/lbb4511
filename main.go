@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"crypto/tls"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"time"
@@ -33,7 +32,7 @@ func upfile(path string) {
 	if nil != errors || http.StatusOK != response.StatusCode {
 		logger.Fatalf("fetch events failed: %+v, %s", errors, data)
 	}
-	if 0 != result["code"].(float64) {
+	if result["code"].(float64) != 0 {
 		logger.Fatalf("fetch events failed: %s", data)
 	}
 	buf := &bytes.Buffer{}
@@ -95,7 +94,7 @@ func upfile(path string) {
 
 	fmt.Println(buf.String())
 
-	readme, err := ioutil.ReadFile(path)
+	readme, err := os.ReadFile(path)
 	if nil != err {
 		logger.Fatalf("read %s failed: %s", path, data)
 	}
@@ -110,7 +109,7 @@ func upfile(path string) {
 	copy(newAfterEnd, afterEnd)
 	newReadme := append(newBeforeStart, buf.Bytes()...)
 	newReadme = append(newReadme, newAfterEnd...)
-	if err := ioutil.WriteFile(path, newReadme, 0644); nil != err {
+	if err := os.WriteFile(path, newReadme, 0644); nil != err {
 		logger.Fatalf("write %s failed: %s", path, data)
 	}
 }
