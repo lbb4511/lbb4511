@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>伪装的小白</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta name="description" content="紫若丹枫 | 事态一旦开始就必须继续。" />
+  <meta name="keywords" content="紫若丹枫, 博客, 技术" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="assets/css/index.css" />
+  <noscript>
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
+</head>
+
+<body>
+  <div id="wrapper">
+    <header id="header">
+      <div class="logo">
+        <span class="icon fa-diamond"></span>
+      </div>
+      <div class="content">
+        <div class="inner">
+          <h1>紫若丹枫</h1>
+          <p>
+            事情一旦开始就是必要进行下去，无可厚非。
+          </p>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="home">Home</a></li>
+          <li><a href="https://blog.obtstar.com" target="_blank" rel="noopener">Blog</a></li>
+          <li><a href="https://dialectic.top">大问题</a></li>
+          <!-- <li><a href="#contact">联系</a></li> -->
+          <li><a href="archive">Archive</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div id="main">
+      <article id="about">
+        <h2 class="major">感恩</h2>
+        <!-- <span class="image main"><img src="images/pic04.jpg" alt="" /></span> -->
+        <!-- <p>
+          
+        </p> -->
+        <ul>
+          <li>
+            天的深情
+          </li>
+          <li>
+            地的厚爱
+          </li>
+          <li>
+            铭刻在我心中
+          </li>
+          <li>
+            生生世世
+          </li>
+          <li>
+            永不能忘
+          </li>
+        </ul>
+      </article>
+      <article id="contact">
+        <h2 class="major">联系</h2>
+        <!-- <span class="image main"><img src="images/wx.jpg" alt="" /></span> -->
+        <ul class="icons">
+          <li>
+            <a href="tel:17788567744" class="icon fa-phone"><span class="label">电话</span></a>
+          </li>
+          <li>
+            <a href="mailto:lbb.obtstar@gmail.com" target="_blank" class="icon fa-envelope"><span
+                class="label">邮箱</span></a>
+          </li>
+          <li>
+            <a href="https://github.com/lbb4511" class="icon fa-github" target="_blank"><span
+                class="label">GitHub</span></a>
+          </li>
+        </ul>
+      </article>
+    </div>
+    <footer id="footer">
+    </footer>
+  </div>
+  <div id="bg"></div>
+
+  <script type="text/javascript">
+    (function updateFooter() {
+      try {
+        var footer = document.getElementById('footer');
+        if (!footer) return;
+
+        // Only show footer on obtstar.com (and www.obtstar.com)
+        var host = (window.location.hostname || '').toLowerCase();
+        if (host === 'obtstar.com' || host === 'www.obtstar.com') {
+          footer.innerHTML = '<p class="copyright"> &copy; 2025~' + new Date().getFullYear() + ' | <a href="#about">OBTSTAR.COM</a> | <a href="https://beian.miit.gov.cn/">苏ICP备2025202031号</a>-1 <a href="#contact">Contact</a>. </p>';
+          footer.style.display = '';
+        } else {
+          // hide footer completely when not on the production domain
+          // footer.style.display = 'none';
+        }
+      } catch (e) {
+        /* noop */
+      }
+    })();
+  </script>
+  <!-- Load scripts with defer to avoid blocking render; scripts are safe to defer here. -->
+  <script src="assets/js/jquery.min.js" defer></script>
+  <script src="assets/js/skel.min.js" defer></script>
+  <script src="assets/js/util.js" defer></script>
+  <script src="assets/js/index.js" defer></script>
+</body>
+
+</html>
