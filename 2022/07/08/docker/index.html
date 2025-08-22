@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="紫若丹枫">
+    <meta name="keywords" content="紫若丹枫">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="Docker - 紫若丹枫">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Docker命令
+">
+    
+    <meta property="article:published_time" content=" 2022-07-08T00:00:00Z">
+    
+    
+    <meta property="article:author" content="Lbb">
+    
+    
+    <meta property="article:tag" content="tools">
+    
+    
+    <meta property="og:image" content="https://obtstar.tophttps://github.com/lbb4511.png">
+    <meta property="og:url" content="https://obtstar.top/2022/07/08/docker/">
+    <meta property="og:site_name" content="紫若丹枫">
+
+    <title>Docker - 紫若丹枫</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/assets/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://obtstar.top/2022/07/08/docker/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /assets/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /assets/css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- Google AdSense -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">伪装的小白</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/images/post-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/images/post-bg.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=tools" title="tools">tools</a>
+                        
+                    </div>
+                    <h1>Docker</h1>
+                    
+                    <h2 class="subheading">Docker</h2>
+                    <span class="meta">Posted by Lbb on July 8, 2022</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<h2 id="docker命令">Docker命令</h2>
+
+<h3 id="删除">删除</h3>
+
+<ul>
+  <li>停止所有的container
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker stop $(docker ps -a -q)
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>删除所有container的话再加一个指令
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker rm $(docker ps -a -q)
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>查看当前有些什么images
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker images
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>删除images，通过image的id来指定删除谁
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker rmi &lt;image id&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>删除untagged images，也就是那些id为<None>的image的话可以用
+</None>    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker rmi $(docker images | grep "^&lt;none&gt;" | awk "{print $3}")
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>删除全部image的话
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker rmi $(docker images -q)
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<ol>
+  <li>查看docker信息（version、info）
+    <ul>
+      <li>查看docker版本
+<code class="language-plaintext highlighter-rouge">$docker version</code></li>
+      <li>显示docker系统的信息
+<code class="language-plaintext highlighter-rouge">$docker info</code></li>
+    </ul>
+  </li>
+  <li>对image的操作（search、pull、images、rmi、history）
+    <ul>
+      <li>检索image
+<code class="language-plaintext highlighter-rouge">$docker search image_name</code></li>
+      <li>下载image
+<code class="language-plaintext highlighter-rouge">$docker pull image_name</code></li>
+      <li>列出镜像列表; -a, –all=false 显示所有镜像; –no-trunc=false 不要截断输出; -q, –quiet=false 仅显示数字ID
+<code class="language-plaintext highlighter-rouge">$docker images</code></li>
+      <li>删除一个或者多个镜像; -f, –force=false 强行; –no-prune=false 不要删除未标记的父级
+<code class="language-plaintext highlighter-rouge">$docker rmi image_name</code></li>
+      <li>显示一个镜像的历史; –no-trunc=false 不要截断输出; -q, –quiet=false 仅显示数字ID
+<code class="language-plaintext highlighter-rouge">$docker history image_name</code>
+ 3. 启动容器（run）
+docker容器可以理解为在沙盒中运行的进程。这个沙盒包含了该进程运行所必须的资源，包括文件系统、系统类库、shell 环境等等。但这个沙盒默认是不会运行任何程序的。你需要在沙盒中运行一个进程来启动某一个容器。这个进程是该容器的唯一进程，所以当该进程结束的时候，容器也会完全的停止。</li>
+      <li>在容器中运行”echo”命令，输出”hello word”
+<code class="language-plaintext highlighter-rouge">$docker run image_name echo "hello word"</code></li>
+      <li>交互式进入容器中
+<code class="language-plaintext highlighter-rouge">$docker run -i -t image_name /bin/bash</code></li>
+      <li>在容器中安装新的程序
+<code class="language-plaintext highlighter-rouge">$docker run image_name apt-get install -y app_name</code>
+<em>注意：  在执行apt-get 命令的时候，要带上-y参数。如果不指定-y参数的话，apt-get命令会进入交互模式，需要用户输入命令来进行确认，但在docker环境中是无法响应这种交互的。apt-get 命令执行完毕之后，容器就会停止，但对容器的改动不会丢失。</em></li>
+    </ul>
+  </li>
+  <li>查看容器（ps）
+    <ul>
+      <li>列出当前所有正在运行的container
+<code class="language-plaintext highlighter-rouge">$docker ps</code></li>
+      <li>列出所有的container$docker ps -a</li>
+      <li>列出最近一次启动的container
+<code class="language-plaintext highlighter-rouge">$docker ps -l</code></li>
+    </ul>
+  </li>
+  <li>保存对容器的修改（commit）
+当你对某一个容器做了修改之后（通过在容器中运行某一个命令），可以把对容器的修改保存下来，这样下次可以从保存后的最新状态运行该容器。
+    <ul>
+      <li>保存对容器的修改; -a, –author=”” 作者; -m, –message=”” 提交消息
+<code class="language-plaintext highlighter-rouge">$docker commit ID new_image_name</code>
+<em>注意：  image相当于类，container相当于实例，不过可以动态给实例安装新软件，然后把这个container用commit命令固化成一个image。</em></li>
+    </ul>
+  </li>
+  <li>对容器的操作（rm、stop、start、kill、logs、diff、top、cp、restart、attach）
+    <ul>
+      <li>删除所有容器
+<code class="language-plaintext highlighter-rouge">$docker rm `docker ps -a -q`
+</code></li>
+      <li>删除单个容器; -f, –force=false; -l, –link=false 删除指定的链接，而不是基础容器; -v, –volumes=false 删除与容器关联的卷
+<code class="language-plaintext highlighter-rouge">$docker rm Name/ID</code></li>
+      <li>停止、启动、杀死一个容器
+<code class="language-plaintext highlighter-rouge">$docker stop Name/ID</code>
+<code class="language-plaintext highlighter-rouge">$docker start Name/ID</code>
+<code class="language-plaintext highlighter-rouge">$docker kill Name/ID</code></li>
+      <li>从一个容器中取日志; -f, –follow=false 按照日志输出; -t, –timestamps=false 显示时间戳
+<code class="language-plaintext highlighter-rouge">$docker logs Name/ID</code></li>
+      <li>列出一个容器里面被改变的文件或者目录，list列表会显示出三种事件，A 增加的，D 删除的，C 被改变的
+<code class="language-plaintext highlighter-rouge">$docker diff Name/ID</code></li>
+      <li>显示一个运行的容器里面的进程信息
+<code class="language-plaintext highlighter-rouge">$docker top Name/ID</code></li>
+      <li>从容器里面拷贝文件/目录到本地一个路径
+<code class="language-plaintext highlighter-rouge">$docker cp Name:/container_path to_path</code>
+<code class="language-plaintext highlighter-rouge">$docker cp ID:/container_path to_path</code></li>
+      <li>重启一个正在运行的容器; -t, –time=10 尝试在停止容器之前停止的秒数, 默认=10
+<code class="language-plaintext highlighter-rouge">$docker restart Name/ID</code></li>
+      <li>附加到一个运行的容器上面; –no-stdin=false 不要附加标准输入(stdin); –sig-proxy=true 将所有接收到的信号代理给进程
+<code class="language-plaintext highlighter-rouge">$docker attach ID</code>
+<em>注意： attach命令允许你查看或者影响一个运行的容器。你可以在同一时间attach同一个容器。你也可以从一个容器中脱离出来，是从CTRL-C。</em></li>
+    </ul>
+  </li>
+  <li>保存和加载镜像（save、load）
+当需要把一台机器上的镜像迁移到另一台机器的时候，需要保存镜像与加载镜像。
+    <ul>
+      <li>保存镜像到一个tar包; -o, –output=”” 写入文件
+<code class="language-plaintext highlighter-rouge">$docker save image_name -o file_path</code></li>
+      <li>加载一个tar包格式的镜像; -i, –input=”” 从tar存档文件读取
+<code class="language-plaintext highlighter-rouge">$docker load -i file_path</code></li>
+      <li>机器a
+<code class="language-plaintext highlighter-rouge">$docker save image_name &gt; /home/save.tar</code></li>
+      <li>使用scp将save.tar拷到机器b上，然后：
+<code class="language-plaintext highlighter-rouge">$docker load &lt; /home/save.tar</code>
+ 8、 登录registry server（login）</li>
+      <li>登陆registry server; -e, –email=”” 电子邮件; -p, –password=”” 密码; -u, –username=”” 用户名
+<code class="language-plaintext highlighter-rouge">$docker login</code></li>
+    </ul>
+  </li>
+  <li>发布image（push）
+    <ul>
+      <li>发布docker镜像
+<code class="language-plaintext highlighter-rouge">$docker push new_image_name</code>
+ 10.  根据Dockerfile 构建出一个容器</li>
+      <li>build 
+–no-cache=false 在构建映像时不要使用缓存
+ -q, –quiet=false 抑制由容器生成的详细输出
+ –rm=true 成功构建后删除中间容器
+ -t, –tag=”” 在成功的情况下应用于生成的图像的存储库名称（以及可选的标记）
+<code class="language-plaintext highlighter-rouge">$docker build -t image_name Dockerfile_path</code></li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="docker源码分析">Docker源码分析</h2>
+
+<ul>
+  <li>
+    <p>init函数的执行。在Golang中init函数的特性如下：</p>
+
+    <ul>
+      <li>init函数用于程序执行前包的初始化工作，比如初始化变量等；</li>
+      <li>每个包可以有多个init函数；</li>
+      <li>包的每一个源文件也可以有多个init函数；</li>
+      <li>同一个包内的init函数的执行顺序没有明确的定义；</li>
+      <li>不同包的init函数按照包导入的依赖关系决定初始化的顺序；</li>
+      <li>init函数不能被调用，而是在main函数调用前自动被调用。</li>
+    </ul>
+  </li>
+  <li>os.Setenv(“DEBUG”, “1”) 创建系统环境变量</li>
+  <li>
+    <p>Docker源码分析 孙宏亮 -infoQ</p>
+
+    <ul>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part1">Docker源码分析（一）：Docker架构</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part2">Docker源码分析（二）：Docker Client创建与命令执行</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part3">Docker源码分析（三）：Docker Daemon启动</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part4">Docker源码分析（四）：Docker Daemon之NewDaemon实现</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part5">Docker源码分析（五）：Docker Server的创建</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part6">Docker源码分析（六）：Docker Daemon网络</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part7">Docker源码分析（七）：Docker Container网络 （上）</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part8">Docker源码分析（八）：Docker Container网络 （下）</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part9">Docker源码分析（九）：Docker镜像</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part10">Docker源码分析（十）：Docker镜像下载</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part11">Docker源码分析（十一）：镜像存储</a></li>
+      <li><a href="http://www.infoq.com/cn/articles/docker-turns-3">Docker三年回顾：梦想依在，人生正当年</a></li>
+      <li><a href="http://www.infoq.com/cn/presentations/how-to-design-an-ultra-large-scale-container-scheduling-system">超大规模容器调度系统的设计与实现</a></li>
+    </ul>
+  </li>
+</ul>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2022/06/05/git/" data-toggle="tooltip" data-placement="top" title="Git">
+                        Previous<br>
+                        <span>Git</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2022/09/22/lua/" data-toggle="tooltip" data-placement="top" title="Lua">
+                        Next<br>
+                        <span>Lua</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0001" 
+                    href="/archive/?tag=tools"
+                    title="tools"
+                    rel="2">tools</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="https://88250.b3log.org/">D 的个人博客</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/lbb4511">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 伪装的小白 2025
+                    <br>
+                    Powered by <a href="https://obtstar.top">紫若丹枫</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=lbb4511&repo=lbb4511&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/assets/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/assets/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/assets/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/assets/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/assets/js/snackbar.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/assets/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,3007 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="紫若丹枫">
+    <meta name="keywords" content="紫若丹枫">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="Lua - 紫若丹枫">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码形式开放， 其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。
+Lua 是巴西里约热内卢天主教大学（Pontifical Catholic University of Rio de Janeiro）里的一个研究小组，由Roberto Ierusalimschy、Waldemar Celes 和 Luiz Hen...">
+    
+    <meta property="article:published_time" content=" 2022-09-22T00:00:00Z">
+    
+    
+    <meta property="article:author" content="Lbb">
+    
+    
+    <meta property="article:tag" content="Lang">
+    
+    
+    <meta property="og:image" content="https://obtstar.tophttps://github.com/lbb4511.png">
+    <meta property="og:url" content="https://obtstar.top/2022/09/22/lua/">
+    <meta property="og:site_name" content="紫若丹枫">
+
+    <title>Lua - 紫若丹枫</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/assets/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://obtstar.top/2022/09/22/lua/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href=" /assets/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" /assets/css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- Google AdSense -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">伪装的小白</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/images/post-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/images/post-bg.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=Lang" title="Lang">Lang</a>
+                        
+                    </div>
+                    <h1>Lua</h1>
+                    
+                    <h2 class="subheading">Lua</h2>
+                    <span class="meta">Posted by Lbb on September 22, 2022</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<p>Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码形式开放， 其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。
+Lua 是巴西里约热内卢天主教大学（Pontifical Catholic University of Rio de Janeiro）里的一个研究小组，由Roberto Ierusalimschy、Waldemar Celes 和 Luiz Henrique de Figueiredo所组成并于1993年开发。</p>
+
+<h2 id="设计目的">设计目的</h2>
+
+<p>其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。</p>
+
+<h2 id="lua-特性">Lua 特性</h2>
+
+<ul>
+  <li><strong>轻量级</strong>: 它用标准C语言编写并以源代码形式开放，编译后仅仅一百余K，可以很方便的嵌入别的程序里。</li>
+  <li><strong>可扩展</strong>: Lua提供了非常易于使用的扩展接口和机制：由宿主语言(通常是C或C++)提供这些功能，Lua可以使用它们，就像是本来就内置的功能一样。</li>
+  <li><strong>其它特性</strong>:支持面向过程(procedure-oriented)编程和函数式编程(functional programming)；
+自动内存管理；只提供了一种通用类型的表（table），用它可以实现数组，哈希表，集合，对象；
+语言内置模式匹配；闭包(closure)；函数也可以看做一个值；提供多线程（协同进程，并非操作系统所支持的线程）支持；
+通过闭包和table可以很方便地支持面向对象编程所需要的一些关键机制，比如数据抽象，虚函数，继承和重载等。</li>
+</ul>
+
+<h2 id="lua-应用场景">Lua 应用场景</h2>
+
+<ul>
+  <li>游戏开发</li>
+  <li>独立应用脚本</li>
+  <li>Web 应用脚本</li>
+  <li>扩展和数据库插件如：MySQL Proxy 和 MySQL WorkBench</li>
+  <li>安全系统，如入侵检测系统</li>
+</ul>
+
+<h2 id="第一个-lua-程序">第一个 Lua 程序</h2>
+
+<h3 id="交互式编程">交互式编程</h3>
+
+<p>Lua 提供了交互式编程模式。我们可以在命令行中输入程序并立即查看效果。
+Lua 交互式编程模式可以通过命令 lua -i 或 lua 来启用：</p>
+
+<p>我们可以将 Lua 程序代码保持到一个以 lua 结尾的文件，并执行，该模式称为脚本式编程，如我们将如下代码存储在名为 hello.lua 的脚本文件中：
+使用 lua 名执行以上脚本，输出结果为：</p>
+
+<h3 id="注释">注释</h3>
+
+<ul>
+  <li>单行注释
+两个减号是单行注释:
+–Lua注释</li>
+  <li>多行注释
+–[[Lua注释
+  Lua注释
+  Lua注释 –]]</li>
+</ul>
+
+<h3 id="标示符">标示符</h3>
+
+<p>Lua 标示符用于定义一个变量，函数获取其他用户定义的项。标示符以一个字母 A 到 Z 或 a 到 z 或下划线 _ 开头后加上0个或多个字母，下划线，数字（0到9）。
+最好不要使用下划线加大写字母的标示符，因为Lua的保留字也是这样的。
+Lua 不允许使用特殊字符如 @, $, 和 % 来定义标示符。 Lua 是一个区分大小写的编程语言。因此在 Lua 中 W3c 与 w3c 是两个不同的标示符。</p>
+
+<h3 id="关键词">关键词</h3>
+
+<p>以下列出了 Lua 的保留关键字。保留关键字不能作为常量或变量或其他用户自定义标示符：
+<code class="language-plaintext highlighter-rouge">and</code> <code class="language-plaintext highlighter-rouge">break</code> <code class="language-plaintext highlighter-rouge">do</code> <code class="language-plaintext highlighter-rouge">else</code> <code class="language-plaintext highlighter-rouge">elseif</code> <code class="language-plaintext highlighter-rouge">end</code> <code class="language-plaintext highlighter-rouge">false</code> <code class="language-plaintext highlighter-rouge">for</code> <code class="language-plaintext highlighter-rouge">function</code> <code class="language-plaintext highlighter-rouge">if</code> <code class="language-plaintext highlighter-rouge">in</code> <code class="language-plaintext highlighter-rouge">local</code> <code class="language-plaintext highlighter-rouge">nil</code> <code class="language-plaintext highlighter-rouge">not</code> <code class="language-plaintext highlighter-rouge">or</code> <code class="language-plaintext highlighter-rouge">repeat</code> <code class="language-plaintext highlighter-rouge">return</code> <code class="language-plaintext highlighter-rouge">then</code> <code class="language-plaintext highlighter-rouge">true</code> <code class="language-plaintext highlighter-rouge">until</code> <code class="language-plaintext highlighter-rouge">while</code>
+一般约定，以下划线开头连接一串大写字母的名字（比如 _VERSION）被保留用于 Lua 内部全局变量。</p>
+
+<h3 id="全局变量">全局变量</h3>
+
+<p>在默认情况下，变量总是认为是全局的。
+全局变量不需要声明，给一个变量赋值后即创建了这个全局变量，访问一个没有初始化的全局变量也不会出错，只不过得到的结果是：nil。</p>
+
+<h3 id="数据类型">数据类型</h3>
+
+<p>Lua是动态类型语言，变量不要类型定义,只需要为变量赋值。 值可以存储在变量中，作为参数传递或结果返回。
+Lua中有8个基本类型分别为：nil、boolean、number、string、userdata、function、thread和table。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>数据类型</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>nil</td>
+      <td>这个最简单，只有值nil属于该类，表示一个无效值（在条件表达式中相当于false）。</td>
+    </tr>
+    <tr>
+      <td>boolean</td>
+      <td>包含两个值：false和true。</td>
+    </tr>
+    <tr>
+      <td>number</td>
+      <td>表示双精度类型的实浮点数</td>
+    </tr>
+    <tr>
+      <td>string</td>
+      <td>字符串由一对双引号或单引号来表示</td>
+    </tr>
+    <tr>
+      <td>function</td>
+      <td>由 C 或 Lua 编写的函数</td>
+    </tr>
+    <tr>
+      <td>userdata</td>
+      <td>表示任意存储在变量中的C数据结构</td>
+    </tr>
+    <tr>
+      <td>thread</td>
+      <td>表示执行的独立线路，用于执行协同程序</td>
+    </tr>
+    <tr>
+      <td>table</td>
+      <td>Lua 中的表（table）其实是一个”关联数组”（associative arrays），数组的索引可以是数字或者是字符串。在 Lua 里，table 的创建是通过”构造表达式”来完成，最简单构造表达式是{}，用来创建一个空表。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>我们可以使用type函数测试给定变量或者值的类型：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="s2">"Hello world"</span><span class="p">))</span> <span class="c1">--&gt; string</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="mi">10</span><span class="p">.</span><span class="mi">4</span><span class="o">*</span><span class="mi">3</span><span class="p">))</span> <span class="c1">--&gt; number</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="nb">print</span><span class="p">))</span> <span class="c1">--&gt; function</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="nb">type</span><span class="p">))</span> <span class="c1">--&gt; function</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span> <span class="c1">--&gt; boolean</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">nil</span><span class="p">))</span> <span class="c1">--&gt; nil</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)))</span> <span class="c1">--&gt; string</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="变量">变量</h3>
+
+<p>变量在使用前，必须在代码中进行声明，即创建该变量。
+编译程序执行代码之前编译器需要知道如何给语句变量开辟存储区，用于存储变量的值。
+Lua 变量有三种类型：全局变量、局部变量、表中的域。
+Lua 中的变量全是全局变量，那怕是语句块或是函数里，除非用 local 显示声明为局部变量。
+局部变量的作用域为从声明位置开始到所在语句块结束。
+变量的默认值均为 nil。</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="c1">-- test.lua 文件脚本</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>               <span class="c1">-- 全局变量</span>
+<span class="kd">local</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">5</span>         <span class="c1">-- 局部变量</span>
+
+<span class="k">function</span> <span class="nf">joke</span><span class="p">()</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">5</span>           <span class="c1">-- 全局变量</span>
+    <span class="kd">local</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">6</span>     <span class="c1">-- 局部变量</span>
+<span class="k">end</span>
+
+<span class="n">joke</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>          <span class="c1">--&gt; 5 nil</span>
+
+<span class="k">do</span>
+    <span class="kd">local</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">6</span>     <span class="c1">-- 局部变量</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">6</span>           <span class="c1">-- 全局变量</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>     <span class="c1">--&gt; 6 6</span>
+<span class="k">end</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>      <span class="c1">--&gt; 5 6</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="赋值语句">赋值语句</h3>
+
+<p>赋值是改变一个变量的值和改变表域的最基本的方法。
+Lua可以对多个变量同时赋值，变量列表和值列表的各个元素用逗号分开，赋值语句右边的值会依次赋给左边的变量。
+遇到赋值语句Lua会先计算右边所有的值然后再执行赋值操作，所以我们可以这样进行交换变量的值：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="s2">"hello"</span> <span class="o">..</span> <span class="s2">"world"</span>
+<span class="n">t</span><span class="p">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>       <span class="o">&lt;</span><span class="c1">--&gt;       a=10; b=2*x</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>                     <span class="c1">-- swap 'x' for 'y'</span>
+<span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>         <span class="c1">-- swap 'a[i]' for 'a[j]'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>当变量个数和值的个数不一致时，Lua会一直以变量个数为基础采取以下策略：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>a. 变量个数 &gt; 值的个数             按变量个数补足nil
+b. 变量个数 &lt; 值的个数             多余的值会被忽略
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><em>多值赋值经常用来交换变量，或将函数调用返回给变量：<code class="language-plaintext highlighter-rouge">a, b = f()</code></em>
+应该尽可能的使用局部变量，有两个好处：</p>
+
+<ul>
+  <li>避免命名冲突。</li>
+  <li>访问局部变量的速度比全局变量更快。</li>
+</ul>
+
+<h3 id="索引">索引</h3>
+
+<p>对 table 的索引使用方括号 []。Lua 也提供了 . 操作。</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">t</span><span class="p">.</span><span class="n">i</span>                 <span class="c1">-- 当索引为字符串类型时的一种简化写法</span>
+<span class="n">gettable_event</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="c1">-- 采用索引访问本质上是一个类似这样的函数调用</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>循环
+很多情况下我们需要做一些有规律性的重复操作，因此在程序中就需要重复执行某些语句。
+一组被重复执行的语句称之为循环体，能否继续重复，决定循环的终止条件。
+循环结构是在一定条件下反复执行某段程序的流程结构，被反复执行的程序被称为循环体。
+循环语句是由循环体及循环的终止条件两部分组成的。
+Lua 语言提供了以下几种循环处理方式：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>循环类型</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>while 循环</td>
+      <td>在条件为 true 时，让程序重复地执行某些语句。执行语句前会先检查条件是否为 true。</td>
+    </tr>
+    <tr>
+      <td>for 循环</td>
+      <td>重复执行指定语句，重复次数可在 for 语句中控制。</td>
+    </tr>
+    <tr>
+      <td>repeat…until</td>
+      <td>重复执行循环，直到 指定的条件为真时为止</td>
+    </tr>
+    <tr>
+      <td>循环嵌套</td>
+      <td>可以在循环内嵌套一个或多个循环语句（while、for、do..while）</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>循环控制
+循环控制语句用于控制程序的流程， 以实现程序的各种结构方式。
+Lua 支持以下循环控制语句：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>控制语句</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>break 语句</td>
+      <td>退出当前循环或语句，并开始脚本执行紧接着的语句。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>在循环体中如果条件永远为 true 循环语句就会永远执行下去</em></p>
+
+<ul>
+  <li>#while 循环
+Lua 编程语言中 while 循环语句在判断条件为 true 时会重复执行循环体语句。
+Lua 编程语言中 while 循环语法：</li>
+</ul>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">while</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+<span class="k">do</span>
+   <span class="n">statements</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>statements(循环体语句)</strong>可以是一条或多条语句，<strong>condition(条件)</strong>可以是任意表达式，在<strong>condition(条件)</strong>为 true 时执行循环体语句。
+流程图如下：
+<img src="http://upload-images.jianshu.io/upload_images/979228-6ba423b7ea94d472.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="while 循环" />
+在以上流程图中我们可以看出在<strong>condition(条件)</strong>为 false 时会跳过当前循环并开始脚本执行紧接着的语句。</p>
+
+<ul>
+  <li>#for 循环
+Lua 编程语言中 for 循环语句可以重复执行指定语句，重复次数可在 for 语句中控制。
+Lua 编程语言中 for语句有两大类：：</li>
+  <li>数值for循环
+Lua 编程语言中数值for循环语法格式:</li>
+</ul>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">for</span> <span class="n">var</span><span class="o">=</span><span class="n">exp1</span><span class="p">,</span><span class="n">exp2</span><span class="p">,</span><span class="n">exp3</span> <span class="k">do</span>
+    <span class="o">&lt;</span><span class="err">执行体</span><span class="o">&gt;</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>var从exp1变化到exp2，每次变化以exp3为步长递增var，并执行一次”执行体”。exp3是可选的，如果不指定，默认为1。</p>
+
+<ul>
+  <li>泛型for循环
+泛型for循环通过一个迭代器函数来遍历所有值，类似java中的foreach语句。
+Lua 编程语言中泛型for循环语法格式:
+–打印数组a的所有值</li>
+</ul>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="k">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">do</span> <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>i是数组索引值，v是对应索引的数组元素值。ipairs是Lua提供的一个迭代器函数，用来迭代数组。</p>
+
+<ul>
+  <li>#repeat…until 循环
+Lua 编程语言中 repeat…until 循环语句不同于 for 和 while循环，for 和 while 循环的条件语句在当前循环执行开始时判断，而 repeat…until 循环的条件语句在当前循环结束后判断。
+Lua 编程语言中 repeat…until 循环语法格式:</li>
+</ul>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">repeat</span>
+   <span class="n">statements</span>
+<span class="k">until</span><span class="p">(</span> <span class="n">condition</span> <span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>我们注意到循环条件判断语句（condition）在循环体末尾部分，所以在条件进行判断前循环体都会执行一次。
+如果条件判断语句（condition）为 false，循环会重新开始执行，直到条件判断语句（condition）为 true 才会停止执行。
+Lua repeat…until 循环流程图如下：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/979228-f37c0328655668e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="repeat...until 循环" /></p>
+
+<ul>
+  <li>#循环嵌套
+Lua 编程语言中允许循环中嵌入循环。以下实例演示了 Lua 循环嵌套的应用。</li>
+</ul>
+
+<h2 id="流程控制">流程控制</h2>
+
+<p>Lua 编程语言流程控制语句通过程序设定一个或多个条件语句来设定。在条件为 true 时执行指定程序代码，在条件为 false 时执行其他指定代码。
+控制结构的条件表达式结果可以是任何值，Lua认为false和nil为假，true和非nil为真。
+Lua 提供了以下控制结构语句：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>语句</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>if 语句</td>
+      <td><strong>if 语句</strong>由一个布尔表达式作为条件判断，其后紧跟其他语句组成。</td>
+    </tr>
+    <tr>
+      <td>if…else 语句</td>
+      <td><strong>if 语句</strong>可以与<strong>else 语句</strong>搭配使用, 在 if 条件表达式为 false 时执行 else 语句代码。</td>
+    </tr>
+    <tr>
+      <td>if 嵌套语句</td>
+      <td>你可以在<strong>if</strong>或<strong>else if</strong>中使用一个或多个<strong>if</strong>或<strong>else if</strong>语句 。</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>#if 语句
+<strong>if 语句</strong>由一个布尔表达式作为条件判断，其后紧跟其他语句组成。</li>
+</ul>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">if</span><span class="p">(</span><span class="err">布尔表达式</span><span class="p">)</span>
+<span class="k">then</span>
+   <span class="c1">--[ 在布尔表达式为 true 时执行的语句 --]</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在布尔表达式为 true 时会if中的代码块会被执行，在布尔表达式为 false 时，紧跟在 if 语句 end 之后的代码会被执行。
+Lua认为false和nil为假，true 和非nil为真。要注意的是Lua中 0 为 true。
+if 语句流程图如下：</p>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/979228-cde07fac4be6ccda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="if 语句" /></p>
+
+<ul>
+  <li>#if…else 语句
+Lua if 语句可以与 else 语句搭配使用, 在 if 条件表达式为 false 时执行 else 语句代码块。
+Lua if…else 语句语法格式如下：</li>
+</ul>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="k">if</span><span class="p">(</span><span class="err">布尔表达式</span><span class="p">)</span>
+<span class="k">then</span>
+   <span class="c1">--[ 布尔表达式为 true 时执行该语句块 --]</span>
+<span class="k">else</span>
+   <span class="c1">--[ 布尔表达式为 false 时执行该语句块 --]</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在布尔表达式为 true 时会if中的代码块会被执行，在布尔表达式为 false 时，else 的代码块会被执行。
+Lua认为false和nil为假，true 和非nil为真。要注意的是Lua中 0 为 true。
+if 语句流程图如下：
+<img src="http://upload-images.jianshu.io/upload_images/979228-899ab3f678db2b0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="if...else 语句" /> #####<strong><em>if…elseif…else 语句</em></strong>
+Lua if 语句可以与 elseif…else 语句搭配使用, 在 if 条件表达式为 false 时执行 elseif…else 语句代码块，用于检测多个条件语句。
+Lua if…elseif…else 语句语法格式如下：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="k">if</span><span class="p">(</span> <span class="err">布尔表达式</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">then</span>
+   <span class="c1">--[ 在布尔表达式 1 为 true 时执行该语句块 --]</span>
+<span class="k">elseif</span><span class="p">(</span> <span class="err">布尔表达式</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">then</span>
+   <span class="c1">--[ 在布尔表达式 2 为 true 时执行该语句块 --]</span>
+<span class="k">elseif</span><span class="p">(</span> <span class="err">布尔表达式</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">then</span>
+   <span class="c1">--[ 在布尔表达式 3 为 true 时执行该语句块 --]</span>
+<span class="k">else</span>
+   <span class="c1">--[ 如果以上布尔表达式都不为 true 则执行该语句块 --]</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>#嵌套语句
+if 语句允许嵌套, 这就意味着你可以在一个 if 或 else if 语句中插入其他的 if 或 else if 语句。</li>
+</ul>
+
+<h2 id="函数">函数</h2>
+
+<p>在Lua中，函数是对语句和表达式进行抽象的主要方法。既可以用来处理一些特殊的工作，也可以用来计算一些值。
+Lua 提供了许多的内建函数，你可以很方便的在程序中调用它们，如print()函数可以将传入的参数打印在控制台上。
+Lua 函数主要有两种用途：</p>
+
+<ol>
+  <li>完成指定的任务，这种情况下函数作为调用语句使用；</li>
+  <li>计算并返回值，这种情况下函数作为赋值语句的表达式使用。</li>
+</ol>
+
+<p>#函数定义
+Lua 编程语言函数定义格式如下：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="n">optional_function_scope</span> <span class="k">function</span> <span class="nf">function_name</span><span class="p">(</span> <span class="n">argument1</span><span class="p">,</span> <span class="n">argument2</span><span class="p">,</span> <span class="n">argument3</span><span class="o">...</span><span class="p">,</span> <span class="n">argumentn</span><span class="p">)</span>
+	<span class="n">function_body</span>
+	<span class="k">return</span> <span class="n">result_params_comma_separated</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>解释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>optional_function_scope:</td>
+      <td>该参数是可选的制定函数是全局函数还是局部函数，未设置该参数默认为全局函数，如果你需要设置函数为局部函数需要使用关键字 local。</td>
+    </tr>
+    <tr>
+      <td>function_name:</td>
+      <td>指定函数名称。</td>
+    </tr>
+    <tr>
+      <td>argument1, argument2, argument3…, argumentn:</td>
+      <td>函数参数，多个参数以逗号隔开，函数也可以不带参数。</td>
+    </tr>
+    <tr>
+      <td>function_body:</td>
+      <td>函数体，函数中需要执行的代码语句块。</td>
+    </tr>
+    <tr>
+      <td>result_params_comma_separated:</td>
+      <td>函数返回值，Lua语言函数可以返回多个值，每个值以逗号隔开。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>###实例
+以下实例定义了函数 max()，参数为 num1, num2，用于比较两值的大小，并返回最大值：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="cm">--[[ 函数返回两个值的最大值 --]]</span>
+<span class="k">function</span> <span class="nf">max</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">)</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">num1</span> <span class="o">&gt;</span> <span class="n">num2</span><span class="p">)</span> <span class="k">then</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="n">num1</span><span class="p">;</span>
+   <span class="k">else</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="n">num2</span><span class="p">;</span>
+   <span class="k">end</span>
+
+   <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="k">end</span>
+<span class="c1">-- 调用函数</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"两值比较最大值为 "</span><span class="p">,</span><span class="n">max</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"两值比较最大值为 "</span><span class="p">,</span><span class="n">max</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>以上代码执行结果为：
+<code class="language-plaintext highlighter-rouge">两值比较最大值为 	10
+两值比较最大值为 	6</code>
+Lua 中我们可以将函数作为参数传递给函数，如下实例：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="n">myprint</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"这是打印函数 -   ##"</span><span class="p">,</span><span class="n">param</span><span class="p">,</span><span class="s2">"##"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span><span class="n">num2</span><span class="p">,</span><span class="n">functionPrint</span><span class="p">)</span>
+   <span class="n">result</span> <span class="o">=</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span>
+   <span class="c1">-- 调用传递的函数参数</span>
+   <span class="n">functionPrint</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">myprint</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1">-- myprint 函数作为参数传递</span>
+<span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">myprint</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>以上代码执行结果为：
+<code class="language-plaintext highlighter-rouge">这是打印函数 -   ##	10	##
+这是打印函数 -   ##	7	##</code> ###多返回值
+Lua函数可以返回多个结果值，比如string.find，其返回匹配串”开始和结束的下标”（如果不存在匹配串返回nil）。
+<img src="http://upload-images.jianshu.io/upload_images/979228-e0a64e420be4eae1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" />
+Lua函数中，在return后列出要返回的值得列表即可返回多值，如：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="k">function</span> <span class="nf">maximum</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">mi</span> <span class="o">=</span> <span class="mi">1</span>             <span class="c1">-- 最大值索引</span>
+    <span class="kd">local</span> <span class="n">m</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">mi</span><span class="p">]</span>          <span class="c1">-- 最大值</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">val</span> <span class="k">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">do</span>
+       <span class="k">if</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">m</span> <span class="k">then</span>
+           <span class="n">mi</span> <span class="o">=</span> <span class="n">i</span>
+           <span class="n">m</span> <span class="o">=</span> <span class="n">val</span>
+       <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">m</span><span class="p">,</span> <span class="n">mi</span>
+<span class="k">end</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">maximum</span><span class="p">({</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">}))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>以上代码执行结果为：
+<code class="language-plaintext highlighter-rouge">23	3</code> ###可变参数
+Lua函数可以接受可变数目的参数，和C语言类似在函数参数列表中使用三点（…) 表示函数有可变的参数。
+Lua将函数的参数放在一个叫arg的表中，#arg 表示传入参数的个数。
+例如，我们计算几个数的平均值：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="k">function</span> <span class="nf">average</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+   <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="kd">local</span> <span class="n">arg</span><span class="o">=</span><span class="p">{</span><span class="o">...</span><span class="p">}</span>
+   <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="k">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="n">v</span>
+   <span class="k">end</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s2">"总共传入 "</span> <span class="o">..</span> <span class="o">#</span><span class="n">arg</span> <span class="o">..</span> <span class="s2">" 个数"</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">result</span><span class="o">/#</span><span class="n">arg</span>
+<span class="k">end</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"平均值为"</span><span class="p">,</span><span class="n">average</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>以上代码执行结果为：
+<code class="language-plaintext highlighter-rouge">总共传入 6 个数
+平均值为	5.5</code></p>
+
+<h2 id="运算符">运算符</h2>
+
+<p>运算符是一个特殊的符号，用于告诉解释器执行特定的数学或逻辑运算。Lua提供了以下几种运算符类型：</p>
+
+<ul>
+  <li>算术运算符
+下表列出了 Lua 语言中的常用算术运算符，设定 A 的值为10，B 的值为 20：</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>操作符</th>
+      <th>描述</th>
+      <th>实例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>+</td>
+      <td>加法</td>
+      <td><code class="language-plaintext highlighter-rouge">A + B </code>输出结果 30</td>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td>减法</td>
+      <td><code class="language-plaintext highlighter-rouge">A - B</code> 输出结果 -10</td>
+    </tr>
+    <tr>
+      <td>*</td>
+      <td>乘法</td>
+      <td><code class="language-plaintext highlighter-rouge">A * B</code> 输出结果 200</td>
+    </tr>
+    <tr>
+      <td>/</td>
+      <td>除法</td>
+      <td><code class="language-plaintext highlighter-rouge">B / A</code> 输出结果 2</td>
+    </tr>
+    <tr>
+      <td>%</td>
+      <td>取余</td>
+      <td><code class="language-plaintext highlighter-rouge">B % A</code> 输出结果 0</td>
+    </tr>
+    <tr>
+      <td>^</td>
+      <td>乘幂</td>
+      <td><code class="language-plaintext highlighter-rouge">A^2 </code>输出结果 100</td>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td>负号</td>
+      <td><code class="language-plaintext highlighter-rouge">-A </code>输出结果v -10</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>关系运算符
+下表列出了 Lua 语言中的常用关系运算符，设定 A 的值为10，B 的值为 20：</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>操作符</th>
+      <th>描述</th>
+      <th>实例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>==</td>
+      <td>等于，检测两个值是否相等，相等返回 true，否则返回 false</td>
+      <td><code class="language-plaintext highlighter-rouge">(A == B)</code> 为 false。</td>
+    </tr>
+    <tr>
+      <td>~=</td>
+      <td>不等于，检测两个值是否相等，相等返回 false，否则返回 true</td>
+      <td><code class="language-plaintext highlighter-rouge">(A ~= B) </code>为 true。</td>
+    </tr>
+    <tr>
+      <td>&gt;</td>
+      <td>大于，如果左边的值大于右边的值，返回 true，否则返回 false</td>
+      <td><code class="language-plaintext highlighter-rouge">(A &gt; B)</code> 为 false。</td>
+    </tr>
+    <tr>
+      <td>&lt;</td>
+      <td>小于，如果左边的值大于右边的值，返回 false，否则返回 true</td>
+      <td><code class="language-plaintext highlighter-rouge">(A &lt; B)</code> 为 true。</td>
+    </tr>
+    <tr>
+      <td>&gt;=</td>
+      <td>大于等于，如果左边的值大于等于右边的值，返回 true，否则返回 false</td>
+      <td><code class="language-plaintext highlighter-rouge">(A &gt;= B)</code> 返回 false。</td>
+    </tr>
+    <tr>
+      <td>&lt;=</td>
+      <td>小于等于， 如果左边的值小于等于右边的值，返回 true，否则返回 false</td>
+      <td><code class="language-plaintext highlighter-rouge">(A &lt;= B)</code> 返回 true。</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>逻辑运算符
+下表列出了 Lua 语言中的常用逻辑运算符，设定 A 的值为 true，B 的值为 false：</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>操作符</th>
+      <th>描述</th>
+      <th>实例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>and</td>
+      <td>逻辑与操作符。 如果两边的操作都为 true 则条件为 true。</td>
+      <td><code class="language-plaintext highlighter-rouge">(A and B) </code>为 false。</td>
+    </tr>
+    <tr>
+      <td>or</td>
+      <td>逻辑或操作符。 如果两边的操作任一一个为 true 则条件为 true。</td>
+      <td><code class="language-plaintext highlighter-rouge">(A or B) </code>为 true。</td>
+    </tr>
+    <tr>
+      <td>not</td>
+      <td>逻辑非操作符。与逻辑运算结果相反，如果条件为 true，逻辑非为 false。</td>
+      <td><code class="language-plaintext highlighter-rouge">not(A and B)</code> 为 true。</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>其他运算符
+下表列出了 Lua 语言中的连接运算符与计算表或字符串长度的运算符：</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>操作符</th>
+      <th>描述</th>
+      <th>实例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>..</td>
+      <td>连接两个字符串</td>
+      <td><code class="language-plaintext highlighter-rouge">a..b </code>，其中 a 为 “Hello “ ， b 为 “World”, 输出结果为 “Hello World”。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>#|一元运算符，返回字符串或表的长度。|<code class="language-plaintext highlighter-rouge">#"Hello"</code> 返回 5 #运算符优先级
+从高到低的顺序：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>^
+not    - (unary)
+*      /
++      -
+..
+&lt;      &gt;      &lt;=     &gt;=     ~=     ==
+and
+or
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>除了^和..外所有的二元运算符都是左连接的。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>a+i &lt; b/2+1          &lt;--&gt;       (a+i) &lt; ((b/2)+1)
+5+x^2*8              &lt;--&gt;       5+((x^2)*8)
+a &lt; y and y &lt;= z     &lt;--&gt;       (a &lt; y) and (y &lt;= z)
+-x^2                 &lt;--&gt;       -(x^2)
+x^y^z                &lt;--&gt;       x^(y^z)
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="字符串">字符串</h2>
+
+<p>字符串或串(String)是由数字、字母、下划线组成的一串字符。
+Lua 语言中字符串可以使用以下三种方式来表示：</p>
+
+<ul>
+  <li>单引号间的一串字符。</li>
+  <li>双引号间的一串字符。</li>
+  <li>[[和]]间的一串字符。
+转义字符用于表示不能直接显示的字符，比如后退键，回车键，等。如在字符串转换双引号可以使用 “"“。
+所有的转义字符和所对应的意义：</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>转义字符</th>
+      <th>意义</th>
+      <th>ASCII码值（十进制）</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>\a</td>
+      <td>响铃(BEL)</td>
+      <td>007</td>
+    </tr>
+    <tr>
+      <td>\b</td>
+      <td>退格(BS) ，将当前位置移到前一列</td>
+      <td>008</td>
+    </tr>
+    <tr>
+      <td>\f</td>
+      <td>换页(FF)，将当前位置移到下页开头</td>
+      <td>012</td>
+    </tr>
+    <tr>
+      <td>\n</td>
+      <td>换行(LF) ，将当前位置移到下一行开头</td>
+      <td>010</td>
+    </tr>
+    <tr>
+      <td>\r</td>
+      <td>回车(CR) ，将当前位置移到本行开头</td>
+      <td>013</td>
+    </tr>
+    <tr>
+      <td>\t</td>
+      <td>水平制表(HT) （跳到下一个TAB位置）</td>
+      <td>009</td>
+    </tr>
+    <tr>
+      <td>\v</td>
+      <td>垂直制表(VT)</td>
+      <td>011</td>
+    </tr>
+    <tr>
+      <td>\</td>
+      <td>代表一个反斜线字符’’'</td>
+      <td>092</td>
+    </tr>
+    <tr>
+      <td>'</td>
+      <td>代表一个单引号（撇号）字符</td>
+      <td>039</td>
+    </tr>
+    <tr>
+      <td>"</td>
+      <td>代表一个双引号字符</td>
+      <td>034</td>
+    </tr>
+    <tr>
+      <td>\0</td>
+      <td>空字符(NULL)</td>
+      <td>000</td>
+    </tr>
+    <tr>
+      <td>\ddd</td>
+      <td>1到3位八进制数所代表的任意字符</td>
+      <td>三位八进制</td>
+    </tr>
+    <tr>
+      <td>\xhh</td>
+      <td>1到2位十六进制所代表的任意字符</td>
+      <td>二位十六进制</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>字符串操作
+Lua 提供了很多的方法来支持字符串的操作：</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">string.upper(argument)</code>:字符串全部转为大写字母。</li>
+</ol>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">string.lower(argument)</code>:字符串全部转为小写字母。</li>
+  <li><code class="language-plaintext highlighter-rouge">string.gsub(mainString,findString,replaceString,num)</code>在字符串中替换,mainString为要替换的字符串， findString 为被替换的字符，replaceString 要替换的字符，num 替换次数（可以忽略，则全部替换）。</li>
+  <li><code class="language-plaintext highlighter-rouge">string.strfind (str, substr, [init, [end]])</code>在一个指定的目标字符串中搜索指定的内容(第三个参数为索引),返回其具体位置。不存在则返回 nil。</li>
+  <li><code class="language-plaintext highlighter-rouge">string.reverse(arg)</code>字符串反转</li>
+  <li><code class="language-plaintext highlighter-rouge">string.format(...)</code>返回一个类似printf的格式化字符串</li>
+  <li><code class="language-plaintext highlighter-rouge">string.char(arg) 和 string.byte(arg[,int])</code>char 将整型数字转成字符并连接， byte 转换字符为整数值(可以指定某个字符，默认第一个字符)。</li>
+  <li><code class="language-plaintext highlighter-rouge">string.len(arg)</code>计算字符串长度。string.len(“abc”)3</li>
+  <li><code class="language-plaintext highlighter-rouge">string.rep(string, n))</code>返回字符串string的n个拷贝</li>
+  <li><code class="language-plaintext highlighter-rouge">..</code>链接两个字符串</li>
+</ul>
+
+<h2 id="数组">数组</h2>
+
+<p>数组，就是相同数据类型的元素按一定顺序排列的集合，可以是一维数组和多维数组。
+Lua 数组的索引键值可以使用整数表示，数组的大小不是固定的。
+一维数组
+一维数组是最简单的数组，其逻辑结构是线性表。一维数组可以用for循环出数组中的元素，如下实例：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="n">array</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Lua"</span><span class="p">,</span> <span class="s2">"Tutorial"</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="k">do</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>以上代码执行输出结果为：
+<code class="language-plaintext highlighter-rouge">nil
+Lua
+Tutorial</code>
+正如你所看到的，我们可以使用整数索引来访问数组元素，如果知道的索引没有值则返回nil。
+在 Lua 索引值是以 1 为起始，但你也可以指定 0 开始。
+除此外我们还可以以负数为数组索引值：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">array</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="k">do</span>
+   <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span><span class="mi">2</span>
+<span class="k">end</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span> <span class="k">do</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>###多维数组
+多维数组即数组中包含数组或一维数组的索引键对应一个数组。
+以下是一个三行三列的阵列多维数组：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="c1">-- 初始化数组</span>
+<span class="n">array</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span> <span class="k">do</span>
+   <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="k">for</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span> <span class="k">do</span>
+         <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">j</span>
+      <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1">-- 访问数组</span>
+<span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span> <span class="k">do</span>
+   <span class="k">for</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span> <span class="k">do</span>
+      <span class="nb">print</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+   <span class="k">end</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="迭代器">迭代器</h2>
+
+<p>迭代器（iterator）是一种对象，它能够用来遍历标准模板库容器中的部分或全部元素，每个迭代器对象代表容器中的确定的地址
+在Lua中迭代器是一种支持指针类型的结构，它可以遍历集合的每一个元素。###泛型 for 迭代器
+泛型 for 在自己内部保存迭代函数，实际上它保存三个值：迭代函数、状态常量、控制变量。
+泛型 for 迭代器提供了集合的 key/value 对，语法格式如下：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>上面代码中，k, v为变量列表；pair(t)为表达式列表。
+查看以下实例:</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="n">array</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Lua"</span><span class="p">,</span> <span class="s2">"Tutorial"</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="k">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+<span class="k">do</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>以上实例中我们使用了 Lua 默认提供的迭代函数 ipairs。</p>
+
+<ul>
+  <li>下面我们看看范性for的执行过程：</li>
+  <li>首先，初始化，计算in后面表达式的值，表达式应该返回范性for需要的三个值：迭代函数、状态常量、控制变量；与多值赋值一样，如果表达式返回的结果个数不足三个会自动用nil补足，多出部分会被忽略。</li>
+  <li>第二，将状态常量和控制变量作为参数调用迭代函数（注意：对于for结构来说，状态常量没有用处，仅仅在初始化时获取他的值并传递给迭代函数）。</li>
+  <li>第三，将迭代函数返回的值赋给变量列表。</li>
+  <li>第四，如果返回的第一个值为nil循环结束，否则执行循环体。</li>
+  <li>第五，回到第二步再次调用迭代函数</li>
+  <li>在Lua中我们常常使用函数来描述迭代器，每次调用该函数就返回集合的下一个元素。Lua 的迭代器包含以下两种类型：</li>
+  <li>无状态的迭代器</li>
+  <li>多状态的迭代器</li>
+</ul>
+
+<p>###无状态的迭代器
+无状态的迭代器是指不保留任何状态的迭代器，因此在循环中我们可以利用无状态迭代器避免创建闭包花费额外的代价。
+每一次迭代，迭代函数都是用两个变量（状态常量和控制变量）的值作为参数被调用，一个无状态的迭代器只利用这两个值可以获取下一个元素。
+这种无状态迭代器的典型的简单的例子是ipairs，他遍历数组的每一个元素。
+以下实例我们使用了一个简单的函数来实现迭代器，实现 数字 n 的平方：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="k">function</span> <span class="nf">square</span><span class="p">(</span><span class="n">iteratorMaxCount</span><span class="p">,</span><span class="n">currentNumber</span><span class="p">)</span>
+   <span class="k">if</span> <span class="n">currentNumber</span><span class="o">&lt;</span><span class="n">iteratorMaxCount</span>
+   <span class="k">then</span>
+      <span class="n">currentNumber</span> <span class="o">=</span> <span class="n">currentNumber</span><span class="o">+</span><span class="mi">1</span>
+   <span class="k">return</span> <span class="n">currentNumber</span><span class="p">,</span> <span class="n">currentNumber</span><span class="o">*</span><span class="n">currentNumber</span>
+   <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">n</span> <span class="k">in</span> <span class="n">square</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span>
+<span class="k">do</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>###多状态的迭代器
+很多情况下，迭代器需要保存多个状态信息而不是简单的状态常量和控制变量，最简单的方法是使用闭包，还有一种方法就是将所有的状态信息封装到table内，将table作为迭代器的状态常量，因为这种情况下可以将所有的信息存放在table内，所以迭代函数通常不需要第二个参数。
+以下实例我们创建了自己的迭代器：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="n">array</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Lua"</span><span class="p">,</span> <span class="s2">"Tutorial"</span><span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">elementIterator</span> <span class="p">(</span><span class="n">collection</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="kd">local</span> <span class="n">count</span> <span class="o">=</span> <span class="o">#</span><span class="n">collection</span>
+   <span class="c1">-- 闭包函数</span>
+   <span class="k">return</span> <span class="k">function</span> <span class="p">()</span>
+      <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;=</span> <span class="n">count</span>
+      <span class="k">then</span>
+         <span class="c1">--  返回迭代器的当前元素</span>
+         <span class="k">return</span> <span class="n">collection</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+      <span class="k">end</span>
+   <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">for</span> <span class="n">element</span> <span class="k">in</span> <span class="n">elementIterator</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+<span class="k">do</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="table表">table(表)</h2>
+
+<p>table 是 Lua 的一种数据结构用来帮助我们创建不同的数据类型，如：数字、字典等。
+Lua table 使用关联型数组，你可以用任意类型的值来作数组的索引，但这个值不能是 nil。
+Lua table 是不固定大小的，你可以根据自己需要进行扩容。
+Lua也是通过table来解决模块（module）、包（package）和对象（Object）的。 例如string.format表示使用”format”来索引table string。
+#table(表)的构造
+构造器是创建和初始化表的表达式。表是Lua特有的功能强大的东西。最简单的构造函数是{}，用来创建一个空表。可以直接初始化数组:</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="c1">-- 初始化表</span>
+<span class="n">mytable</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1">-- 指定值</span>
+<span class="n">mytable</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="s2">"Lua"</span>
+
+<span class="c1">-- 移除引用</span>
+<span class="n">mytable</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="c1">-- lua 垃圾回收会释放内存</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>当我们为 table a 并设置元素，然后将 a 赋值给 b，则 a 与 b 都指向同一个内存。如果 a 设置为 nil ，则 b 同样能访问 table 的元素。如果没有指定的变量指向a，Lua的垃圾回收机制会清理相对应的内存。</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="c1">-- 简单的 table</span>
+<span class="n">mytable</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mytable 的类型是 "</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">mytable</span><span class="p">))</span>
+
+<span class="n">mytable</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="s2">"Lua"</span>
+<span class="n">mytable</span><span class="p">[</span><span class="s2">"wow"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"修改前"</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mytable 索引为 1 的元素是 "</span><span class="p">,</span> <span class="n">mytable</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mytable 索引为 wow 的元素是 "</span><span class="p">,</span> <span class="n">mytable</span><span class="p">[</span><span class="s2">"wow"</span><span class="p">])</span>
+
+<span class="c1">-- alternatetable和mytable的是指同一个 table</span>
+<span class="n">alternatetable</span> <span class="o">=</span> <span class="n">mytable</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"alternatetable 索引为 1 的元素是 "</span><span class="p">,</span> <span class="n">alternatetable</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mytable 索引为 wow 的元素是 "</span><span class="p">,</span> <span class="n">alternatetable</span><span class="p">[</span><span class="s2">"wow"</span><span class="p">])</span>
+
+<span class="n">alternatetable</span><span class="p">[</span><span class="s2">"wow"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"修改后"</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mytable 索引为 wow 的元素是 "</span><span class="p">,</span> <span class="n">mytable</span><span class="p">[</span><span class="s2">"wow"</span><span class="p">])</span>
+
+<span class="c1">-- 释放变量</span>
+<span class="n">alternatetable</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"alternatetable 是 "</span><span class="p">,</span> <span class="n">alternatetable</span><span class="p">)</span>
+
+<span class="c1">-- mytable 仍然可以访问</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mytable 索引为 wow 的元素是 "</span><span class="p">,</span> <span class="n">mytable</span><span class="p">[</span><span class="s2">"wow"</span><span class="p">])</span>
+
+<span class="n">mytable</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"mytable 是 "</span><span class="p">,</span> <span class="n">mytable</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>以上代码执行结果为：
+<code class="language-plaintext highlighter-rouge">mytable 的类型是 	table
+mytable 索引为 1 的元素是 	Lua
+mytable 索引为 wow 的元素是 	修改前
+alternatetable 索引为 1 的元素是 	Lua
+mytable 索引为 wow 的元素是 	修改前
+mytable 索引为 wow 的元素是 	修改后
+alternatetable 是 	nil
+mytable 索引为 wow 的元素是 	修改后
+mytable 是 	nil</code>
+#Table 操作
+以下列出了 Table 操作常用的方法：</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">table.concat (table [, sep [, start [, end]]])</code>:concat是concatenate(连锁, 连接)的缩写. table.concat()函数列出参数中指定table的数组部分从start位置到end位置的所有元素, 元素间以指定的分隔符(sep)隔开。</li>
+</ol>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">table.insert (table, [pos,] value)</code>:在table的数组部分指定位置(pos)插入值为value的一个元素. pos参数可选, 默认为数组部分末尾.</li>
+  <li><code class="language-plaintext highlighter-rouge">table.maxn(table)</code>:指定table中所有正数key值中最大的key值. 如果不存在key值为正数的元素, 则返回0。(<strong>Lua5.2之后该方法已经不存在了,本文使用了自定义函数实现</strong>)</li>
+</ul>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="k">function</span> <span class="nf">table_maxn</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">mn</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="n">mn</span> <span class="o">&lt;</span> <span class="n">k</span> <span class="k">then</span>
+            <span class="n">mn</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">mn</span>
+<span class="k">end</span>
+<span class="n">tbl</span> <span class="o">=</span> <span class="p">{[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"a"</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"b"</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"c"</span><span class="p">,</span> <span class="p">[</span><span class="mi">26</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"z"</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"tbl 长度 "</span><span class="p">,</span> <span class="o">#</span><span class="n">tbl</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"tbl 最大值 "</span><span class="p">,</span> <span class="n">table_maxn</span><span class="p">(</span><span class="n">tbl</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">table.remove (table [, pos])</code>:返回table数组部分位于pos位置的元素. 其后的元素会被前移. pos参数可选, 默认为table长度, 即从最后一个元素删起。</li>
+  <li><code class="language-plaintext highlighter-rouge">table.sort (table [, comp])</code>:对给定的table进行升序排序。</li>
+</ul>
+
+<h2 id="模块与包">模块与包</h2>
+
+<p>模块类似于一个封装库，从 Lua 5.1 开始，Lua 加入了标准的模块管理机制，可以把一些公用的代码放在一个文件里，以 API 接口的形式在其他地方调用，有利于代码的重用和降低代码耦合度。
+Lua 的模块是由变量、函数等已知元素组成的 table，因此创建一个模块很简单，就是创建一个 table，然后把需要导出的常量、函数放入其中，最后返回这个 table 就行。以下为创建自定义模块 module.lua，文件代码格式如下：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="c1">-- 文件名为 module.lua</span>
+<span class="c1">-- 定义一个名为 module 的模块</span>
+<span class="n">module</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1">-- 定义一个常量</span>
+<span class="n">module</span><span class="p">.</span><span class="n">constant</span> <span class="o">=</span> <span class="s2">"这是一个常量"</span>
+
+<span class="c1">-- 定义一个函数</span>
+<span class="k">function</span> <span class="nc">module</span><span class="p">.</span><span class="nf">func1</span><span class="p">()</span>
+    <span class="nb">io.write</span><span class="p">(</span><span class="s2">"这是一个公有函数！\n"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="kd">local</span> <span class="k">function</span> <span class="nf">func2</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"这是一个私有函数！"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nc">module</span><span class="p">.</span><span class="nf">func3</span><span class="p">()</span>
+    <span class="n">func2</span><span class="p">()</span>
+<span class="k">end</span>
+
+<span class="k">return</span> <span class="n">module</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>由上可知，模块的结构就是一个 table 的结构，因此可以像操作调用 table 里的元素那样来操作调用模块里的常量或函数。
+###require 函数
+Lua提供了一个名为require的函数用来加载模块。要加载一个模块，只需要简单地调用就可以了。例如：
+<code class="language-plaintext highlighter-rouge">require("&lt;模块名&gt;")</code>或者<code class="language-plaintext highlighter-rouge">require "&lt;模块名&gt;"</code>
+执行 require 后会返回一个由模块常量或函数组成的 table，并且还会定义一个包含该 table 的全局变量。</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1">-- test_module.lua 文件</span>
+<span class="c1">-- module 模块为上文提到到 module.lua</span>
+<span class="nb">require</span><span class="p">(</span><span class="s2">"module"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">module</span><span class="p">.</span><span class="n">constant</span><span class="p">)</span>
+
+<span class="n">module</span><span class="p">.</span><span class="n">func3</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>或者给加载的模块定义一个别名变量，方便调用：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c1">-- test_module2.lua 文件</span>
+<span class="c1">-- module 模块为上文提到到 module.lua</span>
+<span class="c1">-- 别名变量 m</span>
+<span class="kd">local</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"module"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">constant</span><span class="p">)</span>
+
+<span class="n">m</span><span class="p">.</span><span class="n">func3</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>###加载机制
+对于自定义的模块，模块文件不是放在哪个文件目录都行，函数 require 有它自己的文件路径加载策略，它会尝试从 Lua 文件或 C 程序库中加载模块。
+require 用于搜索 Lua 文件的路径是存放在全局变量 package.path 中，当 Lua 启动后，会以环境变量 LUA_PATH 的值来初始这个环境变量。如果没有找到该环境变量，则使用一个编译时定义的默认路径来初始化。
+当然，如果没有 LUA_PATH 这个环境变量，也可以自定义设置，在当前用户根目录下打开 .profile 文件（没有则创建，打开 .bashrc 文件也可以）。
+###C 包
+Lua和C是很容易结合的，使用C为Lua写包。
+与Lua中写包不同，C包在使用以前必须首先加载并连接，在大多数系统中最容易的实现方式是通过动态连接库机制。
+Lua在一个叫loadlib的函数内提供了所有的动态连接的功能。这个函数有两个参数:库的绝对路径和初始化函数。所以典型的调用的例子如下:</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kd">local</span> <span class="n">path</span> <span class="o">=</span> <span class="s2">"/usr/local/lua/lib/libluasocket.so"</span>
+<span class="kd">local</span> <span class="n">f</span> <span class="o">=</span> <span class="n">loadlib</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"luaopen_socket"</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>loadlib函数加载指定的库并且连接到Lua，然而它并不打开库（也就是说没有调用初始化函数），反之他返回初始化函数作为Lua的一个函数，这样我们就可以直接在Lua中调用他。
+如果加载动态库或者查找初始化函数时出错，loadlib将返回nil和错误信息。我们可以修改前面一段代码，使其检测错误然后调用初始化函数：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">local</span> <span class="n">path</span> <span class="o">=</span> <span class="s2">"/usr/local/lua/lib/libluasocket.so"</span>
+<span class="c1">-- 或者 path = "C:\\windows\\luasocket.dll"，这是 Window 平台下</span>
+<span class="kd">local</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">assert</span><span class="p">(</span><span class="n">loadlib</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"luaopen_socket"</span><span class="p">))</span>
+<span class="n">f</span><span class="p">()</span>  <span class="c1">-- 真正打开库</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>一般情况下我们期望二进制的发布库包含一个与前面代码段相似的stub文件，安装二进制库的时候可以随便放在某个目录，只需要修改stub文件对应二进制库的实际路径即可。
+将stub文件所在的目录加入到LUA_PATH，这样设定后就可以使用require函数加载C库了。</p>
+
+<h2 id="元表metatable">元表(Metatable)*</h2>
+
+<p>在 Lua table 中我们可以访问对应的key来得到value值，但是却无法对两个 table 进行操作。
+因此 Lua 提供了元表(Metatable)，允许我们改变table的行为，每个行为关联了对应的元方法。
+例如，使用元表我们可以定义Lua如何计算两个table的相加操作a+b。
+当Lua试图对两个表进行相加时，先检查两者之一是否有元表，之后检查是否有一个叫”<strong>add”的字段，若找到，则调用对应的值。”</strong>add”等即时字段，其对应的值（往往是一个函数或是table）就是”元方法”。
+有两个很重要的函数来处理元表：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">setmetatable(table,metatable)</code>: 对指定table设置元表(metatable)，如果元表(metatable)中存在__metatable键值，setmetatable会失败 。</li>
+  <li><code class="language-plaintext highlighter-rouge">getmetatable(table)</code>:返回对象的元表(metatable)。
+以下实例演示了如何对指定的表设置元表：</li>
+</ul>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="n">mytable</span> <span class="o">=</span> <span class="p">{}</span>                          <span class="c1">-- 普通表</span>
+<span class="n">mymetatable</span> <span class="o">=</span> <span class="p">{}</span>                      <span class="c1">-- 元表</span>
+<span class="nb">setmetatable</span><span class="p">(</span><span class="n">mytable</span><span class="p">,</span><span class="n">mymetatable</span><span class="p">)</span>     <span class="c1">-- 把 mymetatable 设为 mytable 的元表</span>
+<span class="c1">--OR</span>
+<span class="n">mytable</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">({},{})</span>
+<span class="c1">--返回对象元表</span>
+<span class="nb">getmetatable</span><span class="p">(</span><span class="n">mytable</span><span class="p">)</span> <span class="c1">-- 这回返回mymetatable</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>###<strong>index 元方法
+这是 metatable 最常用的键。
+当你通过键来访问 table 的时候，如果这个键没有值，那么Lua就会寻找该table的metatable（假定有metatable）中的</strong>index 键。如果__index包含一个表格，Lua会在表格中查找相应的键。
+Lua查找一个表元素时的规则，其实就是如下3个步骤:</p>
+
+<ol>
+  <li>在表中查找，如果找到，返回该元素，找不到则继续</li>
+  <li>判断该表是否有元表，如果没有元表，返回nil，有元表则继续。</li>
+  <li>判断元表有没有<strong>index方法，如果</strong>index方法为nil，则返回nil；如果<strong>index方法是一个表，则重复1、2、3；如果</strong>index方法是一个函数，则返回该函数的返回值。</li>
+</ol>
+
+<h4 id="__newindex-元方法">__newindex 元方法</h4>
+
+<p>_newindex 元方法用来对表更新，<strong>index则用来对表访问 。
+当你给表的一个缺少的索引赋值，解释器就会查找</strong>newindex 元方法：如果存在则调用这个函数而不进行赋值操作。</p>
+
+<h4 id="__call-元方法">__call 元方法</h4>
+
+<p>__call 元方法在 Lua 调用一个值时调用。以下实例演示了计算表中元素的和：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="c1">-- 计算表中最大值，table.maxn在Lua5.2以上版本中已无法使用</span>
+<span class="c1">-- 自定义计算表中最大值函数 table_maxn</span>
+<span class="k">function</span> <span class="nf">table_maxn</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">mn</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="n">mn</span> <span class="o">&lt;</span> <span class="n">k</span> <span class="k">then</span>
+            <span class="n">mn</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">mn</span>
+<span class="k">end</span>
+<span class="c1">-- 定义元方法__call</span>
+<span class="n">mytable</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">({</span><span class="mi">10</span><span class="p">},</span> <span class="p">{</span>
+  <span class="n">__call</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">mytable</span><span class="p">,</span> <span class="n">newtable</span><span class="p">)</span>
+	<span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">table_maxn</span><span class="p">(</span><span class="n">mytable</span><span class="p">)</span> <span class="k">do</span>
+		<span class="n">sum</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">mytable</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">end</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">table_maxn</span><span class="p">(</span><span class="n">newtable</span><span class="p">)</span> <span class="k">do</span>
+		<span class="n">sum</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">newtable</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">end</span>
+	<span class="k">return</span> <span class="n">sum</span>
+  <span class="k">end</span>
+<span class="p">})</span>
+<span class="n">newtable</span> <span class="o">=</span> <span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mytable</span><span class="p">(</span><span class="n">newtable</span><span class="p">))</span>
+<span class="c1">-- 以上实例执行输出结果为：</span>
+<span class="mi">70</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="__tostring-元方法">__tostring 元方法</h3>
+
+<p>_tostring 元方法用于修改表的输出行为。以下实例我们自定义了表的输出内容：</p>
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="n">mytable</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">({</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span> <span class="p">},</span> <span class="p">{</span>
+  <span class="n">__tostring</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">mytable</span><span class="p">)</span>
+    <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">mytable</span><span class="p">)</span> <span class="k">do</span>
+		<span class="n">sum</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">v</span>
+	<span class="k">end</span>
+    <span class="k">return</span> <span class="s2">"表所有元素的和为 "</span> <span class="o">..</span> <span class="n">sum</span>
+  <span class="k">end</span>
+<span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mytable</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>–以上实例执行输出结果为：
+表所有元素的和为 <code class="language-plaintext highlighter-rouge">60</code></p>
+
+<p>#为表添加操作符
+以下实例演示了两表相加操作：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="c1">-- 计算表中最大值，table.maxn在Lua5.2以上版本中已无法使用</span>
+<span class="c1">-- 自定义计算表中最大值函数 table_maxn</span>
+<span class="k">function</span> <span class="nf">table_maxn</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">mn</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="n">mn</span> <span class="o">&lt;</span> <span class="n">k</span> <span class="k">then</span>
+            <span class="n">mn</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">mn</span>
+<span class="k">end</span>
+
+<span class="c1">-- 两表相加操作</span>
+<span class="n">mytable</span> <span class="o">=</span> <span class="nb">setmetatable</span><span class="p">({</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">},</span> <span class="p">{</span>
+  <span class="n">__add</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">mytable</span><span class="p">,</span> <span class="n">newtable</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">table_maxn</span><span class="p">(</span><span class="n">newtable</span><span class="p">)</span> <span class="k">do</span>
+      <span class="nb">table.insert</span><span class="p">(</span><span class="n">mytable</span><span class="p">,</span> <span class="n">table_maxn</span><span class="p">(</span><span class="n">mytable</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">newtable</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">mytable</span>
+  <span class="k">end</span>
+<span class="p">})</span>
+
+<span class="n">secondtable</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">}</span>
+
+<span class="n">mytable</span> <span class="o">=</span> <span class="n">mytable</span> <span class="o">+</span> <span class="n">secondtable</span>
+	<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="k">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">mytable</span><span class="p">)</span> <span class="k">do</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>**add 键包含在元表中，并进行相加操作。 表中对应的操作列表如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th>运算符</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**add</td>
+      <td>+</td>
+    </tr>
+    <tr>
+      <td>**sub</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>**mul</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <td>**div</td>
+      <td>/</td>
+    </tr>
+    <tr>
+      <td>**mod</td>
+      <td>%</td>
+    </tr>
+    <tr>
+      <td>**unm</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>**concat</td>
+      <td>..</td>
+    </tr>
+    <tr>
+      <td>**eq</td>
+      <td>==</td>
+    </tr>
+    <tr>
+      <td>**lt</td>
+      <td>&lt;</td>
+    </tr>
+    <tr>
+      <td>__le</td>
+      <td>&lt;=</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="协同程序coroutine">协同程序(coroutine)*</h2>
+
+<p>Lua 协同程序(coroutine)与线程比较类似：拥有独立的堆栈，独立的局部变量，独立的指令指针，同时又与其它协同程序共享全局变量和其它大部分东西。
+协同是非常强大的功能，但是用起来也很复杂。
+线程和协同程序区别
+线程与协同程序的主要区别在于，一个具有多个线程的程序可以同时运行几个线程，而协同程序却需要彼此协作的运行。
+在任一指定时刻只有一个协同程序在运行，并且这个正在运行的协同程序只有在明确的被要求挂起的时候才会被挂起。
+协同程序有点类似同步的多线程，在等待同一个线程锁的几个线程有点类似协同。
+基本语法</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>coroutine.create()</td>
+      <td>创建coroutine，返回coroutine， 参数是一个函数，当和resume配合使用的时候就唤醒函数调用</td>
+    </tr>
+    <tr>
+      <td>coroutine.resume()</td>
+      <td>重启coroutine，和create配合使用</td>
+    </tr>
+    <tr>
+      <td>coroutine.yield()</td>
+      <td>挂起coroutine，将coroutine设置为挂起状态，这个和resume配合使用能有很多有用的效果</td>
+    </tr>
+    <tr>
+      <td>coroutine.status()</td>
+      <td>查看coroutine的状态 <em>注：coroutine的状态有三种：dead，suspend，running，具体什么时候有这样的状态请参考下面的程序</em></td>
+    </tr>
+    <tr>
+      <td>coroutine.wrap()</td>
+      <td>创建coroutine，返回一个函数，一旦你调用这个函数，就进入coroutine，和create功能重复</td>
+    </tr>
+    <tr>
+      <td>coroutine.running()</td>
+      <td>返回正在跑的coroutine，一个coroutine就是一个线程，当使用running的时候，就是返回一个corouting的线程号</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="文件-io">文件 I/O</h2>
+
+<h2 id="错误处理">错误处理</h2>
+
+<h2 id="调试debug">调试(Debug)</h2>
+
+<h2 id="垃圾回收">垃圾回收</h2>
+
+<p>Lua 采用了自动内存管理。 这意味着你不用操心新创建的对象需要的内存如何分配出来， 也不用考虑在对象不再被使用后怎样释放它们所占用的内存。
+Lua 运行了一个<strong>垃圾收集器</strong>来收集所有<strong>死对象</strong>（即在 Lua 中不可能再访问到的对象）来完成自动内存管理的工作。 Lua 中所有用到的内存，如：字符串、表、用户数据、函数、线程、 内部结构等，都服从自动管理。
+Lua 实现了一个增量标记-扫描收集器。 它使用这两个数字来控制垃圾收集循环： 垃圾收集器间歇率和垃圾收集器步进倍率。 这两个数字都使用百分数为单位 （例如：值 100 在内部表示 1 ）。
+垃圾收集器间歇率控制着收集器需要在开启新的循环前要等待多久。 增大这个值会减少收集器的积极性。 当这个值比 100 小的时候，收集器在开启新的循环前不会有等待。 设置这个值为 200 就会让收集器等到总内存使用量达到 之前的两倍时才开始新的循环。
+垃圾收集器步进倍率控制着收集器运作速度相对于内存分配速度的倍率。 增大这个值不仅会让收集器更加积极，还会增加每个增量步骤的长度。 不要把这个值设得小于 100 ， 那样的话收集器就工作的太慢了以至于永远都干不完一个循环。 默认值是 200 ，这表示收集器以内存分配的”两倍”速工作。
+如果你把步进倍率设为一个非常大的数字 （比你的程序可能用到的字节数还大 10% ）， 收集器的行为就像一个 stop-the-world 收集器。 接着你若把间歇率设为 200 ， 收集器的行为就和过去的 Lua 版本一样了： 每次 Lua 使用的内存翻倍时，就做一次完整的收集。#垃圾回收器函数
+Lua 提供了以下函数<strong>collectgarbage ([opt [, arg]])</strong>用来控制自动内存管理:</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">collectgarbage("collect")</code>:</strong>做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">collectgarbage("count")</code>:</strong>以 K 字节数为单位返回 Lua 使用的总内存数。 这个值有小数部分，所以只需要乘上 1024 就能得到 Lua 使用的准确字节数（除非溢出）。</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">collectgarbage("restart")</code>:</strong>重启垃圾收集器的自动运行。</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">collectgarbage("setpause")</code>:</strong>将 arg 设为收集器的 间歇率 （参见 §2.5）。 返回 间歇率 的前一个值。</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">collectgarbage("setstepmul")</code>:</strong>返回 步进倍率 的前一个值。</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">collectgarbage("step")</code>:</strong>单步运行垃圾收集器。 步长”大小”由 arg 控制。 传入 0 时，收集器步进（不可分割的）一步。 传入非 0 值， 收集器收集相当于 Lua 分配这些多（K 字节）内存的工作。 如果收集器结束一个循环将返回 true 。</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">collectgarbage("stop")</code>:</strong>停止垃圾收集器的运行。 在调用重启前，收集器只会因显式的调用运行。</li>
+</ul>
+
+<h2 id="面向对象">面向对象</h2>
+
+<p>我们知道，对象由属性和方法组成。
+LUA中最基本的结构是table，所以需要用table来描述对象的属性；lua中的function可以用来表示方法。
+那么LUA中的类可以通过table + function模拟出来。
+至于继承，可以通过metetable模拟出来（不推荐用，只模拟最基本的对象大部分时间够用了）。
+Lua中的表不仅在某种意义上是一种对象。像对象一样，表也有状态（成员变量）；也有与对象的值独立的本性，特别是拥有两个不同值的对象（table）代表两个不同的对象；一个对象在不同的时候也可以有不同的值，但他始终是一个对象；与对象类似，表的生命周期与其由什么创建、在哪创建没有关系。对象有他们的成员函数，表也有：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="n">Account</span> <span class="o">=</span> <span class="p">{</span><span class="n">balance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">}</span>
+<span class="k">function</span> <span class="nc">Account</span><span class="p">.</span><span class="nf">withdraw</span> <span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">Account</span><span class="p">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">Account</span><span class="p">.</span><span class="n">balance</span> <span class="o">-</span> <span class="n">v</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>这个定义创建了一个新的函数，并且保存在Account对象的withdraw域内，下面我们可以这样调用：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">Account</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">100</span><span class="p">.</span><span class="mi">00</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>#一个简单实例
+以下简单的类包含了三个属性： area, length 和 breadth，printArea方法用于打印计算结果：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="c1">-- Meta class</span>
+<span class="n">Rectangle</span> <span class="o">=</span> <span class="p">{</span><span class="n">area</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">breadth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">}</span>
+
+<span class="c1">-- 派生类的方法 new</span>
+<span class="k">function</span> <span class="nf">Rectangle</span><span class="p">:</span><span class="n">new</span> <span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">breadth</span><span class="p">)</span>
+  <span class="n">o</span> <span class="o">=</span> <span class="n">o</span> <span class="ow">or</span> <span class="p">{}</span>
+  <span class="nb">setmetatable</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">__index</span> <span class="o">=</span> <span class="n">self</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span> <span class="ow">or</span> <span class="mi">0</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">breadth</span> <span class="o">=</span> <span class="n">breadth</span> <span class="ow">or</span> <span class="mi">0</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">area</span> <span class="o">=</span> <span class="n">length</span><span class="o">*</span><span class="n">breadth</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">o</span>
+<span class="k">end</span>
+
+<span class="c1">-- 派生类的方法 printArea</span>
+<span class="k">function</span> <span class="nf">Rectangle</span><span class="p">:</span><span class="n">printArea</span> <span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"矩形面积为 "</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">area</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>创建对象是位类的实例分配内存的过程。每个类都有属于自己的内存并共享公共数据。(<em>内存在对象初始化时分配。</em>)</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">r</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>我们可以使用点号(.)来访问类的属性：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">length</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>我们可以使用冒号(:)来访问类的成员函数：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">r</span><span class="p">:</span><span class="n">printArea</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>#继承
+继承是指一个对象直接使用另一对象的属性和方法。可用于扩展基础类的属性和方法。
+以下演示了一个简单的继承实例：</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+</pre></td><td class="rouge-code"><pre> <span class="c1">-- Meta class</span>
+<span class="n">Shape</span> <span class="o">=</span> <span class="p">{</span><span class="n">area</span> <span class="o">=</span> <span class="mi">0</span><span class="p">}</span>
+<span class="c1">-- 基础类方法 new</span>
+<span class="k">function</span> <span class="nf">Shape</span><span class="p">:</span><span class="n">new</span> <span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">side</span><span class="p">)</span>
+  <span class="n">o</span> <span class="o">=</span> <span class="n">o</span> <span class="ow">or</span> <span class="p">{}</span>
+  <span class="nb">setmetatable</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">__index</span> <span class="o">=</span> <span class="n">self</span>
+  <span class="n">side</span> <span class="o">=</span> <span class="n">side</span> <span class="ow">or</span> <span class="mi">0</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">area</span> <span class="o">=</span> <span class="n">side</span><span class="o">*</span><span class="n">side</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">o</span>
+<span class="k">end</span>
+<span class="c1">-- 基础类方法 printArea</span>
+<span class="k">function</span> <span class="nf">Shape</span><span class="p">:</span><span class="n">printArea</span> <span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"面积为 "</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">area</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1">-- 创建对象</span>
+<span class="n">myshape</span> <span class="o">=</span> <span class="n">Shape</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">myshape</span><span class="p">:</span><span class="n">printArea</span><span class="p">()</span>
+
+<span class="n">Square</span> <span class="o">=</span> <span class="n">Shape</span><span class="p">:</span><span class="n">new</span><span class="p">()</span>
+<span class="c1">-- 派生类方法 new</span>
+<span class="k">function</span> <span class="nf">Square</span><span class="p">:</span><span class="n">new</span> <span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">side</span><span class="p">)</span>
+  <span class="n">o</span> <span class="o">=</span> <span class="n">o</span> <span class="ow">or</span> <span class="n">Shape</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">side</span><span class="p">)</span>
+  <span class="nb">setmetatable</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">__index</span> <span class="o">=</span> <span class="n">self</span>
+  <span class="k">return</span> <span class="n">o</span>
+<span class="k">end</span>
+
+<span class="c1">-- 派生类方法 printArea</span>
+<span class="k">function</span> <span class="nf">Square</span><span class="p">:</span><span class="n">printArea</span> <span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"正方形面积为 "</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">area</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1">-- 创建对象</span>
+<span class="n">mysquare</span> <span class="o">=</span> <span class="n">Square</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">mysquare</span><span class="p">:</span><span class="n">printArea</span><span class="p">()</span>
+
+<span class="n">Rectangle</span> <span class="o">=</span> <span class="n">Shape</span><span class="p">:</span><span class="n">new</span><span class="p">()</span>
+<span class="c1">-- 派生类方法 new</span>
+<span class="k">function</span> <span class="nf">Rectangle</span><span class="p">:</span><span class="n">new</span> <span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">breadth</span><span class="p">)</span>
+  <span class="n">o</span> <span class="o">=</span> <span class="n">o</span> <span class="ow">or</span> <span class="n">Shape</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+  <span class="nb">setmetatable</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">self</span><span class="p">)</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">__index</span> <span class="o">=</span> <span class="n">self</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">area</span> <span class="o">=</span> <span class="n">length</span> <span class="o">*</span> <span class="n">breadth</span>
+  <span class="k">return</span> <span class="n">o</span>
+<span class="k">end</span>
+
+<span class="c1">-- 派生类方法 printArea</span>
+<span class="k">function</span> <span class="nf">Rectangle</span><span class="p">:</span><span class="n">printArea</span> <span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">"矩形面积为 "</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">area</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1">-- 创建对象</span>
+<span class="n">myrectangle</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">myrectangle</span><span class="p">:</span><span class="n">printArea</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="数据库访问">数据库访问</h2>
+
+<p>wowAddons开发指南</p>
+
+<p>Lua 是一个小巧的脚本语言，其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。Lua由标准C编写而成，几乎在所有操作系统和平台上都可以编译，运行。 Lua并没有提供强大的库，这是由它的定位决定的。所以Lua不适合作为开发独立应用程序的语言。Lua 有一个同时进行的JIT项目，提供在特定平台上的即时编译功能。
+<strong>魔兽世界、仙剑奇侠传五</strong>等的插件用的也是<strong>lua</strong>。
+在wow的跟目录中</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>Cache 缓存
+Data 魔兽主要数据
+Errors 错误信息
+Fonts 字体
+Interface 接口(第三方插件模型等)
+Logs 记录(聊天记录和战斗记录等)
+Screenshots 截图（在wow中按prt可以截图存放）
+Utils 工具(魔兽内置浏览器应该没有用)
+WTF 配置
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在Interface中建一个AddOns文件夹用来存放插件</p>
+
+<h2 id="插件的结构">#插件的结构</h2>
+
+<p>WoW的插件由3个文件组成，分别是<code class="language-plaintext highlighter-rouge">XXX.toc</code> / <code class="language-plaintext highlighter-rouge">XXX.xml</code> / <code class="language-plaintext highlighter-rouge">XXX.lua</code>
+XXX.toc中标注了关于插件信息的定义，以及需要加载的.xml的位置。
+XXX.xml是插件的核心，包括界面、功能等元素都在其内。
+XXX.lua是一种嵌入式脚本语言的源文件，在WoW中实现.xml调用的函数。
+换句话说，.toc告诉WoW插件的名字和.xml的位置，.xml告诉WoW插件都有什么，怎样工作，具体事宜则交由.lua来处理。</p>
+
+<h2 id="xxxtoc">#XXX.toc</h2>
+
+<p>XXX.toc中标注了关于插件信息的定义，以及需要加载的.xml的位置。
+TOC全称为Table of Contents就是目录的意思。
+XXX.toc的位置在World of Warcraft\Interface\AddOns\XXX\XXX.toc。其中XXX为插件名称，必须保证完全一致，包括大小写。Windows系统不区分大小写，但WoW客户端区分(case-sensitive)，在开发过程中一定要注意。
+<em>WoW只能读取1024字节/行，富裕出的部分将被忽略并且不报错。</em></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre>### Interface: 适用的魔兽版本号
+### Title: 显示的标题（默认语言）
+### Notes: 显示的说明（默认语言）
+### Title-zhCN: 特定语言的标题（简体中文）
+### Notes-zhCN: 特定语言的说明（简体中文）
+### Author: 作者（不显示）
+### Version: 版本
+### eMail: 如题
+### UIType: 插件类型
+### Dependencies: 依赖的插件
+### RequiredDeps: 必须依赖的其他插件
+### OptionalDeps: 可选倚赖
+### SavedVariables: 统一存放的变量
+### SavedVariablesPerCharacter: 按角色存放的变量
+### LoadOnDemand: 1 （调用时加载）
+### LoadWith: 当指定插件加载时才加载，前提是调用时加载
+### DefaultState: disabled 默认状态
+### Secure: 安全（功能未知）
+## 注释1 dklasjfkasdj
+Script.lua -- 脚本文件
+% 注释2 dskajfklasdjfklsdaj
+Layout.xml -- 布局文件
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>客户端识别标签<code class="language-plaintext highlighter-rouge">### </code>开头</p>
+
+<ul>
+  <li>Interface</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>### Interface: 70100
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>wow客户端版本（如果插件的Interface号和当前游戏客户端版本号不一致，那么游戏默认不会加载插件）</p>
+
+<ul>
+  <li>Title</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>### Title: |cffC495DDXXX|rXXX`
+### Title-zhCN: |cffC495DD插件|r插件
+### Title-zhTW: |cffC495DD插件|r插件
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Title表示插件的名称，也就是插件管理面板里显示的那个。支持多语言定义，默认为英语。其他语言要在Title后面加上后缀，就像上面那样。zhCN表示简体中文，zhTW就是台湾的繁体中文。前面2个小写是语言，后面2个大写是国家和地区。
+还有个好玩的东西就是颜色，WoW支持字串形式的颜色定义。插件面板默认字体颜色是黄，你可以根据自己的喜好自行定义文本颜色，这里就用到颜色字串。颜色字串以”|c”开头”|r”结束。中间是16进制αRGB颜色代码和要显示的文本。比如我要将”我的插件”几个字显示为蓝色。那么就应该是:<code class="language-plaintext highlighter-rouge">##Title: |cff0000ff我的插件|r   </code>
+其中|c表示接下来的8位字符是颜色代码，以α(alpha透明度)、R(红)、G(绿)、B(蓝)顺序排列。前面2位ff表示被着色的文本完全不透明，但需要指出的是并非所有的地方都支持透明。之后就是着色的文本了，这里就是”我的插件”，|r表示颜色结束，如果没有结束标记，那么WoW将颜色代码以后到这一行结束的全部文本都进行着色。
+值得一提的是，这个颜色字串应用相当广泛，包括人物ID也可以，这也是为什么暴雪禁止使用符号和数字以及英文汉字混合的原因了，当然也是考虑到搜索的方便。</p>
+
+<ul>
+  <li>Notes
+只有Title和Notes标签支持其他语言，除此之外都要用英语书写。Notes包含插件的说明内容，就是对插件功能的简单描述，将出现在插件管理面板中鼠标经过的地方。</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>### Notes: XXX......
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>Dependencies</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>### Dependencies: someAddOn, someOtherAddOn
+### RequiredDeps: someAddOn, someOtherAddOn
+### Dependancies[sic]: someAddOn, someOtherAddOn
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Depend是依赖的意思。为了让插件更好地工作，某些插件开发者会使用第三方库或其他现成的插件作为基础和辅助，这么做的有点就是节约了开发成本，也使开发过程简便了许多，不足的地方就是，要让插件正常工作，系统必须确保所依赖的文件都要存在，否则，如果任何依赖的库或插件缺失，当前插件加载都会失败。依赖的名称即依赖插件的名称，也就是目录文件夹的名称。如果需要依赖多个库或插件，彼此用逗号”,”隔开。注意大小写一致。
+<em>注: Dependencies、RequiredDeps、Dependancies[sic]结果是一样的。</em></p>
+
+<ul>
+  <li>OptionalDeps</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>### OptionalDeps: someAddOn, someOtherAddOn
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>可选依赖是当前插件为了实现某些附加功能而依赖的外部库或插件，但如果依赖的东西不存在，那么当前插件也可以正常工作，但是使用可选依赖的插件必须写明当依赖不存在的时候也可以工作。</p>
+
+<ul>
+  <li>LoadOnDemand</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>### LoadOnDemand: 1
+### LoadOnDemand: 0
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>从1.7开始，插件可以用命令来加载，而不用非得在用户第一次登录的时候加载。如果启用这一功能，此插件则必须在未来某个时候被另一个插件加载。这是为了避免加载一些特殊的不常用的插件而导致内存资源占用，非常有效。副魔助手(Enchantrix)就用到了这一特性。</p>
+
+<ul>
+  <li>LoadWith</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>### LoadWith: someAddOn, someOtherAddOn
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>1.9新加的。和LoadOnDemand一起用，这使你的插件跟随某个插件一起被加载(通常是暴雪的UI模块，像Blizzard_AuctionUI)。</p>
+
+<ul>
+  <li>SavedVariables</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>### SavedVariables: someVariable, someOtherVariable
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>从Interface版本2150开始有的，保存的变量是当前流行的存储不同人物角色的方式。这些变量在客户端启动或UI重载(reload)时被载入。SavedVariables标签现以取代RegisterForSave函数，后者已经不再受客户端支持。注意在OnLoad事件过程中，SavedVariables并未完全加载所以必须假设包含nil(空)值直到以插件文件名为参数的ADDON_LOADED事件被触发。
+这比以前那个为保存注册变量的脚本强的多，因为即便你的插件被禁用或因为错误、版本不匹配等问题没有加载，SavedVariables依然会被保存。</p>
+
+<ul>
+  <li>SavedVariablesPerCharacter</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>### SavedVariablesPerCharacter: somePercharVariable
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>这个标签和SavedVariables工作方式一样，只不过是给予每个角色创建的。以前这个标签只能用角色名来区分不同的角色，现在可以根据服务器和角色名一起来区分了。</p>
+
+<ul>
+  <li>DefaultState</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>### DefaultState: enabled
+### DefaultState: disabled
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>这里的enabled/disabled状态被写在WTF\Account{youraccount}\AddOns.txt里。并且这个文件会覆盖的DisabledAddOns.txt，后者为了保持兼容仍然会被老版本的加载。</p>
+
+<ul>
+  <li>Secure</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>### Secure: 1
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>这个标签被添加到Blizzard_UI(1.11中作为默认UI一部分)。它的确切目的无从知晓，但一个可能就是它告诉客户端是否要为插件寻找一个签名。</p>
+
+<ul>
+  <li>非标准标签
+用##标示还可以添加更多额外的信息，某些第三方插件甚至使用自行提供的信息。下面是一些常用的标签:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>##Author: MyName                          --作者的名字，也可以是Email地址。
+### Version: 1.0                            --插件的版本号。可以是任何字符串，因为自动更新的工具会解析数字，所以最好是以数字版本开头。
+### X-email: Author@Domain.com              --任何以X-开头的标签。
+### X-Date: 11-24-2016                      --插件的发布日期。
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><em>这些标签和Title、Notes放在一起，并可用GetAddOnMetadata(“addon”, “field”)来调用。</em>
+Ace2注视标签
+和Ace不一样，Ace2直接从TOC文件提取插件元数据，特定的域(field)进行特定的处理，即Version和X-Date，那么你就可以用CVS和Subversion关键字例如$Rev$作为它们的值。
+除了正经域以外，它还可以寻找下列自定义的域。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>### X-eMail: frankcupid@hotmail.com         --Email地址
+### X-Website:http://wowace.com            --插件的网站。
+### X-Category: Raid                        --插件的Ace2目录。*
+```
+*注*： 此目录在AceAddon.lua中声明。
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>local CATEGORIES = {
+[“Action Bars”] = “Action Bars”,
+[“Auction”] = “Auction”,
+[“Audio”] = “Audio”,
+[“Battlegrounds/PvP”] = “Battlegrounds/PvP”,
+[“Buffs”] = “Buffs”,
+[“Chat/Communication”] = “Chat/Communication”,
+[“Druid”] = “Druid”,
+[“Hunter”] = “Hunter”,
+[“Mage”] = “Mage”,
+[“Paladin”] = “Paladin”,
+[“Priest”] = “Priest”,
+[“Rogue”] = “Rogue”,
+[“Shaman”] = “Shaman”,
+[“Warlock”] = “Warlock”,
+[“Warrior”] = “Warrior”,
+[“Healer”] = “Healer”,
+[“Tank”] = “Tank”,
+[“Caster”] = “Caster”,
+[“Combat”] = “Combat”,
+[“Compilations”] = “Compilations”,
+[“Data Export”] = “Data Export”,
+[“Development Tools “] = “Development Tools “,
+[“Guild”] = “Guild”,
+[“Frame Modification”] = “Frame Modification”,
+[“Interface Enhancements”] = “Interface Enhancements”,
+[“Inventory”] = “Inventory”,
+[“Library”] = “Library”,
+[“Map”] = “Map”,
+[“Mail”] = “Mail”,
+[“Miscellaneous”] = “Miscellaneous”,
+[“Quest”] = “Quest”,
+[“Raid”] = “Raid”,
+[“Tradeskill”] = “Tradeskill”,
+[“UnitFrame”] = “UnitFrame”,
+}</p>
+
+<pre><code class="language-toc">XXX.toc文件样例:
+
+### Interface: 20300
+
+### Title: My AddOn
+
+### Notes: This AddOn does nothing but display a frame with a button
+
+### Author: My Name
+
+### eMail: Author@Domain.com
+
+### URL:[http://www.wowwiki.com/](http://www.wowwiki.com/)
+
+### Version: 1.0
+
+### Dependencies: Sea
+
+### OptionalDeps: Chronos
+
+### DefaultState: enabled
+
+### SavedVariables: settingName, otherSettingName
+
+myAddOn.lua
+myAddOn.xml
+
+</code></pre>
+
+<h2 id="xxxxml">#XXX.xml</h2>
+<p>UI xml文件基本格式</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;Ui</span> <span class="na">xmlns=</span><span class="s">"[http://www.blizzard.com/wow/ui/"</span><span class="err">]</span>
+<span class="na">xmlns:xsi=</span><span class="s">"[http://www.w3.org/2001/XMLSchema-instance"</span><span class="err">]</span>
+<span class="na">xsi:schemaLocation=</span><span class="s">"[http://www.blizzard.com/wow/ui/] ..\FrameXML\UI.xsd"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;Frame</span> <span class="na">name=</span><span class="s">"MyAddon_Frame"</span><span class="nt">&gt;</span> 
+<span class="nt">&lt;/Frame&gt;</span> 
+<span class="nt">&lt;/Ui&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>其中ui元素是整个Ui的根元素，下面的Frame元素是我们要添加的界面框体。我们可以这样理解，在魔兽世界中，所有的视觉界面元素都是一个Frame，比如窗口，按钮，文本框，他们都是具备特殊性质的Frame。一个Frame里面又可以包含多个Frame，例如一个窗口里面可以有几行文字，几个按钮。这样就可以构成任意复杂的界面了。
+Frame可以有一些属性，来指定他的名字，父容器，大小，位置之类的信息。我们的Frame应该具有如下的属性：
+Frame代码</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;Frame</span> <span class="na">name=</span><span class="s">"HelloWorldTestFrame"</span> <span class="na">parent=</span><span class="s">"UIParent"</span> <span class="na">hidden=</span><span class="s">"false"</span><span class="nt">&gt;</span> 
+<span class="nt">&lt;Size</span> <span class="na">x=</span><span class="s">"300"</span> <span class="na">y=</span><span class="s">"150"</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;Anchors&gt;</span> 
+<span class="nt">&lt;Anchor</span> <span class="na">point=</span><span class="s">"CENTER"</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;/Anchors&gt;</span> 
+<span class="nt">&lt;/Frame&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>其中name属性是指定这个Frame的名字，以便我们后面使用；parent属性指定了父容器，也就是说我们的Frame是被放在UIParent这个Frame里面的，UIParent是所有UI元素的父容器，你可以把它看作WoW的整个窗口；hidden属性决定了我们的窗口是否隐藏，为false即是不隐藏，直接显示出来；Size元素指定了窗口的大小；Anchors元素指定了窗口的位置，CENTER表示窗口应该被放在父容器的中心。
+这样子的Frame只是一个透明的容器，没有边框，没有背景，于是我们应该加上一个窗口的背景。
+加上背景的Frame代码</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;Frame</span> <span class="na">name=</span><span class="s">"HelloWorldTestFrame"</span> <span class="na">parent=</span><span class="s">"UIParent"</span> <span class="na">hidden=</span><span class="s">"false"</span><span class="nt">&gt;</span> 
+<span class="nt">&lt;Size</span> <span class="na">x=</span><span class="s">"300"</span> <span class="na">y=</span><span class="s">"150"</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;Anchors&gt;</span> 
+<span class="nt">&lt;Anchor</span> <span class="na">point=</span><span class="s">"CENTER"</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;/Anchors&gt;</span> 
+<span class="nt">&lt;Backdrop</span> <span class="na">bgFile=</span><span class="s">"Interface\DialogFrame\UI-DialogBox-Background"</span> <span class="na">edgeFile=</span><span class="s">"Interface\DialogFrame\UI-DialogBox-Border"</span><span class="nt">&gt;</span> 
+<span class="nt">&lt;BackgroundInsets&gt;</span> 
+<span class="nt">&lt;AbsInset</span> <span class="na">left=</span><span class="s">"11"</span> <span class="na">right=</span><span class="s">"12"</span> <span class="na">top=</span><span class="s">"12"</span> <span class="na">bottom=</span><span class="s">"11"</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;/BackgroundInsets&gt;</span> 
+<span class="nt">&lt;/Backdrop&gt;</span> 
+<span class="nt">&lt;/Frame&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Backdrop元素就是背景图专用的，bgFile指定了背景图片名，edgeFile指定了边框图片名，我们现在都用游戏内置的。BackgroundInsets元素指定了背景图的边距，这样我们可以把背景放在边框里面，而不会溢出。现在我们的窗口有了背景，但是还没有Hello World！的文字。为了加入文字，我们还需要加入一些代码：</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;Ui</span> <span class="na">xmlns=</span><span class="s">"http://www.blizzard.com/wow/ui/"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span><span class="nt">&gt;</span> 
+<span class="nt">&lt;Frame</span> <span class="na">name=</span><span class="s">"HelloWorldTestFrame"</span> <span class="na">parent=</span><span class="s">"UIParent"</span> <span class="na">hidden=</span><span class="s">"false"</span><span class="nt">&gt;</span> 
+   <span class="nt">&lt;Size</span> <span class="na">x=</span><span class="s">"300"</span> <span class="na">y=</span><span class="s">"150"</span> <span class="nt">/&gt;</span> 
+   <span class="nt">&lt;Anchors&gt;</span> 
+      <span class="nt">&lt;Anchor</span> <span class="na">point=</span><span class="s">"CENTER"</span> <span class="nt">/&gt;</span> 
+   <span class="nt">&lt;/Anchors&gt;</span> 
+   <span class="nt">&lt;Backdrop</span> <span class="na">bgFile=</span><span class="s">"Interface\DialogFrame\UI-DialogBox-Background"</span> <span class="na">edgeFile=</span><span class="s">"Interface\DialogFrame\UI-DialogBox-Border"</span><span class="nt">&gt;</span> 
+      <span class="nt">&lt;BackgroundInsets&gt;</span> 
+         <span class="nt">&lt;AbsInset</span> <span class="na">left=</span><span class="s">"11"</span> <span class="na">right=</span><span class="s">"12"</span> <span class="na">top=</span><span class="s">"12"</span> <span class="na">bottom=</span><span class="s">"11"</span> <span class="nt">/&gt;</span> 
+      <span class="nt">&lt;/BackgroundInsets&gt;</span> 
+   <span class="nt">&lt;/Backdrop&gt;</span> 
+   <span class="nt">&lt;Layers&gt;</span> 
+      <span class="nt">&lt;Layer</span> <span class="na">level=</span><span class="s">"ARTWORK"</span><span class="nt">&gt;</span> 
+         <span class="nt">&lt;FontString</span> <span class="na">inherits=</span><span class="s">"GameFontNormal"</span> <span class="na">text=</span><span class="s">"Hello World!"</span><span class="nt">&gt;</span> 
+            <span class="nt">&lt;Anchors&gt;</span> 
+               <span class="nt">&lt;Anchor</span> <span class="na">point=</span><span class="s">"CENTER"</span> <span class="na">relativeTo=</span><span class="s">"HelloWorldTestFrame"</span> <span class="nt">/&gt;</span> 
+            <span class="nt">&lt;/Anchors&gt;</span> 
+         <span class="nt">&lt;/FontString&gt;</span> 
+      <span class="nt">&lt;/Layer&gt;</span> 
+   <span class="nt">&lt;/Layers&gt;</span> 
+<span class="nt">&lt;/Frame&gt;</span> 
+<span class="nt">&lt;/Ui&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>我们的可视化元素，是被放进若干个Layer来渲染的，ARTWORK是其中一个Layer，位于背景Layer的上方。也就是说，被放进ARTWORK层的所有元素，都会被渲染在背景层的上方，盖住背景层的一切东西。层的渲染顺序是BACKGROUND，ARTWORK，OVERLAY。如果你想渲染一些东西在最上层，就放进OVERLAY层里。我们现在选择ARTWORK层当作我们Hello World文字的渲染层。FontString就是可以画一些文字的地方，inherits是指所有未明确标注的属性都由GameFontNormal类继承，比如文字的字体、大小、颜色什么的，我们就不一一设置了，直接偷懒从GameFontNormal拿来。text属性就是我们要渲染出来的文字内容。Anchors元素继续用来指定位置。把上面的文件内容存入HelloWorld.xml中，就算搞定啦！
+<a href="http://bbs.ngacn.cc/read.php?tid=2013286&amp;forder_by=postdatedesc">http://bbs.ngacn.cc/read.php?tid=2013286&amp;forder_by=postdatedesc</a></p>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2022/07/08/docker/" data-toggle="tooltip" data-placement="top" title="Docker">
+                        Previous<br>
+                        <span>Docker</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0001" 
+                    href="/archive/?tag=tools"
+                    title="tools"
+                    rel="2">tools</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="https://88250.b3log.org/">D 的个人博客</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/lbb4511">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; 伪装的小白 2025
+                    <br>
+                    Powered by <a href="https://obtstar.top">紫若丹枫</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=lbb4511&repo=lbb4511&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/assets/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/assets/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/assets/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/assets/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/assets/js/snackbar.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/assets/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>
