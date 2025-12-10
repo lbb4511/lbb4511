@@ -7,7 +7,7 @@
 
 ### 我在黑客派的近期动态
 
-⭐️ Star [个人主页](https://github.com/lbb4511/lbb4511) 后会自动更新，最近更新时间：`2025-12-10 08:54:54`
+⭐️ Star [个人主页](https://github.com/lbb4511/lbb4511) 后会自动更新，最近更新时间：`2025-12-11 02:18:03`
 
 📝 帖子 &nbsp; 💬 评论 &nbsp; 🗣 回帖 &nbsp; 🌙 清月 &nbsp; 👨‍💻 用户 &nbsp; 🏷️ 标签 &nbsp; ⭐️ 关注 &nbsp; 👍 赞同 &nbsp; 💗 感谢 &nbsp; 💰 打赏 &nbsp; 🗃 收藏
 
@@ -25,7 +25,7 @@
   > 
 * 💰📝 [GitHub“用爱发电”组织邀请帖](https://ld246.com/article/1570552518797)
 
-  > https://github.com/Programming-With-Love 目录 组织详情 组织属性 加入我们 渠道 1：开源开发者认证 渠道 2：学生认证 渠道 3：爱好者认证 渠道 4：黑客派活跃用户认证 融入组织 基本要求 审核方式 另一种加入方式：黑客派活跃用户直接过审 组织详情 组织官网： Progra ..
+  > https://github.com/Programming-With-Love 目录 组织详情 组织属性 加入我们 渠道 1：开源开发者认证 渠道 2：学生认证 渠道 3：爱好者认证 渠道 4：黑客派活跃用户认证 融入组织 基本要求 审核方式 另一种加入方式：黑客派活跃用户直接过审 组织详情 组织官网： https: ..
 * 📝 [Windows 的 UTF-8](https://ld246.com/article/1611415187259)
 
   > Windows 很早就支持 UTF-8 了，由于还是 bata 版（2021/1/23） [图片] 修改后对于 java -help 出现乱码可以在系统环境变量中增加一个变量，变量名为: JAVA_TOOL_OPTIONS， 变量值为：-Dfile.encoding=UTF-8
