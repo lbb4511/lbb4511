@@ -5,8 +5,8 @@
     <description>紫若丹枫</description>
     <link>https://obtstar.top/</link>
     <atom:link href="https://obtstar.top/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 22 Aug 2025 18:30:47 +0000</pubDate>
-    <lastBuildDate>Fri, 22 Aug 2025 18:30:47 +0000</lastBuildDate>
+    <pubDate>Sun, 19 Jul 2026 08:38:37 +0000</pubDate>
+    <lastBuildDate>Sun, 19 Jul 2026 08:38:37 +0000</lastBuildDate>
     <generator>Jekyll v4.4.1</generator>
     
       <item>
@@ -1360,7 +1360,7 @@ Lua 的模块是由变量、函数等已知元素组成的 table，因此创建�
 
 &lt;span class=&quot;c1&quot;&gt;-- 定义一个函数&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;func1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;io.write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;这是一个公有函数！\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;io.write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;这是一个公有函数！&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
 &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;func2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
