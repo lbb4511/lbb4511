@@ -29,11 +29,18 @@ paginate_path: "home:5"
 exclude:
   [
     "less",
+    "assets/less",
+    "assets/sass",
     "node_modules",
     "Gruntfile.js",
     "package.json",
     "README.md",
     "README.zh.md",
+    "main.go",
+    "go.mod",
+    "go.sum",
+    "Rakefile",
+    "LICENSE",
   ]
 anchorjs: true # if you want to customize anchor. check out line:181 of `post.html`
 # If you have timezone issue (e.g. #68) in China, uncomment to use this:
