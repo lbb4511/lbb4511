@@ -1,10 +1,17 @@
 name: Deploy to GitHub Pages
 
-# When pushing to master, build the site and publish the generated _site folder
+# When pushing to master, build the site and publish the generated _site folder.
+# README/main.go 的机器人更新不触发全量重建。
 on:
   push:
     branches:
       - master
+    paths-ignore:
+      - 'README.md'
+      - 'main.go'
+      - 'go.mod'
+      - 'go.sum'
+      - 'Gemfile.lock'
 
 # Give the workflow permission to push commits using the automatically-provided
 # GITHUB_TOKEN. Without write permission Git operations that push will fail with
@@ -24,26 +31,14 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          # ensure the action uses the repository credentials so git push works
-          persist-credentials: true
+        uses: actions/checkout@v4
 
       - name: Set up Ruby (for Jekyll)
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
-
-      - name: Install Ruby gems
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3 || (
-            echo "bundle install failed, printing diagnostics" &&
-            echo "---- Gemfile.lock ----" && cat Gemfile.lock || true &&
-            echo "---- bundle env ----" && bundle env || true &&
-            exit 1
-          )
+          # 自动安装依赖并缓存 gems，无需手动 bundle install
+          bundler-cache: true
 
       - name: Build site (generate _site) using Jekyll
         run: |
