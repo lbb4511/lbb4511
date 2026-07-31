@@ -5,7 +5,7 @@ lbb4511 的个人 Jekyll 站点 + 书籍文本存档，部署到 GitHub Pages，
 ## 仓库结构（两个世界）
 
 - **Jekyll 博客**（根目录）：Hux-pro 主题。真实页面：`home.md`（→ `/home/`，`layout: page`）、`archive.html`、`about.html`、`_posts/`。`_layouts/`、`_includes/`、`assets/` 为主题文件。
-- **docs/ = 书籍文本**：`constitution/`（宪法修正案）、`ch/`（《苍黄》）、`yc/`（《野草》）、`legend/`（《中华远古帝王谱》）。均为**无 front matter** 的纯 Markdown，Jekyll 会原样复制为静态文件。只有 `docs/index.html` 带 `layout: page` front matter（书籍索引页）。不要给这些书稿增删 front matter。
+- **docs/ = 书籍文本**：`constitution/`（宪法修正案）、`ch/`（《苍黄》）、`yc/`（《野草》）、`legend/`（《中华远古帝王谱》）、`1984/`（《1984》英文原版）、`ancien-regime/`（《旧制度与大革命》法文原版）。均为**无 front matter** 的纯 Markdown，Jekyll 会原样复制为静态文件。只有 `docs/index.html` 带 `layout: page` front matter（书籍索引页）。不要给这些书稿增删 front matter。`ch/`、`1984/`、`ancien-regime/` 是 docsify 结构：`index.html`（docsify 加载器）+ `README.md`（整本正文）+ `SUMMARY.md`（目录，`README.md#锚点`）。
 
 > 书稿里的图片用相对路径引用（如 `docs/yc/README.md` 里的 `img/yc.jpg`），新增配图要连同放好。站点走 GitHub Actions 构建，不依赖 `.nojekyll`。
 - **根目录 `index.html`** 是独立静态落地页（无 front matter）——不经过 Jekyll 处理，改动直接上线。
