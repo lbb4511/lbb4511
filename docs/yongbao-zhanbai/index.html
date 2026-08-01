@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>1984</title>
+  <title>拥抱战败</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Nineteen Eighty-Four">
+  <meta name="description" content="拥抱战败：第二次世界大战后的日本，约翰·W. 道尔著">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
 </head>
@@ -12,12 +12,16 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-      loadSidebar: "SUMMARY.md",
-      name: 'Nineteen Eighty-Four',
-      repo: ''
+      name: '拥抱战败',
+      repo: '',
+      slugify: function (str) {
+        return String(str).trim().toLowerCase()
+          .replace(/[^\w\u4e00-\u9fa5]+/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '');
+      }
     }
   </script>
-  <script src="../common/docsify-book.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 </body>
 </html>

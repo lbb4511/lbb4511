@@ -1,0 +1,7 @@
+* [Chapter I. Into the Primitive](README.md#chapter-i-into-the-primitive)
+* [Chapter II. The Law of Club and Fang](README.md#chapter-ii-the-law-of-club-and-fang)
+* [Chapter III. The Dominant Primordial Beast](README.md#chapter-iii-the-dominant-primordial-beast)
+* [Chapter IV. Who Has Won to Mastership](README.md#chapter-iv-who-has-won-to-mastership)
+* [Chapter V. The Toil of Trace and Trail](README.md#chapter-v-the-toil-of-trace-and-trail)
+* [Chapter VI. For the Love of a Man](README.md#chapter-vi-for-the-love-of-a-man)
+* [Chapter VII. The Sounding of the Call](README.md#chapter-vii-the-sounding-of-the-call)
