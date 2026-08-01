@@ -1,0 +1,58 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  {%- assign root = site.url | append: site.baseurl -%}
+
+  {%- comment -%} 根落地页 {%- endcomment -%}
+  <url>
+    <loc>{{ root }}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  {%- comment -%} Jekyll 页面（home/archive/about/docs 等） {%- endcomment -%}
+  {%- for p in site.pages -%}
+    {%- assign path = p.url | remove: '/' -%}
+    {%- if path == '404.html' or path == 'feed.xml' or path == 'search.json' or path == 'offline.html' -%}
+      {%- continue -%}
+    {%- endif -%}
+    {%- if p.layout == 'null' or p.layout == nil -%}
+      {%- continue -%}
+    {%- endif -%}
+    <url>
+      <loc>{{ root }}{{ p.url }}</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  {%- endfor -%}
+
+  {%- comment -%} 博客文章 {%- endcomment -%}
+  {%- for post in site.posts -%}
+    <url>
+      <loc>{{ root }}{{ post.url }}</loc>
+      <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
+      <changefreq>yearly</changefreq>
+      <priority>0.7</priority>
+    </url>
+  {%- endfor -%}
+
+  {%- comment -%} docs/ 下各书的 index.html（静态文件） {%- endcomment -%}
+  {%- for f in site.static_files -%}
+    {%- assign rel = f.path | remove_first: '/' -%}
+    {%- if rel == 'index.html' -%}
+      {%- continue -%}
+    {%- endif -%}
+    {%- assign dirs = rel | split: '/' -%}
+    {%- if dirs.size == 3 and dirs[0] == 'docs' and dirs[2] == 'index.html' -%}
+      {%- assign book_url = rel | replace: 'index.html', '' | prepend: '/' -%}
+      <url>
+        <loc>{{ root }}{{ book_url }}</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+      </url>
+    {%- endif -%}
+  {%- endfor -%}
+</urlset>

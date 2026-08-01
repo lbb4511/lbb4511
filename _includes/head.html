@@ -32,7 +32,33 @@
     <meta property="og:url" content="{{ site.url }}{{ page.url }}">
     <meta property="og:site_name" content="{{ site.SEOTitle }}">
 
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@{{ site.github_username }}">
+    <meta name="twitter:creator" content="@{{ site.github_username }}">
+    <meta name="twitter:title"
+        content="{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}">
+    <meta name="twitter:description"
+        content="{% if page.description %}{{ page.description }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | truncate:200 }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="twitter:image" content="{{ site.url }}{{ site.sidebar-avatar }}">
+
     <title>{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}</title>
+
+    <!-- JSON-LD: WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{{ site.SEOTitle }}",
+      "url": "{{ site.url }}",
+      "description": "{{ site.description }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ site.url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="{{ site.baseurl }}/assets/pwa/manifest.json">
