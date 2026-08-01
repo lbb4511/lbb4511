@@ -5,14 +5,26 @@
     <description>紫若丹枫</description>
     <link>https://4511.top/</link>
     <atom:link href="https://4511.top/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 31 Jul 2026 16:36:25 +0000</pubDate>
-    <lastBuildDate>Fri, 31 Jul 2026 16:36:25 +0000</lastBuildDate>
+    <pubDate>Sat, 01 Aug 2026 06:02:02 +0000</pubDate>
+    <lastBuildDate>Sat, 01 Aug 2026 06:02:02 +0000</lastBuildDate>
     <generator>Jekyll v4.4.1</generator>
     
       <item>
         <title>Lua</title>
         <description>&lt;p&gt;Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码形式开放， 其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。
 Lua 是巴西里约热内卢天主教大学（Pontifical Catholic University of Rio de Janeiro）里的一个研究小组，由Roberto Ierusalimschy、Waldemar Celes 和 Luiz Henrique de Figueiredo所组成并于1993年开发。&lt;/p&gt;
+
+&lt;h2 id=&quot;适用版本&quot;&gt;适用版本&lt;/h2&gt;
+
+&lt;p&gt;本文示例基于 &lt;strong&gt;Lua 5.1——5.4&lt;/strong&gt; 编写，涵盖各版本的常用特性。需要注意以下版本差异：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;table.maxn&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;module&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setfenv&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getfenv&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;loadstring&lt;/code&gt; 等函数在 &lt;strong&gt;Lua 5.2 及以后已移除或改版&lt;/strong&gt;，文中相关示例附有替代说明；&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;coroutine.running()&lt;/code&gt; 从 Lua 5.2 起返回协程线程对象；&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;collectgarbage(&quot;setpause&quot;|&quot;setstepmul&quot;)&lt;/code&gt; 等参数语义在不同版本略有出入。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;请以你所使用版本的官方手册为准。&lt;/p&gt;
 
 &lt;h2 id=&quot;设计目的&quot;&gt;设计目的&lt;/h2&gt;
 
@@ -40,6 +52,8 @@ Lua 是巴西里约热内卢天主教大学（Pontifical Catholic University of 
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;第一个-lua-程序&quot;&gt;第一个 Lua 程序&lt;/h2&gt;
+
+&lt;p&gt;Lua 支持两种编程模式：交互式与脚本式。&lt;/p&gt;
 
 &lt;h3 id=&quot;交互式编程&quot;&gt;交互式编程&lt;/h3&gt;
 
@@ -80,7 +94,7 @@ Lua 不允许使用特殊字符如 @, $, 和 % 来定义标示符。 Lua 是一�
 
 &lt;h3 id=&quot;数据类型&quot;&gt;数据类型&lt;/h3&gt;
 
-&lt;p&gt;Lua是动态类型语言，变量不要类型定义,只需要为变量赋值。 值可以存储在变量中，作为参数传递或结果返回。
+&lt;p&gt;Lua是动态类型语言，变量不要类型定义，只需要为变量赋值。 值可以存储在变量中，作为参数传递或结果返回。
 Lua中有8个基本类型分别为：nil、boolean、number、string、userdata、function、thread和table。&lt;/p&gt;
 
 &lt;table&gt;
@@ -316,7 +330,7 @@ Lua 编程语言中 while 循环语法：&lt;/li&gt;
 
 &lt;p&gt;&lt;strong&gt;statements(循环体语句)&lt;/strong&gt;可以是一条或多条语句，&lt;strong&gt;condition(条件)&lt;/strong&gt;可以是任意表达式，在&lt;strong&gt;condition(条件)&lt;/strong&gt;为 true 时执行循环体语句。
 流程图如下：
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/979228-6ba423b7ea94d472.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;while 循环&quot; /&gt;
+&lt;img src=&quot;/images/posts/lua-while.webp&quot; alt=&quot;while 循环&quot; /&gt;
 在以上流程图中我们可以看出在&lt;strong&gt;condition(条件)&lt;/strong&gt;为 false 时会跳过当前循环并开始脚本执行紧接着的语句。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -372,7 +386,7 @@ Lua 编程语言中 repeat…until 循环语法格式:&lt;/li&gt;
 如果条件判断语句（condition）为 false，循环会重新开始执行，直到条件判断语句（condition）为 true 才会停止执行。
 Lua repeat…until 循环流程图如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/979228-f37c0328655668e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;repeat...until 循环&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/lua-repeat-until.webp&quot; alt=&quot;repeat...until 循环&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;#循环嵌套
@@ -427,7 +441,7 @@ Lua 提供了以下控制结构语句：&lt;/p&gt;
 Lua认为false和nil为假，true 和非nil为真。要注意的是Lua中 0 为 true。
 if 语句流程图如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/979228-cde07fac4be6ccda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;if 语句&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/lua-if.webp&quot; alt=&quot;if 语句&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;#if…else 语句
@@ -452,7 +466,7 @@ Lua if…else 语句语法格式如下：&lt;/li&gt;
 &lt;p&gt;在布尔表达式为 true 时会if中的代码块会被执行，在布尔表达式为 false 时，else 的代码块会被执行。
 Lua认为false和nil为假，true 和非nil为真。要注意的是Lua中 0 为 true。
 if 语句流程图如下：
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/979228-899ab3f678db2b0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;if...else 语句&quot; /&gt; #####&lt;strong&gt;&lt;em&gt;if…elseif…else 语句&lt;/em&gt;&lt;/strong&gt;
+&lt;img src=&quot;/images/posts/lua-if-else.webp&quot; alt=&quot;if...else 语句&quot; /&gt; #####&lt;strong&gt;&lt;em&gt;if…elseif…else 语句&lt;/em&gt;&lt;/strong&gt;
 Lua if 语句可以与 elseif…else 语句搭配使用, 在 if 条件表达式为 false 时执行 elseif…else 语句代码块，用于检测多个条件语句。
 Lua if…elseif…else 语句语法格式如下：&lt;/p&gt;
 
@@ -498,8 +512,8 @@ Lua 函数主要有两种用途：&lt;/p&gt;
   &lt;li&gt;计算并返回值，这种情况下函数作为赋值语句的表达式使用。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;#函数定义
-Lua 编程语言函数定义格式如下：&lt;/p&gt;
+&lt;h3 id=&quot;函数定义&quot;&gt;函数定义&lt;/h3&gt;
+&lt;p&gt;Lua 编程语言函数定义格式如下：&lt;/p&gt;
 
 &lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
@@ -542,8 +556,8 @@ Lua 编程语言函数定义格式如下：&lt;/p&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;###实例
-以下实例定义了函数 max()，参数为 num1, num2，用于比较两值的大小，并返回最大值：&lt;/p&gt;
+&lt;h3 id=&quot;实例&quot;&gt;实例&lt;/h3&gt;
+&lt;p&gt;以下实例定义了函数 max()，参数为 num1, num2，用于比较两值的大小，并返回最大值：&lt;/p&gt;
 
 &lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
@@ -610,7 +624,7 @@ Lua 中我们可以将函数作为参数传递给函数，如下实例：&lt;/p&
 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;这是打印函数 -   ##	10	##
 这是打印函数 -   ##	7	##&lt;/code&gt; ###多返回值
 Lua函数可以返回多个结果值，比如string.find，其返回匹配串”开始和结束的下标”（如果不存在匹配串返回nil）。
-&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/979228-e0a64e420be4eae1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/images/posts/lua-for.webp&quot; alt=&quot;for 循环&quot; /&gt;
 Lua函数中，在return后列出要返回的值得列表即可返回多值，如：&lt;/p&gt;
 
 &lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -829,11 +843,17 @@ Lua将函数的参数放在一个叫arg的表中，#arg 表示传入参数的个
       &lt;td&gt;连接两个字符串&lt;/td&gt;
       &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a..b &lt;/code&gt;，其中 a 为 “Hello “ ， b 为 “World”, 输出结果为 “Hello World”。&lt;/td&gt;
     &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;#&lt;/td&gt;
+      &lt;td&gt;一元运算符，返回字符串或表的长度&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#&quot;Hello&quot;&lt;/code&gt; 返回 5&lt;/td&gt;
+    &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;#|一元运算符，返回字符串或表的长度。|&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#&quot;Hello&quot;&lt;/code&gt; 返回 5 #运算符优先级
-从高到低的顺序：&lt;/p&gt;
+&lt;h3 id=&quot;运算符优先级&quot;&gt;运算符优先级&lt;/h3&gt;
+
+&lt;p&gt;从高到低的顺序：&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
@@ -1023,8 +1043,8 @@ Tutorial&lt;/code&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;###多维数组
-多维数组即数组中包含数组或一维数组的索引键对应一个数组。
+&lt;h3 id=&quot;多维数组&quot;&gt;多维数组&lt;/h3&gt;
+&lt;p&gt;多维数组即数组中包含数组或一维数组的索引键对应一个数组。
 以下是一个三行三列的阵列多维数组：&lt;/p&gt;
 
 &lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -1105,8 +1125,8 @@ Tutorial&lt;/code&gt;
   &lt;li&gt;多状态的迭代器&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;###无状态的迭代器
-无状态的迭代器是指不保留任何状态的迭代器，因此在循环中我们可以利用无状态迭代器避免创建闭包花费额外的代价。
+&lt;h3 id=&quot;无状态的迭代器&quot;&gt;无状态的迭代器&lt;/h3&gt;
+&lt;p&gt;无状态的迭代器是指不保留任何状态的迭代器，因此在循环中我们可以利用无状态迭代器避免创建闭包花费额外的代价。
 每一次迭代，迭代函数都是用两个变量（状态常量和控制变量）的值作为参数被调用，一个无状态的迭代器只利用这两个值可以获取下一个元素。
 这种无状态迭代器的典型的简单的例子是ipairs，他遍历数组的每一个元素。
 以下实例我们使用了一个简单的函数来实现迭代器，实现 数字 n 的平方：&lt;/p&gt;
@@ -1137,8 +1157,8 @@ Tutorial&lt;/code&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;###多状态的迭代器
-很多情况下，迭代器需要保存多个状态信息而不是简单的状态常量和控制变量，最简单的方法是使用闭包，还有一种方法就是将所有的状态信息封装到table内，将table作为迭代器的状态常量，因为这种情况下可以将所有的信息存放在table内，所以迭代函数通常不需要第二个参数。
+&lt;h3 id=&quot;多状态的迭代器&quot;&gt;多状态的迭代器&lt;/h3&gt;
+&lt;p&gt;很多情况下，迭代器需要保存多个状态信息而不是简单的状态常量和控制变量，最简单的方法是使用闭包，还有一种方法就是将所有的状态信息封装到table内，将table作为迭代器的状态常量，因为这种情况下可以将所有的信息存放在table内，所以迭代函数通常不需要第二个参数。
 以下实例我们创建了自己的迭代器：&lt;/p&gt;
 
 &lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -1188,9 +1208,9 @@ Tutorial&lt;/code&gt;
 &lt;p&gt;table 是 Lua 的一种数据结构用来帮助我们创建不同的数据类型，如：数字、字典等。
 Lua table 使用关联型数组，你可以用任意类型的值来作数组的索引，但这个值不能是 nil。
 Lua table 是不固定大小的，你可以根据自己需要进行扩容。
-Lua也是通过table来解决模块（module）、包（package）和对象（Object）的。 例如string.format表示使用”format”来索引table string。
-#table(表)的构造
-构造器是创建和初始化表的表达式。表是Lua特有的功能强大的东西。最简单的构造函数是{}，用来创建一个空表。可以直接初始化数组:&lt;/p&gt;
+Lua也是通过table来解决模块（module）、包（package）和对象（Object）的。 例如string.format表示使用”format”来索引table string。&lt;/p&gt;
+&lt;h3 id=&quot;table-的构造&quot;&gt;table 的构造&lt;/h3&gt;
+&lt;p&gt;构造器是创建和初始化表的表达式。表是Lua特有的功能强大的东西。最简单的构造函数是{}，用来创建一个空表。可以直接初始化数组:&lt;/p&gt;
 
 &lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
@@ -1281,9 +1301,9 @@ mytable 索引为 wow 的元素是 	修改前
 mytable 索引为 wow 的元素是 	修改后
 alternatetable 是 	nil
 mytable 索引为 wow 的元素是 	修改后
-mytable 是 	nil&lt;/code&gt;
-#Table 操作
-以下列出了 Table 操作常用的方法：&lt;/p&gt;
+mytable 是 	nil&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&quot;table-操作&quot;&gt;Table 操作&lt;/h3&gt;
+&lt;p&gt;以下列出了 Table 操作常用的方法：&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;table.concat (table [, sep [, start [, end]]])&lt;/code&gt;:concat是concatenate(连锁, 连接)的缩写. table.concat()函数列出参数中指定table的数组部分从start位置到end位置的所有元素, 元素间以指定的分隔符(sep)隔开。&lt;/li&gt;
@@ -1291,7 +1311,7 @@ mytable 是 	nil&lt;/code&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;table.insert (table, [pos,] value)&lt;/code&gt;:在table的数组部分指定位置(pos)插入值为value的一个元素. pos参数可选, 默认为数组部分末尾.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;table.maxn(table)&lt;/code&gt;:指定table中所有正数key值中最大的key值. 如果不存在key值为正数的元素, 则返回0。(&lt;strong&gt;Lua5.2之后该方法已经不存在了,本文使用了自定义函数实现&lt;/strong&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;table.maxn(table)&lt;/code&gt;:指定table中所有正数key值中最大的key值. 如果不存在key值为正数的元素，则返回0。(&lt;strong&gt;Lua5.2之后该方法已经不存在了,本文使用了自定义函数实现&lt;/strong&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -1374,9 +1394,9 @@ Lua 的模块是由变量、函数等已知元素组成的 table，因此创建�
 &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;由上可知，模块的结构就是一个 table 的结构，因此可以像操作调用 table 里的元素那样来操作调用模块里的常量或函数。
-###require 函数
-Lua提供了一个名为require的函数用来加载模块。要加载一个模块，只需要简单地调用就可以了。例如：
+&lt;p&gt;由上可知，模块的结构就是一个 table 的结构，因此可以像操作调用 table 里的元素那样来操作调用模块里的常量或函数。&lt;/p&gt;
+&lt;h3 id=&quot;require-函数&quot;&gt;require 函数&lt;/h3&gt;
+&lt;p&gt;Lua提供了一个名为require的函数用来加载模块。要加载一个模块，只需要简单地调用就可以了。例如：
 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;require(&quot;&amp;lt;模块名&amp;gt;&quot;)&lt;/code&gt;或者&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;require &quot;&amp;lt;模块名&amp;gt;&quot;&lt;/code&gt;
 执行 require 后会返回一个由模块常量或函数组成的 table，并且还会定义一个包含该 table 的全局变量。&lt;/p&gt;
 
@@ -1416,12 +1436,12 @@ Lua提供了一个名为require的函数用来加载模块。要加载一个模�
 &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;func3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;###加载机制
-对于自定义的模块，模块文件不是放在哪个文件目录都行，函数 require 有它自己的文件路径加载策略，它会尝试从 Lua 文件或 C 程序库中加载模块。
+&lt;h3 id=&quot;加载机制&quot;&gt;加载机制&lt;/h3&gt;
+&lt;p&gt;对于自定义的模块，模块文件不是放在哪个文件目录都行，函数 require 有它自己的文件路径加载策略，它会尝试从 Lua 文件或 C 程序库中加载模块。
 require 用于搜索 Lua 文件的路径是存放在全局变量 package.path 中，当 Lua 启动后，会以环境变量 LUA_PATH 的值来初始这个环境变量。如果没有找到该环境变量，则使用一个编译时定义的默认路径来初始化。
-当然，如果没有 LUA_PATH 这个环境变量，也可以自定义设置，在当前用户根目录下打开 .profile 文件（没有则创建，打开 .bashrc 文件也可以）。
-###C 包
-Lua和C是很容易结合的，使用C为Lua写包。
+当然，如果没有 LUA_PATH 这个环境变量，也可以自定义设置，在当前用户根目录下打开 .profile 文件（没有则创建，打开 .bashrc 文件也可以）。&lt;/p&gt;
+&lt;h3 id=&quot;c-包&quot;&gt;C 包&lt;/h3&gt;
+&lt;p&gt;Lua和C是很容易结合的，使用C为Lua写包。
 与Lua中写包不同，C包在使用以前必须首先加载并连接，在大多数系统中最容易的实现方式是通过动态连接库机制。
 Lua在一个叫loadlib的函数内提供了所有的动态连接的功能。这个函数有两个参数:库的绝对路径和初始化函数。所以典型的调用的例子如下:&lt;/p&gt;
 
@@ -1447,7 +1467,7 @@ Lua在一个叫loadlib的函数内提供了所有的动态连接的功能。这�
 &lt;p&gt;一般情况下我们期望二进制的发布库包含一个与前面代码段相似的stub文件，安装二进制库的时候可以随便放在某个目录，只需要修改stub文件对应二进制库的实际路径即可。
 将stub文件所在的目录加入到LUA_PATH，这样设定后就可以使用require函数加载C库了。&lt;/p&gt;
 
-&lt;h2 id=&quot;元表metatable&quot;&gt;元表(Metatable)*&lt;/h2&gt;
+&lt;h2 id=&quot;元表metatable&quot;&gt;元表（Metatable）&lt;/h2&gt;
 
 &lt;p&gt;在 Lua table 中我们可以访问对应的key来得到value值，但是却无法对两个 table 进行操作。
 因此 Lua 提供了元表(Metatable)，允许我们改变table的行为，每个行为关联了对应的元方法。
@@ -1477,9 +1497,9 @@ Lua在一个叫loadlib的函数内提供了所有的动态连接的功能。这�
 &lt;span class=&quot;nb&quot;&gt;getmetatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mytable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;-- 这回返回mymetatable&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;###&lt;strong&gt;index 元方法
-这是 metatable 最常用的键。
-当你通过键来访问 table 的时候，如果这个键没有值，那么Lua就会寻找该table的metatable（假定有metatable）中的&lt;/strong&gt;index 键。如果__index包含一个表格，Lua会在表格中查找相应的键。
+&lt;h3 id=&quot;__index-元方法&quot;&gt;__index 元方法&lt;/h3&gt;
+&lt;p&gt;这是 metatable 最常用的键。
+当你通过键来访问 table 的时候，如果这个键没有值，那么Lua就会寻找该table的metatable（假定有metatable）中的**index 键。如果__index包含一个表格，Lua会在表格中查找相应的键。
 Lua查找一个表元素时的规则，其实就是如下3个步骤:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -1582,8 +1602,8 @@ Lua查找一个表元素时的规则，其实就是如下3个步骤:&lt;/p&gt;
 &lt;p&gt;–以上实例执行输出结果为：
 表所有元素的和为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;60&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;#为表添加操作符
-以下实例演示了两表相加操作：&lt;/p&gt;
+&lt;h3 id=&quot;为表添加操作符&quot;&gt;为表添加操作符&lt;/h3&gt;
+&lt;p&gt;以下实例演示了两表相加操作：&lt;/p&gt;
 
 &lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
@@ -1696,7 +1716,7 @@ Lua查找一个表元素时的规则，其实就是如下3个步骤:&lt;/p&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h2 id=&quot;协同程序coroutine&quot;&gt;协同程序(coroutine)*&lt;/h2&gt;
+&lt;h2 id=&quot;协同程序coroutine&quot;&gt;协同程序（coroutine）&lt;/h2&gt;
 
 &lt;p&gt;Lua 协同程序(coroutine)与线程比较类似：拥有独立的堆栈，独立的局部变量，独立的指令指针，同时又与其它协同程序共享全局变量和其它大部分东西。
 协同是非常强大的功能，但是用起来也很复杂。
@@ -1741,12 +1761,6 @@ Lua查找一个表元素时的规则，其实就是如下3个步骤:&lt;/p&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h2 id=&quot;文件-io&quot;&gt;文件 I/O&lt;/h2&gt;
-
-&lt;h2 id=&quot;错误处理&quot;&gt;错误处理&lt;/h2&gt;
-
-&lt;h2 id=&quot;调试debug&quot;&gt;调试(Debug)&lt;/h2&gt;
-
 &lt;h2 id=&quot;垃圾回收&quot;&gt;垃圾回收&lt;/h2&gt;
 
 &lt;p&gt;Lua 采用了自动内存管理。 这意味着你不用操心新创建的对象需要的内存如何分配出来， 也不用考虑在对象不再被使用后怎样释放它们所占用的内存。
@@ -1754,8 +1768,11 @@ Lua 运行了一个&lt;strong&gt;垃圾收集器&lt;/strong&gt;来收集所有&l
 Lua 实现了一个增量标记-扫描收集器。 它使用这两个数字来控制垃圾收集循环： 垃圾收集器间歇率和垃圾收集器步进倍率。 这两个数字都使用百分数为单位 （例如：值 100 在内部表示 1 ）。
 垃圾收集器间歇率控制着收集器需要在开启新的循环前要等待多久。 增大这个值会减少收集器的积极性。 当这个值比 100 小的时候，收集器在开启新的循环前不会有等待。 设置这个值为 200 就会让收集器等到总内存使用量达到 之前的两倍时才开始新的循环。
 垃圾收集器步进倍率控制着收集器运作速度相对于内存分配速度的倍率。 增大这个值不仅会让收集器更加积极，还会增加每个增量步骤的长度。 不要把这个值设得小于 100 ， 那样的话收集器就工作的太慢了以至于永远都干不完一个循环。 默认值是 200 ，这表示收集器以内存分配的”两倍”速工作。
-如果你把步进倍率设为一个非常大的数字 （比你的程序可能用到的字节数还大 10% ）， 收集器的行为就像一个 stop-the-world 收集器。 接着你若把间歇率设为 200 ， 收集器的行为就和过去的 Lua 版本一样了： 每次 Lua 使用的内存翻倍时，就做一次完整的收集。#垃圾回收器函数
-Lua 提供了以下函数&lt;strong&gt;collectgarbage ([opt [, arg]])&lt;/strong&gt;用来控制自动内存管理:&lt;/p&gt;
+如果你把步进倍率设为一个非常大的数字 （比你的程序可能用到的字节数还大 10% ）， 收集器的行为就像一个 stop-the-world 收集器。 接着你若把间歇率设为 200 ， 收集器的行为就和过去的 Lua 版本一样了： 每次 Lua 使用的内存翻倍时，就做一次完整的收集。&lt;/p&gt;
+
+&lt;h3 id=&quot;垃圾回收器函数&quot;&gt;垃圾回收器函数&lt;/h3&gt;
+
+&lt;p&gt;Lua 提供了以下函数&lt;strong&gt;collectgarbage ([opt [, arg]])&lt;/strong&gt;用来控制自动内存管理:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;collectgarbage(&quot;collect&quot;)&lt;/code&gt;:&lt;/strong&gt;做一次完整的垃圾收集循环。通过参数 opt 它提供了一组不同的功能：&lt;/li&gt;
@@ -1791,8 +1808,8 @@ Lua中的表不仅在某种意义上是一种对象。像对象一样，表也�
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;00&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;#一个简单实例
-以下简单的类包含了三个属性： area, length 和 breadth，printArea方法用于打印计算结果：&lt;/p&gt;
+&lt;h3 id=&quot;一个简单实例&quot;&gt;一个简单实例&lt;/h3&gt;
+&lt;p&gt;以下简单的类包含了三个属性： area, length 和 breadth，printArea方法用于打印计算结果：&lt;/p&gt;
 
 &lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
@@ -1850,8 +1867,8 @@ Lua中的表不仅在某种意义上是一种对象。像对象一样，表也�
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;printArea&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;#继承
-继承是指一个对象直接使用另一对象的属性和方法。可用于扩展基础类的属性和方法。
+&lt;h3 id=&quot;继承&quot;&gt;继承&lt;/h3&gt;
+&lt;p&gt;继承是指一个对象直接使用另一对象的属性和方法。可用于扩展基础类的属性和方法。
 以下演示了一个简单的继承实例：&lt;/p&gt;
 
 &lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -1967,431 +1984,6 @@ Lua中的表不仅在某种意义上是一种对象。像对象一样，表也�
 &lt;span class=&quot;n&quot;&gt;myrectangle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Rectangle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;myrectangle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;printArea&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;数据库访问&quot;&gt;数据库访问&lt;/h2&gt;
-
-&lt;p&gt;wowAddons开发指南&lt;/p&gt;
-
-&lt;p&gt;Lua 是一个小巧的脚本语言，其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。Lua由标准C编写而成，几乎在所有操作系统和平台上都可以编译，运行。 Lua并没有提供强大的库，这是由它的定位决定的。所以Lua不适合作为开发独立应用程序的语言。Lua 有一个同时进行的JIT项目，提供在特定平台上的即时编译功能。
-&lt;strong&gt;魔兽世界、仙剑奇侠传五&lt;/strong&gt;等的插件用的也是&lt;strong&gt;lua&lt;/strong&gt;。
-在wow的跟目录中&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;Cache 缓存
-Data 魔兽主要数据
-Errors 错误信息
-Fonts 字体
-Interface 接口(第三方插件模型等)
-Logs 记录(聊天记录和战斗记录等)
-Screenshots 截图（在wow中按prt可以截图存放）
-Utils 工具(魔兽内置浏览器应该没有用)
-WTF 配置
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;在Interface中建一个AddOns文件夹用来存放插件&lt;/p&gt;
-
-&lt;h2 id=&quot;插件的结构&quot;&gt;#插件的结构&lt;/h2&gt;
-
-&lt;p&gt;WoW的插件由3个文件组成，分别是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;XXX.toc&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;XXX.xml&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;XXX.lua&lt;/code&gt;
-XXX.toc中标注了关于插件信息的定义，以及需要加载的.xml的位置。
-XXX.xml是插件的核心，包括界面、功能等元素都在其内。
-XXX.lua是一种嵌入式脚本语言的源文件，在WoW中实现.xml调用的函数。
-换句话说，.toc告诉WoW插件的名字和.xml的位置，.xml告诉WoW插件都有什么，怎样工作，具体事宜则交由.lua来处理。&lt;/p&gt;
-
-&lt;h2 id=&quot;xxxtoc&quot;&gt;#XXX.toc&lt;/h2&gt;
-
-&lt;p&gt;XXX.toc中标注了关于插件信息的定义，以及需要加载的.xml的位置。
-TOC全称为Table of Contents就是目录的意思。
-XXX.toc的位置在World of Warcraft\Interface\AddOns\XXX\XXX.toc。其中XXX为插件名称，必须保证完全一致，包括大小写。Windows系统不区分大小写，但WoW客户端区分(case-sensitive)，在开发过程中一定要注意。
-&lt;em&gt;WoW只能读取1024字节/行，富裕出的部分将被忽略并且不报错。&lt;/em&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### Interface: 适用的魔兽版本号
-### Title: 显示的标题（默认语言）
-### Notes: 显示的说明（默认语言）
-### Title-zhCN: 特定语言的标题（简体中文）
-### Notes-zhCN: 特定语言的说明（简体中文）
-### Author: 作者（不显示）
-### Version: 版本
-### eMail: 如题
-### UIType: 插件类型
-### Dependencies: 依赖的插件
-### RequiredDeps: 必须依赖的其他插件
-### OptionalDeps: 可选倚赖
-### SavedVariables: 统一存放的变量
-### SavedVariablesPerCharacter: 按角色存放的变量
-### LoadOnDemand: 1 （调用时加载）
-### LoadWith: 当指定插件加载时才加载，前提是调用时加载
-### DefaultState: disabled 默认状态
-### Secure: 安全（功能未知）
-## 注释1 dklasjfkasdj
-Script.lua -- 脚本文件
-% 注释2 dskajfklasdjfklsdaj
-Layout.xml -- 布局文件
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;客户端识别标签&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;### &lt;/code&gt;开头&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Interface&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### Interface: 70100
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;wow客户端版本（如果插件的Interface号和当前游戏客户端版本号不一致，那么游戏默认不会加载插件）&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Title&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### Title: |cffC495DDXXX|rXXX`
-### Title-zhCN: |cffC495DD插件|r插件
-### Title-zhTW: |cffC495DD插件|r插件
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Title表示插件的名称，也就是插件管理面板里显示的那个。支持多语言定义，默认为英语。其他语言要在Title后面加上后缀，就像上面那样。zhCN表示简体中文，zhTW就是台湾的繁体中文。前面2个小写是语言，后面2个大写是国家和地区。
-还有个好玩的东西就是颜色，WoW支持字串形式的颜色定义。插件面板默认字体颜色是黄，你可以根据自己的喜好自行定义文本颜色，这里就用到颜色字串。颜色字串以”|c”开头”|r”结束。中间是16进制αRGB颜色代码和要显示的文本。比如我要将”我的插件”几个字显示为蓝色。那么就应该是:&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;##Title: |cff0000ff我的插件|r   &lt;/code&gt;
-其中|c表示接下来的8位字符是颜色代码，以α(alpha透明度)、R(红)、G(绿)、B(蓝)顺序排列。前面2位ff表示被着色的文本完全不透明，但需要指出的是并非所有的地方都支持透明。之后就是着色的文本了，这里就是”我的插件”，|r表示颜色结束，如果没有结束标记，那么WoW将颜色代码以后到这一行结束的全部文本都进行着色。
-值得一提的是，这个颜色字串应用相当广泛，包括人物ID也可以，这也是为什么暴雪禁止使用符号和数字以及英文汉字混合的原因了，当然也是考虑到搜索的方便。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Notes
-只有Title和Notes标签支持其他语言，除此之外都要用英语书写。Notes包含插件的说明内容，就是对插件功能的简单描述，将出现在插件管理面板中鼠标经过的地方。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### Notes: XXX......
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Dependencies&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### Dependencies: someAddOn, someOtherAddOn
-### RequiredDeps: someAddOn, someOtherAddOn
-### Dependancies[sic]: someAddOn, someOtherAddOn
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Depend是依赖的意思。为了让插件更好地工作，某些插件开发者会使用第三方库或其他现成的插件作为基础和辅助，这么做的有点就是节约了开发成本，也使开发过程简便了许多，不足的地方就是，要让插件正常工作，系统必须确保所依赖的文件都要存在，否则，如果任何依赖的库或插件缺失，当前插件加载都会失败。依赖的名称即依赖插件的名称，也就是目录文件夹的名称。如果需要依赖多个库或插件，彼此用逗号”,”隔开。注意大小写一致。
-&lt;em&gt;注: Dependencies、RequiredDeps、Dependancies[sic]结果是一样的。&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;OptionalDeps&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### OptionalDeps: someAddOn, someOtherAddOn
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;可选依赖是当前插件为了实现某些附加功能而依赖的外部库或插件，但如果依赖的东西不存在，那么当前插件也可以正常工作，但是使用可选依赖的插件必须写明当依赖不存在的时候也可以工作。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;LoadOnDemand&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### LoadOnDemand: 1
-### LoadOnDemand: 0
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;从1.7开始，插件可以用命令来加载，而不用非得在用户第一次登录的时候加载。如果启用这一功能，此插件则必须在未来某个时候被另一个插件加载。这是为了避免加载一些特殊的不常用的插件而导致内存资源占用，非常有效。副魔助手(Enchantrix)就用到了这一特性。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;LoadWith&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### LoadWith: someAddOn, someOtherAddOn
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;1.9新加的。和LoadOnDemand一起用，这使你的插件跟随某个插件一起被加载(通常是暴雪的UI模块，像Blizzard_AuctionUI)。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;SavedVariables&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### SavedVariables: someVariable, someOtherVariable
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;从Interface版本2150开始有的，保存的变量是当前流行的存储不同人物角色的方式。这些变量在客户端启动或UI重载(reload)时被载入。SavedVariables标签现以取代RegisterForSave函数，后者已经不再受客户端支持。注意在OnLoad事件过程中，SavedVariables并未完全加载所以必须假设包含nil(空)值直到以插件文件名为参数的ADDON_LOADED事件被触发。
-这比以前那个为保存注册变量的脚本强的多，因为即便你的插件被禁用或因为错误、版本不匹配等问题没有加载，SavedVariables依然会被保存。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;SavedVariablesPerCharacter&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### SavedVariablesPerCharacter: somePercharVariable
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;这个标签和SavedVariables工作方式一样，只不过是给予每个角色创建的。以前这个标签只能用角色名来区分不同的角色，现在可以根据服务器和角色名一起来区分了。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;DefaultState&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### DefaultState: enabled
-### DefaultState: disabled
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;这里的enabled/disabled状态被写在WTF\Account{youraccount}\AddOns.txt里。并且这个文件会覆盖的DisabledAddOns.txt，后者为了保持兼容仍然会被老版本的加载。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Secure&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### Secure: 1
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;这个标签被添加到Blizzard_UI(1.11中作为默认UI一部分)。它的确切目的无从知晓，但一个可能就是它告诉客户端是否要为插件寻找一个签名。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;非标准标签
-用##标示还可以添加更多额外的信息，某些第三方插件甚至使用自行提供的信息。下面是一些常用的标签:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;##Author: MyName                          --作者的名字，也可以是Email地址。
-### Version: 1.0                            --插件的版本号。可以是任何字符串，因为自动更新的工具会解析数字，所以最好是以数字版本开头。
-### X-email: Author@Domain.com              --任何以X-开头的标签。
-### X-Date: 11-24-2016                      --插件的发布日期。
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;这些标签和Title、Notes放在一起，并可用GetAddOnMetadata(“addon”, “field”)来调用。&lt;/em&gt;
-Ace2注视标签
-和Ace不一样，Ace2直接从TOC文件提取插件元数据，特定的域(field)进行特定的处理，即Version和X-Date，那么你就可以用CVS和Subversion关键字例如$Rev$作为它们的值。
-除了正经域以外，它还可以寻找下列自定义的域。&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;### X-eMail: frankcupid@hotmail.com         --Email地址
-### X-Website:http://wowace.com            --插件的网站。
-### X-Category: Raid                        --插件的Ace2目录。*
-```
-*注*： 此目录在AceAddon.lua中声明。
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;local CATEGORIES = {
-[“Action Bars”] = “Action Bars”,
-[“Auction”] = “Auction”,
-[“Audio”] = “Audio”,
-[“Battlegrounds/PvP”] = “Battlegrounds/PvP”,
-[“Buffs”] = “Buffs”,
-[“Chat/Communication”] = “Chat/Communication”,
-[“Druid”] = “Druid”,
-[“Hunter”] = “Hunter”,
-[“Mage”] = “Mage”,
-[“Paladin”] = “Paladin”,
-[“Priest”] = “Priest”,
-[“Rogue”] = “Rogue”,
-[“Shaman”] = “Shaman”,
-[“Warlock”] = “Warlock”,
-[“Warrior”] = “Warrior”,
-[“Healer”] = “Healer”,
-[“Tank”] = “Tank”,
-[“Caster”] = “Caster”,
-[“Combat”] = “Combat”,
-[“Compilations”] = “Compilations”,
-[“Data Export”] = “Data Export”,
-[“Development Tools “] = “Development Tools “,
-[“Guild”] = “Guild”,
-[“Frame Modification”] = “Frame Modification”,
-[“Interface Enhancements”] = “Interface Enhancements”,
-[“Inventory”] = “Inventory”,
-[“Library”] = “Library”,
-[“Map”] = “Map”,
-[“Mail”] = “Mail”,
-[“Miscellaneous”] = “Miscellaneous”,
-[“Quest”] = “Quest”,
-[“Raid”] = “Raid”,
-[“Tradeskill”] = “Tradeskill”,
-[“UnitFrame”] = “UnitFrame”,
-}&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-toc&quot;&gt;XXX.toc文件样例:
-
-### Interface: 20300
-
-### Title: My AddOn
-
-### Notes: This AddOn does nothing but display a frame with a button
-
-### Author: My Name
-
-### eMail: Author@Domain.com
-
-### URL:[http://www.wowwiki.com/](http://www.wowwiki.com/)
-
-### Version: 1.0
-
-### Dependencies: Sea
-
-### OptionalDeps: Chronos
-
-### DefaultState: enabled
-
-### SavedVariables: settingName, otherSettingName
-
-myAddOn.lua
-myAddOn.xml
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;xxxxml&quot;&gt;#XXX.xml&lt;/h2&gt;
-&lt;p&gt;UI xml文件基本格式&lt;/p&gt;
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Ui&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[http://www.blizzard.com/wow/ui/&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[http://www.blizzard.com/wow/ui/] ..\FrameXML\UI.xsd&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;Frame&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MyAddon_Frame&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Frame&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Ui&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;其中ui元素是整个Ui的根元素，下面的Frame元素是我们要添加的界面框体。我们可以这样理解，在魔兽世界中，所有的视觉界面元素都是一个Frame，比如窗口，按钮，文本框，他们都是具备特殊性质的Frame。一个Frame里面又可以包含多个Frame，例如一个窗口里面可以有几行文字，几个按钮。这样就可以构成任意复杂的界面了。
-Frame可以有一些属性，来指定他的名字，父容器，大小，位置之类的信息。我们的Frame应该具有如下的属性：
-Frame代码&lt;/p&gt;
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Frame&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;HelloWorldTestFrame&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;parent=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;UIParent&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hidden=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;Size&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;x=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;300&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;y=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;150&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;Anchors&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;Anchor&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;point=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;CENTER&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Anchors&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Frame&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;其中name属性是指定这个Frame的名字，以便我们后面使用；parent属性指定了父容器，也就是说我们的Frame是被放在UIParent这个Frame里面的，UIParent是所有UI元素的父容器，你可以把它看作WoW的整个窗口；hidden属性决定了我们的窗口是否隐藏，为false即是不隐藏，直接显示出来；Size元素指定了窗口的大小；Anchors元素指定了窗口的位置，CENTER表示窗口应该被放在父容器的中心。
-这样子的Frame只是一个透明的容器，没有边框，没有背景，于是我们应该加上一个窗口的背景。
-加上背景的Frame代码&lt;/p&gt;
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Frame&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;HelloWorldTestFrame&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;parent=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;UIParent&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hidden=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;Size&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;x=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;300&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;y=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;150&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;Anchors&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;Anchor&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;point=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;CENTER&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Anchors&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;Backdrop&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bgFile=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Interface\DialogFrame\UI-DialogBox-Background&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;edgeFile=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Interface\DialogFrame\UI-DialogBox-Border&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;BackgroundInsets&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;AbsInset&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;left=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;11&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;right=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;12&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;top=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;12&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bottom=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;11&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/BackgroundInsets&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Backdrop&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Frame&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Backdrop元素就是背景图专用的，bgFile指定了背景图片名，edgeFile指定了边框图片名，我们现在都用游戏内置的。BackgroundInsets元素指定了背景图的边距，这样我们可以把背景放在边框里面，而不会溢出。现在我们的窗口有了背景，但是还没有Hello World！的文字。为了加入文字，我们还需要加入一些代码：&lt;/p&gt;
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;Ui&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.blizzard.com/wow/ui/&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;Frame&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;HelloWorldTestFrame&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;parent=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;UIParent&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hidden=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;Size&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;x=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;300&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;y=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;150&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;Anchors&amp;gt;&lt;/span&gt; 
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;Anchor&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;point=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;CENTER&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Anchors&amp;gt;&lt;/span&gt; 
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;Backdrop&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bgFile=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Interface\DialogFrame\UI-DialogBox-Background&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;edgeFile=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Interface\DialogFrame\UI-DialogBox-Border&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;BackgroundInsets&amp;gt;&lt;/span&gt; 
-         &lt;span class=&quot;nt&quot;&gt;&amp;lt;AbsInset&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;left=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;11&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;right=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;12&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;top=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;12&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bottom=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;11&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/BackgroundInsets&amp;gt;&lt;/span&gt; 
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Backdrop&amp;gt;&lt;/span&gt; 
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;Layers&amp;gt;&lt;/span&gt; 
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;Layer&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;level=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ARTWORK&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
-         &lt;span class=&quot;nt&quot;&gt;&amp;lt;FontString&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;inherits=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GameFontNormal&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
-            &lt;span class=&quot;nt&quot;&gt;&amp;lt;Anchors&amp;gt;&lt;/span&gt; 
-               &lt;span class=&quot;nt&quot;&gt;&amp;lt;Anchor&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;point=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;CENTER&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;relativeTo=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;HelloWorldTestFrame&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
-            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Anchors&amp;gt;&lt;/span&gt; 
-         &lt;span class=&quot;nt&quot;&gt;&amp;lt;/FontString&amp;gt;&lt;/span&gt; 
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Layer&amp;gt;&lt;/span&gt; 
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Layers&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Frame&amp;gt;&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Ui&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;我们的可视化元素，是被放进若干个Layer来渲染的，ARTWORK是其中一个Layer，位于背景Layer的上方。也就是说，被放进ARTWORK层的所有元素，都会被渲染在背景层的上方，盖住背景层的一切东西。层的渲染顺序是BACKGROUND，ARTWORK，OVERLAY。如果你想渲染一些东西在最上层，就放进OVERLAY层里。我们现在选择ARTWORK层当作我们Hello World文字的渲染层。FontString就是可以画一些文字的地方，inherits是指所有未明确标注的属性都由GameFontNormal类继承，比如文字的字体、大小、颜色什么的，我们就不一一设置了，直接偷懒从GameFontNormal拿来。text属性就是我们要渲染出来的文字内容。Anchors元素继续用来指定位置。把上面的文件内容存入HelloWorld.xml中，就算搞定啦！
-&lt;a href=&quot;http://bbs.ngacn.cc/read.php?tid=2013286&amp;amp;forder_by=postdatedesc&quot;&gt;http://bbs.ngacn.cc/read.php?tid=2013286&amp;amp;forder_by=postdatedesc&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 22 Sep 2022 00:00:00 +0000</pubDate>
         <link>https://4511.top/2022/09/22/lua/</link>
@@ -2404,186 +1996,379 @@ Frame代码&lt;/p&gt;
     
       <item>
         <title>Docker</title>
-        <description>&lt;h2 id=&quot;docker命令&quot;&gt;Docker命令&lt;/h2&gt;
+        <description>&lt;p&gt;Docker 与 Kubernetes 常用命令速查，含日常运维与故障排查。&lt;/p&gt;
 
-&lt;h3 id=&quot;删除&quot;&gt;删除&lt;/h3&gt;
+&lt;h2 id=&quot;docker-基础命令&quot;&gt;Docker 基础命令&lt;/h2&gt;
+
+&lt;h3 id=&quot;镜像image&quot;&gt;镜像（Image）&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;停止所有的container
+  &lt;li&gt;检索镜像
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker stop $(docker ps -a -q)
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker search image_name
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;删除所有container的话再加一个指令
+  &lt;li&gt;下载镜像
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker rm $(docker ps -a -q)
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker pull image_name
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;查看当前有些什么images
+  &lt;li&gt;列出镜像；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-a&lt;/code&gt; 显示所有，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-q&lt;/code&gt; 仅显示 ID，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--no-trunc&lt;/code&gt; 不截断输出
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker images
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;删除images，通过image的id来指定删除谁
+  &lt;li&gt;删除镜像；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-f&lt;/code&gt; 强制，按 ID 或名称指定
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker rmi &amp;lt;image id&amp;gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker rmi image_name
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;删除untagged images，也就是那些id为&lt;None&gt;的image的话可以用
-&lt;/None&gt;    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker rmi $(docker images | grep &quot;^&amp;lt;none&amp;gt;&quot; | awk &quot;{print $3}&quot;)
+  &lt;li&gt;查看镜像的历史
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker history image_name
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;删除全部image的话
+  &lt;li&gt;查看镜像详细信息
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker rmi $(docker images -q)
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker inspect image_name
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;hr /&gt;
+&lt;h3 id=&quot;容器container&quot;&gt;容器（Container）&lt;/h3&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;查看docker信息（version、info）
-    &lt;ul&gt;
-      &lt;li&gt;查看docker版本
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker version&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;显示docker系统的信息
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker info&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;对image的操作（search、pull、images、rmi、history）
-    &lt;ul&gt;
-      &lt;li&gt;检索image
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker search image_name&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;下载image
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker pull image_name&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;列出镜像列表; -a, –all=false 显示所有镜像; –no-trunc=false 不要截断输出; -q, –quiet=false 仅显示数字ID
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker images&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;删除一个或者多个镜像; -f, –force=false 强行; –no-prune=false 不要删除未标记的父级
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker rmi image_name&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;显示一个镜像的历史; –no-trunc=false 不要截断输出; -q, –quiet=false 仅显示数字ID
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker history image_name&lt;/code&gt;
- 3. 启动容器（run）
-docker容器可以理解为在沙盒中运行的进程。这个沙盒包含了该进程运行所必须的资源，包括文件系统、系统类库、shell 环境等等。但这个沙盒默认是不会运行任何程序的。你需要在沙盒中运行一个进程来启动某一个容器。这个进程是该容器的唯一进程，所以当该进程结束的时候，容器也会完全的停止。&lt;/li&gt;
-      &lt;li&gt;在容器中运行”echo”命令，输出”hello word”
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker run image_name echo &quot;hello word&quot;&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;交互式进入容器中
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker run -i -t image_name /bin/bash&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;在容器中安装新的程序
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker run image_name apt-get install -y app_name&lt;/code&gt;
-&lt;em&gt;注意：  在执行apt-get 命令的时候，要带上-y参数。如果不指定-y参数的话，apt-get命令会进入交互模式，需要用户输入命令来进行确认，但在docker环境中是无法响应这种交互的。apt-get 命令执行完毕之后，容器就会停止，但对容器的改动不会丢失。&lt;/em&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;查看容器（ps）
-    &lt;ul&gt;
-      &lt;li&gt;列出当前所有正在运行的container
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker ps&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;列出所有的container$docker ps -a&lt;/li&gt;
-      &lt;li&gt;列出最近一次启动的container
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker ps -l&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;保存对容器的修改（commit）
-当你对某一个容器做了修改之后（通过在容器中运行某一个命令），可以把对容器的修改保存下来，这样下次可以从保存后的最新状态运行该容器。
-    &lt;ul&gt;
-      &lt;li&gt;保存对容器的修改; -a, –author=”” 作者; -m, –message=”” 提交消息
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker commit ID new_image_name&lt;/code&gt;
-&lt;em&gt;注意：  image相当于类，container相当于实例，不过可以动态给实例安装新软件，然后把这个container用commit命令固化成一个image。&lt;/em&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;对容器的操作（rm、stop、start、kill、logs、diff、top、cp、restart、attach）
-    &lt;ul&gt;
-      &lt;li&gt;删除所有容器
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker rm `docker ps -a -q`
-&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;删除单个容器; -f, –force=false; -l, –link=false 删除指定的链接，而不是基础容器; -v, –volumes=false 删除与容器关联的卷
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker rm Name/ID&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;停止、启动、杀死一个容器
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker stop Name/ID&lt;/code&gt;
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker start Name/ID&lt;/code&gt;
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker kill Name/ID&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;从一个容器中取日志; -f, –follow=false 按照日志输出; -t, –timestamps=false 显示时间戳
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker logs Name/ID&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;列出一个容器里面被改变的文件或者目录，list列表会显示出三种事件，A 增加的，D 删除的，C 被改变的
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker diff Name/ID&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;显示一个运行的容器里面的进程信息
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker top Name/ID&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;从容器里面拷贝文件/目录到本地一个路径
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker cp Name:/container_path to_path&lt;/code&gt;
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker cp ID:/container_path to_path&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;重启一个正在运行的容器; -t, –time=10 尝试在停止容器之前停止的秒数, 默认=10
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker restart Name/ID&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;附加到一个运行的容器上面; –no-stdin=false 不要附加标准输入(stdin); –sig-proxy=true 将所有接收到的信号代理给进程
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker attach ID&lt;/code&gt;
-&lt;em&gt;注意： attach命令允许你查看或者影响一个运行的容器。你可以在同一时间attach同一个容器。你也可以从一个容器中脱离出来，是从CTRL-C。&lt;/em&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;保存和加载镜像（save、load）
-当需要把一台机器上的镜像迁移到另一台机器的时候，需要保存镜像与加载镜像。
-    &lt;ul&gt;
-      &lt;li&gt;保存镜像到一个tar包; -o, –output=”” 写入文件
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker save image_name -o file_path&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;加载一个tar包格式的镜像; -i, –input=”” 从tar存档文件读取
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker load -i file_path&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;机器a
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker save image_name &amp;gt; /home/save.tar&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;使用scp将save.tar拷到机器b上，然后：
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker load &amp;lt; /home/save.tar&lt;/code&gt;
- 8、 登录registry server（login）&lt;/li&gt;
-      &lt;li&gt;登陆registry server; -e, –email=”” 电子邮件; -p, –password=”” 密码; -u, –username=”” 用户名
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker login&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;发布image（push）
-    &lt;ul&gt;
-      &lt;li&gt;发布docker镜像
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker push new_image_name&lt;/code&gt;
- 10.  根据Dockerfile 构建出一个容器&lt;/li&gt;
-      &lt;li&gt;build 
-–no-cache=false 在构建映像时不要使用缓存
- -q, –quiet=false 抑制由容器生成的详细输出
- –rm=true 成功构建后删除中间容器
- -t, –tag=”” 在成功的情况下应用于生成的图像的存储库名称（以及可选的标记）
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$docker build -t image_name Dockerfile_path&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;docker源码分析&quot;&gt;Docker源码分析&lt;/h2&gt;
+&lt;p&gt;容器可以理解为在沙盒中运行的进程。沙盒包含进程运行所必需的资源（文件系统、系统类库、shell 环境等），默认不运行任何程序。你需要运行一个进程来启动容器，该进程是容器的唯一进程，进程结束容器也随之停止。&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;init函数的执行。在Golang中init函数的特性如下：&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;init函数用于程序执行前包的初始化工作，比如初始化变量等；&lt;/li&gt;
-      &lt;li&gt;每个包可以有多个init函数；&lt;/li&gt;
-      &lt;li&gt;包的每一个源文件也可以有多个init函数；&lt;/li&gt;
-      &lt;li&gt;同一个包内的init函数的执行顺序没有明确的定义；&lt;/li&gt;
-      &lt;li&gt;不同包的init函数按照包导入的依赖关系决定初始化的顺序；&lt;/li&gt;
-      &lt;li&gt;init函数不能被调用，而是在main函数调用前自动被调用。&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;运行容器执行命令
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker run image_name echo &quot;hello world&quot;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;os.Setenv(“DEBUG”, “1”) 创建系统环境变量&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Docker源码分析 孙宏亮 -infoQ&lt;/p&gt;
+  &lt;li&gt;交互式进入容器
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker run -i -t image_name /bin/bash
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;列出运行中的容器
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker ps
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;列出所有容器（含已停止）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker ps -a
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;列出最近一次启动的容器
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker ps -l
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;启动 / 停止 / 重启 / 杀死容器
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker start container_name
+docker stop container_name
+docker restart container_name
+docker kill container_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;删除容器；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-f&lt;/code&gt; 强制，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-v&lt;/code&gt; 同时删除关联卷
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker rm container_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;查看容器日志；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-f&lt;/code&gt; 实时跟踪，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-t&lt;/code&gt; 显示时间戳，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--tail N&lt;/code&gt; 只看末尾 N 行
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker logs -f container_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;显示运行中容器的进程信息
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker top container_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;查看容器内被改动的文件/目录（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt; 增加，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;D&lt;/code&gt; 删除，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C&lt;/code&gt; 修改）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker diff container_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;在容器与宿主机之间拷贝文件
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker cp container_name:/container_path to_path
+docker cp ID:/container_path to_path
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;附加到运行中的容器（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl-C&lt;/code&gt; 退出，容器内进程会收到信号）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker attach container_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;进入运行中的容器（推荐，比 attach 更灵活）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker exec -it container_name /bin/bash
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;查看容器端口映射
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker port container_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part1&quot;&gt;Docker源码分析（一）：Docker架构&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part2&quot;&gt;Docker源码分析（二）：Docker Client创建与命令执行&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part3&quot;&gt;Docker源码分析（三）：Docker Daemon启动&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part4&quot;&gt;Docker源码分析（四）：Docker Daemon之NewDaemon实现&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part5&quot;&gt;Docker源码分析（五）：Docker Server的创建&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part6&quot;&gt;Docker源码分析（六）：Docker Daemon网络&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part7&quot;&gt;Docker源码分析（七）：Docker Container网络 （上）&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part8&quot;&gt;Docker源码分析（八）：Docker Container网络 （下）&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part9&quot;&gt;Docker源码分析（九）：Docker镜像&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part10&quot;&gt;Docker源码分析（十）：Docker镜像下载&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-source-code-analysis-part11&quot;&gt;Docker源码分析（十一）：镜像存储&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/articles/docker-turns-3&quot;&gt;Docker三年回顾：梦想依在，人生正当年&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/cn/presentations/how-to-design-an-ultra-large-scale-container-scheduling-system&quot;&gt;超大规模容器调度系统的设计与实现&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
+&lt;h3 id=&quot;提交与发布&quot;&gt;提交与发布&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;将容器固化为镜像（image 相当于类，container 相当于实例）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker commit container_id new_image_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;登录 registry
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker login
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;推送镜像
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker push new_image_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;镜像迁移&quot;&gt;镜像迁移&lt;/h3&gt;
+
+&lt;p&gt;把一台机器上的镜像迁移到另一台机器：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;保存镜像为 tar 包
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker save image_name -o image.tar
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;从 tar 包加载镜像
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker load -i image.tar
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;或配合 scp 使用
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker save image_name &amp;gt; image.tar
+docker load &amp;lt; image.tar
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;构建镜像&quot;&gt;构建镜像&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;根据 Dockerfile 构建镜像；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-t&lt;/code&gt; 指定名称和标签，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--no-cache&lt;/code&gt; 不使用缓存，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-q&lt;/code&gt; 抑制输出
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker build -t image_name Dockerfile_path
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;清理&quot;&gt;清理&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;停止所有容器
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker stop $(docker ps -a -q)
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;删除所有容器
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker rm $(docker ps -a -q)
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;删除所有镜像
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker rmi $(docker images -q)
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;删除悬空镜像（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;none&amp;gt;&lt;/code&gt; 的 untagged 镜像）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker rmi $(docker images -f &quot;dangling=true&quot; -q)
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;清理不用的镜像、容器、网络、构建缓存（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-f&lt;/code&gt; 跳过确认，慎用）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker system prune -af
+docker volume prune
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;docker-运维与排查命令&quot;&gt;Docker 运维与排查命令&lt;/h2&gt;
+
+&lt;h3 id=&quot;常用运维命令&quot;&gt;常用运维命令&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看磁盘占用（镜像、容器、卷、构建缓存）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker system df
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;查看容器/镜像资源占用（CPU、内存），&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--no-stream&lt;/code&gt; 只输出一次
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker stats
+docker stats --no-stream
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;查看容器详情（JSON：环境变量、挂载、网络、健康状态）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker inspect container_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;查看网络
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker network ls
+docker network inspect network_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;排查命令&quot;&gt;排查命令&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;容器启动失败/异常退出：看退出码与错误
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker inspect -f &apos; &apos; container_name
+docker logs container_name
+docker events --since 30m
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;容器不断重启：查看重启次数与健康检查状态
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker inspect -f &apos;&apos; container_name
+docker inspect -f &apos;&apos; container_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;端口映射与占用排查
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker ps -a --format &apos;table \t\t&apos;
+ss -lntp | grep 8080
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;镜像拉取失败/认证失败：观察报错，确认仓库权限后重新登录
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker pull image_name
+docker login registry_host
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;容器内 DNS/网络不通
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker exec container_name cat /etc/resolv.conf
+docker exec container_name nslookup host
+docker network inspect network_name
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;kubernetesk8s常用命令&quot;&gt;Kubernetes（K8s）常用命令&lt;/h2&gt;
+
+&lt;h3 id=&quot;资源查看&quot;&gt;资源查看&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看节点、Pod、Service 等资源；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-A&lt;/code&gt; 全部命名空间，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-o wide&lt;/code&gt; 显示更多信息
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;kubectl get nodes
+kubectl get nodes -o wide
+kubectl get pods -A
+kubectl get pods -n &amp;lt;ns&amp;gt; -o wide
+kubectl get svc,deploy,rs,cm,secret -n &amp;lt;ns&amp;gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;查看资源详情（含 Events 调度信息）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;kubectl describe pod &amp;lt;pod&amp;gt; -n &amp;lt;ns&amp;gt;
+kubectl describe node &amp;lt;node&amp;gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;日志与进入容器&quot;&gt;日志与进入容器&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;kubectl logs &amp;lt;pod&amp;gt; -n &amp;lt;ns&amp;gt;
+kubectl logs -f --tail 100 &amp;lt;pod&amp;gt; -n &amp;lt;ns&amp;gt;
+kubectl logs &amp;lt;pod&amp;gt; -c &amp;lt;container&amp;gt; -n &amp;lt;ns&amp;gt;          # 多容器场景指定容器
+kubectl exec -it &amp;lt;pod&amp;gt; -n &amp;lt;ns&amp;gt; -- /bin/sh
+kubectl exec -it &amp;lt;pod&amp;gt; -c &amp;lt;container&amp;gt; -n &amp;lt;ns&amp;gt; -- /bin/sh
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;排查命令-1&quot;&gt;排查命令&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Pod 状态异常：常见 CrashLoopBackOff / ImagePullBackOff / Pending / Error
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;kubectl get pods -n &amp;lt;ns&amp;gt;            # 先看状态
+kubectl describe pod &amp;lt;pod&amp;gt; -n &amp;lt;ns&amp;gt;  # 再看 Events
+kubectl get events --sort-by=.lastTimestamp -n &amp;lt;ns&amp;gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;CrashLoopBackOff：查看上一次崩溃的日志与退出码
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;kubectl logs --previous &amp;lt;pod&amp;gt; -n &amp;lt;ns&amp;gt;
+kubectl describe pod &amp;lt;pod&amp;gt; -n &amp;lt;ns&amp;gt; | grep -A5 ExitCode
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ImagePullBackOff：Events 会写明具体报错（镜像名拼写、仓库权限、认证）&lt;/li&gt;
+  &lt;li&gt;Pending：多为节点资源不足或调度失败
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;kubectl top nodes
+kubectl top pods -n &amp;lt;ns&amp;gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;端口转发（调试用）
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;kubectl port-forward &amp;lt;pod&amp;gt; 8080:80 -n &amp;lt;ns&amp;gt;
+kubectl port-forward svc/&amp;lt;svc&amp;gt; 8080:80 -n &amp;lt;ns&amp;gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;重启应用：Deployment 场景下滚动重建
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;kubectl rollout restart deploy/&amp;lt;name&amp;gt; -n &amp;lt;ns&amp;gt;
+kubectl delete pod &amp;lt;pod&amp;gt; -n &amp;lt;ns&amp;gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;查看容器环境变量与配置
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;kubectl exec &amp;lt;pod&amp;gt; -n &amp;lt;ns&amp;gt; -- env
+kubectl get cm &amp;lt;name&amp;gt; -n &amp;lt;ns&amp;gt; -o yaml
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
@@ -2598,35 +2383,9 @@ docker容器可以理解为在沙盒中运行的进程。这个沙盒包含了�
     
       <item>
         <title>Git</title>
-        <description>&lt;h2 id=&quot;1git资料&quot;&gt;1.git资料&lt;/h2&gt;
+        <description>&lt;p&gt;Git 常用命令速查，按使用场景整理，覆盖安装、配置、仓库、文件操作、分支、版本回滚与排查。&lt;/p&gt;
 
-&lt;hr /&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://backlogtool.com/git-guide/cn&quot;&gt;猴子都能懂的GIT入门&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/git-magic&quot;&gt;Git魔法&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/git-54-stage-clear&quot;&gt;闯过这 54 关，点亮你的 Git 技能树&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Pro Git
-Git是一个自由和开源的分布式版本控制系统，设计用于处理从小到大型项目的速度和效率。
-&lt;em&gt;&lt;a href=&quot;https://git-scm.com/book/en/v1&quot;&gt;Pro Git&lt;/a&gt;&lt;a href=&quot;https://git-scm.com/book/zh/v1&quot;&gt;中文版&lt;/a&gt;&lt;/em&gt;
-&lt;em&gt;&lt;a href=&quot;https://git-scm.com/book/en/v2&quot;&gt;Pro Git v2 &lt;/a&gt;&lt;a href=&quot;https://git-scm.com/book/zh/v2&quot;&gt;中文版&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;Git教程&lt;/a&gt;
-廖雪峰的Git教程&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.php100.com/html/it/focus/2014/1024/7597.html&quot;&gt;五分钟开始你的Git之旅&lt;/a&gt;
-很多人认为Git太混乱或太复杂而没有把它当做版本控制工具。然而Git正在成长，另外很多很有意思的事情也随之发展起来。这篇文章瞄准了想开始用Git的人群，通常是从Subversion（另一个版本控制工具）转过来的。&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.linuxidc.com/Linux/2012-01/51205.htm&quot;&gt;Linux git命令参数及用法详解&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/git-reference&quot;&gt;Git 命令参考&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/git-immersion&quot;&gt;沉浸式学 Git&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/git-community-book&quot;&gt;Git Community Book 中文版&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;2安装-&quot;&gt;2.&lt;a href=&quot;https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git&quot;&gt;安装 &lt;/a&gt;&lt;/h2&gt;
-
-&lt;hr /&gt;
+&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Linux&lt;/li&gt;
@@ -2642,71 +2401,52 @@ Git是一个自由和开源的分布式版本控制系统，设计用于处理�
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;git
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Git 官方网站上有在各种 Unix 风格的系统上安装步骤&lt;/p&gt;
-
 &lt;ul&gt;
-  &lt;li&gt;Mac
-安装 Xcode Command Line Tools。 Mavericks
-安装 https://git-scm.com/download/mac&lt;/li&gt;
-  &lt;li&gt;Windows
-安装 https://git-scm.com/download/win&lt;/li&gt;
+  &lt;li&gt;Mac：安装 Xcode Command Line Tools（Mavericks 及以后），或从官网下载安装包&lt;/li&gt;
+  &lt;li&gt;Windows：从官网下载安装包&lt;/li&gt;
+  &lt;li&gt;版本查询&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c&quot;&gt;# 版本查询&lt;/span&gt;
-git &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;3git-环境设置&quot;&gt;3.&lt;a href=&quot;http://www.yiibai.com/git/git_environment.html&quot;&gt;Git 环境设置&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;环境设置&quot;&gt;环境设置&lt;/h2&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;初次运行 Git 前需要配置 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user.name&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user.email&lt;/code&gt;。&lt;/p&gt;
 
-&lt;p&gt;初次运行 Git 前的配置&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git config&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Git 有三个配置文件（优先级从高到低）：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;版本库级别：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/.git/config&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;全局：用户主目录下的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.gitconfig&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;系统级：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/gitconfig&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git config &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 当前Git存储库&lt;/span&gt;
-git config &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 全局设置&lt;/span&gt;
-git config &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--system&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 系统设置&lt;/span&gt;
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git config &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt;                &lt;span class=&quot;c&quot;&gt;# 编辑当前仓库配置&lt;/span&gt;
+git config &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt;       &lt;span class=&quot;c&quot;&gt;# 编辑全局配置&lt;/span&gt;
+git config &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--system&lt;/span&gt;       &lt;span class=&quot;c&quot;&gt;# 编辑系统配置&lt;/span&gt;
+git config &amp;lt;section&amp;gt;.&amp;lt;key&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 读取某个配置&lt;/span&gt;
+git config &amp;lt;section&amp;gt;.&amp;lt;key&amp;gt; &amp;lt;value&amp;gt;  &lt;span class=&quot;c&quot;&gt;# 设置某个配置&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Git的三个配置文件
-    &lt;ul&gt;
-      &lt;li&gt;版本库级别的配置文件（/.git/config）&lt;/li&gt;
-      &lt;li&gt;全局配置文件（用户主目录下）&lt;/li&gt;
-      &lt;li&gt;系统级配置文件（/etc目录下）
-这个命令的作用是打开相应的配置文件，并且进行编辑。其中版本库级别的配置文件的优先级最高，全局配置文件次之，系统级别配置文件最低。Git配置文件采用的是INI文件格式。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;设置用户名与邮箱&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git config &amp;lt;section&amp;gt;.&amp;lt;key&amp;gt; &lt;span class=&quot;c&quot;&gt;# 读取和更改INI配置文件的内容&lt;/span&gt;
-git config &amp;lt;section&amp;gt;.&amp;lt;key&amp;gt; &amp;lt;value&amp;gt; &lt;span class=&quot;c&quot;&gt;# 修改INI配置文件中某个配置的键值&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;设置用户名&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.name &lt;span class=&quot;s2&quot;&gt;&quot;Your Name&quot;&lt;/span&gt;
+git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.email &lt;span class=&quot;s2&quot;&gt;&quot;email@example.com&quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;设置电子邮件ID&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.email &lt;span class=&quot;s2&quot;&gt;&quot;email@example.com&quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;查看个人信息&lt;/li&gt;
+  &lt;li&gt;查看配置&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -2714,16 +2454,15 @@ git config &amp;lt;section&amp;gt;.&amp;lt;key&amp;gt; &amp;lt;value&amp;gt; &lt
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;避免PULLING提交合并&lt;/li&gt;
+  &lt;li&gt;避免 pull 时产生多余的合并提交（用 rebase 代替 merge）&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; branch.autosetuprebase always
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; pull.rebase &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;颜色高亮
-下面的命令使颜色突出显示在控制台的Git。&lt;/li&gt;
+  &lt;li&gt;颜色高亮&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -2743,7 +2482,7 @@ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; color.branch a
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;设置git命令的别名&lt;/li&gt;
+  &lt;li&gt;设置命令别名&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -2753,7 +2492,7 @@ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; alias.co check
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;设置默认的合并工具&lt;/li&gt;
+  &lt;li&gt;设置默认合并工具&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -2761,7 +2500,7 @@ git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; alias.co check
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;删除git全局配置文件中的用户名&lt;/li&gt;
+  &lt;li&gt;删除配置&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -2771,28 +2510,20 @@ git config &lt;span class=&quot;nt&quot;&gt;--unset&lt;/span&gt; &lt;span class=
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;远程仓库设置
-    &lt;ul&gt;
-      &lt;li&gt;生成公共/私有RSA密钥对&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
+  &lt;li&gt;SSH 密钥：生成 RSA 密钥对，将公钥配置到 GitHub&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
-4
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;ssh-keygen &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; rsa &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;youremail@example.com&quot;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; ~/.ssh/id_rsa.pub
-&lt;span class=&quot;c&quot;&gt;#github.com验证&lt;/span&gt;
-ssh &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt; git@github.com
+ssh &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt; git@github.com   &lt;span class=&quot;c&quot;&gt;# 验证是否连通&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;一个是私有的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id_rsa&lt;/code&gt;，另一个是公共&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id_rsa.pub&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;生成的一对密钥中，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id_rsa&lt;/code&gt; 是私钥（保密），&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id_rsa.pub&lt;/code&gt; 是公钥（填到 GitHub）。&lt;/p&gt;
 
-&lt;h2 id=&quot;4仓库&quot;&gt;4.仓库&lt;/h2&gt;
-
-&lt;hr /&gt;
+&lt;h2 id=&quot;仓库&quot;&gt;仓库&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;创建本地版本库&lt;/li&gt;
@@ -2801,29 +2532,35 @@ ssh &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt; git@github.com
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
-4
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;gittest
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;learngit
-&lt;span class=&quot;nb&quot;&gt;pwd
-&lt;/span&gt;git init
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;gittest
+git init
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;添加远程Git仓库&lt;/li&gt;
+  &lt;li&gt;克隆远程仓库；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--bare&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--mirror&lt;/code&gt; 创建不含工作区的裸版本库&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git remote add &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;origin] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SSH] &lt;span class=&quot;c&quot;&gt;# 关联一个远程库，添加远程[SSH]的[origin]分支&lt;/span&gt;
-git push origin master &lt;span class=&quot;c&quot;&gt;# 第一次推送master分支的所有内容，不能为空&lt;/span&gt;
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git clone &amp;lt;repository&amp;gt; &amp;lt;directory&amp;gt;
+git clone &lt;span class=&quot;nt&quot;&gt;--bare&lt;/span&gt; &amp;lt;repository&amp;gt; &amp;lt;directory.git&amp;gt;
+git clone &lt;span class=&quot;nt&quot;&gt;--mirror&lt;/span&gt; &amp;lt;repository&amp;gt; &amp;lt;directory.git&amp;gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;此后，每次本地提交后，只要有必要，就可以使用命令&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git push origin master&lt;/code&gt;推送最新修改到master分支；
-&lt;em&gt;例：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git remote add origin git@github.com:lbb4511/Story.git&lt;/code&gt;&lt;/em&gt;
-&lt;em&gt;&lt;a href=&quot;http://www.jianshu.com/p/8d26730386f3&quot;&gt;github上传时出现error: src refspec master does not match any解决办法&lt;/a&gt;&lt;/em&gt; &lt;strong&gt;&lt;em&gt;主要是没有要同步的文件&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;关联远程仓库&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git remote add origin git@github.com:lbb4511/Story.git
+git push &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; origin master   &lt;span class=&quot;c&quot;&gt;# 首次推送并设置上游跟踪&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;克隆远程Git仓库&lt;/li&gt;
+  &lt;li&gt;远程仓库管理&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -2831,56 +2568,48 @@ git push origin master &lt;span class=&quot;c&quot;&gt;# 第一次推送master�
 3
 4
 5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git clone &amp;lt;repository&amp;gt; &amp;lt;directory&amp;gt; &lt;span class=&quot;c&quot;&gt;# 将repository指向的版本库创建一个克隆到directory目录中。目录directory相当于克隆版本库的工作区，文件都会检出，版本库位于工作区下得.git目录中。&lt;/span&gt;
-git clone &lt;span class=&quot;nt&quot;&gt;--bare&lt;/span&gt; &amp;lt;repository&amp;gt; &amp;lt;directory.git&amp;gt;
-git clone &lt;span class=&quot;nt&quot;&gt;--mirror&lt;/span&gt; &amp;lt;repository&amp;gt; &amp;lt;directory.git&amp;gt;
-&lt;span class=&quot;c&quot;&gt;# 上面的两种克隆版本都不包含工作区，直接就是版本库的内容，这样的版本库称为裸版本库。&lt;/span&gt;
-git clone SSH &lt;span class=&quot;c&quot;&gt;# 简写&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;例:&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git clone git@github.com:github/hub.git&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;合并两个仓库
-    &lt;ul&gt;
-      &lt;li&gt;远端的服务器上下载数据（git pull）&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git pull &lt;span class=&quot;c&quot;&gt;# 从远端的服务器上下载数据，从而实现同步更新。要获取的远程版本库的URL地址由remote.&amp;lt;remote&amp;gt;.url提供。&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git remote &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt;                &lt;span class=&quot;c&quot;&gt;# 查看远程仓库及 URL&lt;/span&gt;
+git remote show origin       &lt;span class=&quot;c&quot;&gt;# 查看远程详情（分支、跟踪关系）&lt;/span&gt;
+git remote rename origin upstream   &lt;span class=&quot;c&quot;&gt;# 重命名远程&lt;/span&gt;
+git remote set-url origin &amp;lt;new-url&amp;gt; &lt;span class=&quot;c&quot;&gt;# 修改远程 URL&lt;/span&gt;
+git remote remove origin     &lt;span class=&quot;c&quot;&gt;# 删除远程&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;推送本地库到远程仓库（git push）&lt;/li&gt;
+  &lt;li&gt;拉取 / 推送&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git push &amp;lt;remote&amp;gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;branch] &lt;span class=&quot;c&quot;&gt;# 就会将你的 [branch] 分支推送成为 [alias] 远端上的 [branch] 分支&lt;/span&gt;
-要推送的远程版本号的URL地址由remote.&amp;lt;remote&amp;gt;.pushurl给出，如果没有配置，则使用remote.&amp;lt;remote&amp;gt;.url配置的URL地址。
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;提示：更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。
-提示：再次推送前，先与远程变更合并（如 ‘git pull …‘）。详见
-提示：’git push –help’ 中的 ‘Note about fast-forwards’ 小节。
-引起这个问题是远程仓库和本地不同步引起的
-解决方案：需要先获取远端更新并与本地合并,再git push具体操作如下:&lt;/p&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git remote add &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;origin] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;SSH] &lt;span class=&quot;c&quot;&gt;# 添加远程[SSH]的[origin]分支&lt;/span&gt;
-git fetch origin &lt;span class=&quot;c&quot;&gt;# 获取远程更新&lt;/span&gt;
-git merge origin/master &lt;span class=&quot;c&quot;&gt;# 把更新的内容合并到本地分支&lt;/span&gt;
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git pull origin master    &lt;span class=&quot;c&quot;&gt;# 从远程拉取并合并到当前分支&lt;/span&gt;
+git fetch origin          &lt;span class=&quot;c&quot;&gt;# 只拉取远程更新，不合并&lt;/span&gt;
+git push origin master    &lt;span class=&quot;c&quot;&gt;# 推送本地提交到远程&lt;/span&gt;
+git push &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt;           &lt;span class=&quot;c&quot;&gt;# 推送所有标签&lt;/span&gt;
+git push &lt;span class=&quot;nt&quot;&gt;--force-with-lease&lt;/span&gt; origin master  &lt;span class=&quot;c&quot;&gt;# 安全强推（拒绝覆盖他人新提交）&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;em&gt;参考&lt;a href=&quot;http://blog.csdn.net/gouboft/article/details/8450696&quot;&gt;合并两个git仓库&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git push --force&lt;/code&gt; 会直接覆盖远程历史，协作时慎用；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--force-with-lease&lt;/code&gt; 只有在远程自上次 fetch 后没有新增提交时才允许强推，更安全。&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;h2 id=&quot;5文件&quot;&gt;5.文件&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;推送被拒绝：原因是远程仓库和本地不同步，需先拉取合并再推送&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;hr /&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git fetch origin
+git merge origin/master
+git push origin master
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;更简单的做法是直接 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git pull origin master&lt;/code&gt;（等价于 fetch + merge）。&lt;/p&gt;
+
+&lt;h2 id=&quot;文件操作&quot;&gt;文件操作&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;添加（git add）&lt;/li&gt;
@@ -2891,21 +2620,23 @@ git merge origin/master &lt;span class=&quot;c&quot;&gt;# 把更新的内容合�
 3
 4
 5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git add &lt;span class=&quot;c&quot;&gt;# 在提交你修改的文件之前，你需要把它们添加到暂存区。如果该文件是新创建的，你可以执行将该文件添加到暂存区&lt;/span&gt;
-git add &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Git会递归地将你执行命令时所在的目录中的所有文件添加上去，所以如果你将当前的工作目录作为参数，它就会追踪那儿的所有文件&lt;/span&gt;
-git add &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 使用-u参数调用了git add命令，会将本地有改动（包括删除和修改）的已经追踪的文件标记到暂存区中。&lt;/span&gt;
-git add &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 使用-A参数会将添加所有改动的已跟踪文件和未跟踪文件。&lt;/span&gt;
-git add &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 交互式的方式进行添加。&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git add &amp;lt;file&amp;gt;    &lt;span class=&quot;c&quot;&gt;# 添加文件到暂存区&lt;/span&gt;
+git add &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;         &lt;span class=&quot;c&quot;&gt;# 递归添加当前目录所有文件&lt;/span&gt;
+git add &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt;        &lt;span class=&quot;c&quot;&gt;# 添加已跟踪文件的改动（含删除和修改）&lt;/span&gt;
+git add &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt;        &lt;span class=&quot;c&quot;&gt;# 添加所有改动（已跟踪 + 未跟踪）&lt;/span&gt;
+git add &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;        &lt;span class=&quot;c&quot;&gt;# 交互式添加&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;删除（git rm）&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm&lt;/code&gt; 只删除工作区文件；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git rm&lt;/code&gt; 会把删除动作加入暂存区，提交后真正删除文件。&lt;/p&gt;
+
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;rm命令删除的文件只是在本地进行了删除，尚未添加到暂存区，也就是说，直接在工作区删除，对暂存区和版本库没有任何影响。
-git rm命令会将删除动作加入暂存区，这是执行提交动作，就从真正意义上执行了文件删除。
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &amp;lt;file&amp;gt;     &lt;span class=&quot;c&quot;&gt;# 删除文件&lt;/span&gt;
+git &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &amp;lt;&lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 递归删除目录&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
@@ -2913,46 +2644,69 @@ git rm命令会将删除动作加入暂存区，这是执行提交动作，就�
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git &lt;span class=&quot;nb&quot;&gt;mv&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 移动文件，git中以git rm和git add两条命令取而代之。&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git &lt;span class=&quot;nb&quot;&gt;mv&lt;/span&gt; &amp;lt;old&amp;gt; &amp;lt;new&amp;gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;清除（git clean）
-删除本地多余的目录和文件&lt;/li&gt;
+  &lt;li&gt;忽略文件（.gitignore）：在仓库根目录创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt;，写入规则即可让 Git 忽略对应文件，常用规则示例：&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;*.log
+node_modules/
+build/
+.env
+!.env.example
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;常用操作：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git check-ignore &amp;lt;file&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 检查某文件是否被忽略，输出匹配到的规则&lt;/span&gt;
+git &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--cached&lt;/span&gt; &amp;lt;&lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 移除已跟踪文件但仍保留本地文件（加 ignore 后需执行一次）&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;清除（git clean）：删除本地多余的未跟踪文件与目录&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git clean &lt;span class=&quot;nt&quot;&gt;-nd&lt;/span&gt;     &lt;span class=&quot;c&quot;&gt;# 预删除，显示将要删除的内容&lt;/span&gt;
+git clean &lt;span class=&quot;nt&quot;&gt;-fd&lt;/span&gt;     &lt;span class=&quot;c&quot;&gt;# 强制删除多余的文件和目录&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看状态（git status）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git status      &lt;span class=&quot;c&quot;&gt;# 查看工作区与暂存区状态&lt;/span&gt;
+git status &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 简短输出&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看差异（git diff）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/git-diff.webp&quot; alt=&quot;git diff&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
 4
 5
-6
-7
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git clean &lt;span class=&quot;nt&quot;&gt;-nd&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 显示要删除的内容，但是是预删除&lt;/span&gt;
-git clean &lt;span class=&quot;nt&quot;&gt;-fd&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 强制删除多余的文件和目录&lt;/span&gt;
-&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;shell
-- 查看文件状态（git status）
-&lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;shell
-git status &lt;span class=&quot;c&quot;&gt;# 查看你的代码在缓存与当前工作目录的状态&lt;/span&gt;
-git status &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 将结果以简短的形式输出&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;查看本次修改内容（git diff）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/979228-3c860c858f8d8a5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git diff &lt;span class=&quot;c&quot;&gt;# 显示工作区和暂存区的差异&lt;/span&gt;
-git diff FileName &lt;span class=&quot;c&quot;&gt;# 查看文件本次修改内容&lt;/span&gt;
-git diff HEAD &lt;span class=&quot;c&quot;&gt;# 显示工作区和HEAD之间的差异&lt;/span&gt;
-git diff &lt;span class=&quot;nt&quot;&gt;--cached&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 显示暂存区和HEAD之间的差异&lt;/span&gt;
-git diff id1 id2 &lt;span class=&quot;c&quot;&gt;# 显示两次提交之间的差异&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git diff              &lt;span class=&quot;c&quot;&gt;# 工作区与暂存区差异&lt;/span&gt;
+git diff &amp;lt;file&amp;gt;       &lt;span class=&quot;c&quot;&gt;# 查看某文件本次修改内容&lt;/span&gt;
+git diff HEAD         &lt;span class=&quot;c&quot;&gt;# 工作区与 HEAD 的差异&lt;/span&gt;
+git diff &lt;span class=&quot;nt&quot;&gt;--cached&lt;/span&gt;     &lt;span class=&quot;c&quot;&gt;# 暂存区与 HEAD 的差异&lt;/span&gt;
+git diff &amp;lt;id1&amp;gt; &amp;lt;id2&amp;gt;  &lt;span class=&quot;c&quot;&gt;# 两次提交之间的差异&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
@@ -2963,104 +2717,14 @@ git diff id1 id2 &lt;span class=&quot;c&quot;&gt;# 显示两次提交之间的�
 2
 3
 4
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;文件版本内容&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 提交&lt;/span&gt;
-git commit &lt;span class=&quot;nt&quot;&gt;--amend&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 修补式提交。&lt;/span&gt;
-git commit &lt;span class=&quot;nt&quot;&gt;--a&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 对本地所有变更的文件执行提交操作，包括对本地修改的文件和删除的文件，但是不包括未被版本库跟踪的文件。但是这个命令最好不要使用，这样会丢掉Git暂存区带给用户的最大好处：对提交内容进行控制的能力&lt;/span&gt;
-git commit &lt;span class=&quot;nt&quot;&gt;--allow-empty&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 允许执行空白提交&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;提交描述&quot;&lt;/span&gt;      &lt;span class=&quot;c&quot;&gt;# 提交&lt;/span&gt;
+git commit &lt;span class=&quot;nt&quot;&gt;-am&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;提交描述&quot;&lt;/span&gt;     &lt;span class=&quot;c&quot;&gt;# add + commit 一步完成&lt;/span&gt;
+git commit &lt;span class=&quot;nt&quot;&gt;--amend&lt;/span&gt;           &lt;span class=&quot;c&quot;&gt;# 修补上一次提交&lt;/span&gt;
+git commit &lt;span class=&quot;nt&quot;&gt;--allow-empty&lt;/span&gt;     &lt;span class=&quot;c&quot;&gt;# 允许空提交&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;查看修改履历（git log）
-git log主要用来显示分支中提交更改的记录。当执行git commit以存储一个快照的时候，文件详单、提交消息和提交者的信息、此次提交所基于的快照都会被保存。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git log &lt;span class=&quot;nt&quot;&gt;--pretty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;oneline
-git log &lt;span class=&quot;nt&quot;&gt;--oneline&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 可以显示更加短小的提交ID.&lt;/span&gt;
-git log &lt;span class=&quot;nt&quot;&gt;--graph&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 显示何时出现了分支和合并等信息.&lt;/span&gt;
-git log &lt;span class=&quot;nt&quot;&gt;--pretty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;raw &lt;span class=&quot;c&quot;&gt;# 显示提交对象的parent属性.&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;回滚（git checkout）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git checkout branchname &lt;span class=&quot;c&quot;&gt;# 会改变HEAD头指针，主要用于切换分支&lt;/span&gt;
-git checkout &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; branchname &lt;span class=&quot;c&quot;&gt;# 用于创建一个新的分支，并且切换到创建的新的分支上&lt;/span&gt;
-git checkout &lt;span class=&quot;nt&quot;&gt;--filename&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 用暂存区中的filename文件来覆盖工作区中的filename文件&lt;/span&gt;
-git checkout  &lt;span class=&quot;nt&quot;&gt;--filename&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 用指定提交中的文件覆盖暂存区和工作区中对应的文件&lt;/span&gt;
-git checkout &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; .或者git checkout &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 用暂存区的所有文件直接覆盖本地文件，取消所有的本地的修改，是一条危险的操作&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;6版本控制&quot;&gt;6.版本控制&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;版本（git rebase）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/979228-b029812ee35ea187.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;版本（git reset）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/979228-729ec9a1c2e7d95b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;&quot; /&gt;
-把当前分支指向另一个位置，并且有选择的变动工作目录和索引&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git reset &lt;span class=&quot;nt&quot;&gt;--hard&lt;/span&gt; &amp;lt;commit&amp;gt; &lt;span class=&quot;c&quot;&gt;# 其中commit是可选项，可以使用引用或者提交ID，如果省略则相当于使用了HEAD的指向作为提交ID，完成的操作包括替换引用的指向，替换暂存区，替换工作区&lt;/span&gt;
-git reset &lt;span class=&quot;nt&quot;&gt;--soft&lt;/span&gt; &amp;lt;commit&amp;gt; &lt;span class=&quot;c&quot;&gt;# 其中commit是可选项，可以使用引用或者提交ID，如果省略则相当于使用了HEAD的指向作为提交ID。完成的操作主要是更改引用的指向，不改变暂存区和工作区&lt;/span&gt;
-git reset &lt;span class=&quot;c&quot;&gt;# 等同于git reset HEAD，用HEAD指向的目录树重置暂存区&lt;/span&gt;
-git reset &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; filename &lt;span class=&quot;c&quot;&gt;# 将文件filename的改动撤出暂存区，暂存区其他文件不变&lt;/span&gt;
-git reset HEAD &lt;span class=&quot;nt&quot;&gt;--filename&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 等同于git reset -- filename&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;提交ID可以是前一部分&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;查看提交记录（git reflog）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git reflog
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;查看Git对象（git cat-file）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git cat-file &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 查看Git对象的类型，主要的git对象包括tree，commit，parent，和blob等。&lt;/span&gt;
-git cat-file &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 查看Git对象的内容&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;git grep&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 可以用来搜索工作区中的文件内容&lt;/span&gt;
-要查找git仓库里某个特定版本里的内容, 我们可以像下面一样在命令行末尾加上标签名&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;tag reference&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;，git &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;文字内容&apos;&lt;/span&gt; v1.0
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;分支（git branch）&lt;/li&gt;
+  &lt;li&gt;查看历史（git log）&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
@@ -3069,31 +2733,355 @@ git cat-file &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt;  &lt;span class=&q
 4
 5
 6
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git branch &lt;span class=&quot;c&quot;&gt;# 显示当前所在的分支&lt;/span&gt;
-git branch &lt;span class=&quot;c&quot;&gt;# 创建新的分支branchname&lt;/span&gt;
-git branch &lt;span class=&quot;c&quot;&gt;# 基于提交创建新分支，新分支的分支名为&lt;/span&gt;
-git branch &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 删除名称为branchname的分支，删除时会检查所有的删除分支是否已经合并到其他分支，否则拒绝删除&lt;/span&gt;
-git branch &lt;span class=&quot;nt&quot;&gt;-D&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 强制删除分支&lt;/span&gt;
-git branch &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 重命名分支&lt;/span&gt;
+7
+8
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git log &lt;span class=&quot;nt&quot;&gt;--oneline&lt;/span&gt;             &lt;span class=&quot;c&quot;&gt;# 简短显示提交&lt;/span&gt;
+git log &lt;span class=&quot;nt&quot;&gt;--graph&lt;/span&gt;               &lt;span class=&quot;c&quot;&gt;# 图示分支与合并&lt;/span&gt;
+git log &lt;span class=&quot;nt&quot;&gt;--pretty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;raw          &lt;span class=&quot;c&quot;&gt;# 显示 parent 属性&lt;/span&gt;
+git log &lt;span class=&quot;nt&quot;&gt;--stat&lt;/span&gt;                &lt;span class=&quot;c&quot;&gt;# 显示每个提交涉及的变动文件&lt;/span&gt;
+git log &lt;span class=&quot;nt&quot;&gt;-5&lt;/span&gt;                    &lt;span class=&quot;c&quot;&gt;# 最近 5 条&lt;/span&gt;
+git log &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt;                    &lt;span class=&quot;c&quot;&gt;# 显示每个提交的完整差异&lt;/span&gt;
+git show &amp;lt;commit&amp;gt;             &lt;span class=&quot;c&quot;&gt;# 查看某次提交详情&lt;/span&gt;
+git show HEAD@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;5&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;             &lt;span class=&quot;c&quot;&gt;# 查看当前分支第 5 次之前的状态&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;git archive&lt;/li&gt;
+  &lt;li&gt;过滤历史提交&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
 4
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git archive &lt;span class=&quot;c&quot;&gt;# 对任意提交对应的目录树建立归档。&lt;/span&gt;
-git archive &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; latest.zip HEAD &lt;span class=&quot;c&quot;&gt;# 基于最新提交建立归档文件latest.zip&lt;/span&gt;
-git archive &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; partial.tar HEAD src doc &lt;span class=&quot;c&quot;&gt;# 只将目录src和doc建立到归档文件partial.tar中&lt;/span&gt;
-git archive &lt;span class=&quot;nt&quot;&gt;--format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1.0/ v1.0 | &lt;span class=&quot;nb&quot;&gt;gzip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; foo-1.0.tar.gz &lt;span class=&quot;c&quot;&gt;# 基于里程碑v1.0建立归档，并且为归档中的文件添加目录前缀1.0&lt;/span&gt;
+5
+6
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git log &lt;span class=&quot;nt&quot;&gt;--author&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;名字&quot;&lt;/span&gt;       &lt;span class=&quot;c&quot;&gt;# 按作者过滤&lt;/span&gt;
+git log &lt;span class=&quot;nt&quot;&gt;--since&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2 weeks ago&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 按时间过滤（--until 为截止时间）&lt;/span&gt;
+git log &lt;span class=&quot;nt&quot;&gt;--grep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;关键字&quot;&lt;/span&gt;       &lt;span class=&quot;c&quot;&gt;# 按提交信息搜索&lt;/span&gt;
+git log &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;字符串&quot;&lt;/span&gt;            &lt;span class=&quot;c&quot;&gt;# 按代码内容变更搜索（新增或删除该字符串的提交）&lt;/span&gt;
+git log &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; file              &lt;span class=&quot;c&quot;&gt;# 只看某个文件的提交历史&lt;/span&gt;
+git log &lt;span class=&quot;nt&quot;&gt;--oneline&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt;      &lt;span class=&quot;c&quot;&gt;# 查看所有分支的提交&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;7git基本命令集合&quot;&gt;7.&lt;a href=&quot;https://github.com/michaelliao/learngit/blob/master/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E9%9B%86%E5%90%88&quot;&gt;git基本命令集合&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;按作者统计提交（git shortlog，生成 changelog 常用）&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;hr /&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git shortlog                  &lt;span class=&quot;c&quot;&gt;# 按作者分组统计提交数&lt;/span&gt;
+git shortlog &lt;span class=&quot;nt&quot;&gt;-sn&lt;/span&gt;              &lt;span class=&quot;c&quot;&gt;# 按提交数排序显示作者统计&lt;/span&gt;
+git shortlog &lt;span class=&quot;nt&quot;&gt;-sne&lt;/span&gt;             &lt;span class=&quot;c&quot;&gt;# 附带作者邮箱&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;分支&quot;&gt;分支&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看 / 创建 / 删除&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git branch                    &lt;span class=&quot;c&quot;&gt;# 列出本地分支&lt;/span&gt;
+git branch &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt;                 &lt;span class=&quot;c&quot;&gt;# 列出所有分支（含远程）&lt;/span&gt;
+git branch &amp;lt;name&amp;gt;             &lt;span class=&quot;c&quot;&gt;# 创建分支&lt;/span&gt;
+git branch &amp;lt;name&amp;gt; &amp;lt;commit&amp;gt;    &lt;span class=&quot;c&quot;&gt;# 基于指定提交创建分支&lt;/span&gt;
+git branch &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &amp;lt;name&amp;gt;          &lt;span class=&quot;c&quot;&gt;# 删除分支（已合并才允许）&lt;/span&gt;
+git branch &lt;span class=&quot;nt&quot;&gt;-D&lt;/span&gt; &amp;lt;name&amp;gt;          &lt;span class=&quot;c&quot;&gt;# 强制删除分支&lt;/span&gt;
+git branch &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &amp;lt;old&amp;gt; &amp;lt;new&amp;gt;     &lt;span class=&quot;c&quot;&gt;# 重命名分支&lt;/span&gt;
+git branch &lt;span class=&quot;nt&quot;&gt;--merged&lt;/span&gt;           &lt;span class=&quot;c&quot;&gt;# 显示已合并到当前分支的分支&lt;/span&gt;
+git branch &lt;span class=&quot;nt&quot;&gt;--no-merged&lt;/span&gt;        &lt;span class=&quot;c&quot;&gt;# 显示未合并到当前分支的分支&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;切换分支（传统写法）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git checkout &amp;lt;branch&amp;gt;      &lt;span class=&quot;c&quot;&gt;# 切换分支&lt;/span&gt;
+git checkout &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &amp;lt;branch&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 创建并切换分支&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;切换分支（现代写法，语义更清晰）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git switch &amp;lt;branch&amp;gt;        &lt;span class=&quot;c&quot;&gt;# 切换分支&lt;/span&gt;
+git switch &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &amp;lt;branch&amp;gt;     &lt;span class=&quot;c&quot;&gt;# 创建并切换分支&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;合并（git merge）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git merge &amp;lt;branch&amp;gt;          &lt;span class=&quot;c&quot;&gt;# 合并分支到当前分支&lt;/span&gt;
+git merge origin/master     &lt;span class=&quot;c&quot;&gt;# 合并远程 master 到当前分支&lt;/span&gt;
+git cherry-pick &amp;lt;commit&amp;gt;    &lt;span class=&quot;c&quot;&gt;# 挑选某次提交应用到当前分支&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;变基（git rebase）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/git-rebase.webp&quot; alt=&quot;git rebase&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git rebase &amp;lt;branch&amp;gt;      &lt;span class=&quot;c&quot;&gt;# 将当前分支变基到目标分支&lt;/span&gt;
+git rebase &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &amp;lt;commit&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 交互式变基（合并、改写提交）&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;回滚与版本控制&quot;&gt;回滚与版本控制&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;撤销工作区改动（git restore，现代写法）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git restore &amp;lt;file&amp;gt;                 &lt;span class=&quot;c&quot;&gt;# 用暂存区覆盖工作区&lt;/span&gt;
+git restore &lt;span class=&quot;nt&quot;&gt;--staged&lt;/span&gt; &amp;lt;file&amp;gt;        &lt;span class=&quot;c&quot;&gt;# 把文件撤出暂存区&lt;/span&gt;
+git restore &lt;span class=&quot;nt&quot;&gt;--source&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;commit&amp;gt; &amp;lt;file&amp;gt;  &lt;span class=&quot;c&quot;&gt;# 从指定提交恢复文件&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;传统写法（git checkout –）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git checkout &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &amp;lt;file&amp;gt;     &lt;span class=&quot;c&quot;&gt;# 用暂存区覆盖工作区文件&lt;/span&gt;
+git checkout &amp;lt;commit&amp;gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &amp;lt;file&amp;gt;  &lt;span class=&quot;c&quot;&gt;# 用指定提交覆盖暂存区与工作区&lt;/span&gt;
+git checkout &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;             &lt;span class=&quot;c&quot;&gt;# 丢弃所有本地修改（危险操作）&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;版本回退（git reset）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/git-reset.webp&quot; alt=&quot;git reset&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git reset &lt;span class=&quot;nt&quot;&gt;--hard&lt;/span&gt; &amp;lt;commit&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 移动 HEAD，重置暂存区和工作区（危险，会丢改动）&lt;/span&gt;
+git reset &lt;span class=&quot;nt&quot;&gt;--soft&lt;/span&gt; &amp;lt;commit&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 只移动 HEAD，不动暂存区和工作区&lt;/span&gt;
+git reset &lt;span class=&quot;nt&quot;&gt;--mixed&lt;/span&gt; &amp;lt;commit&amp;gt;  &lt;span class=&quot;c&quot;&gt;# 默认：移动 HEAD 并重置暂存区，保留工作区&lt;/span&gt;
+git reset HEAD &amp;lt;file&amp;gt;       &lt;span class=&quot;c&quot;&gt;# 将文件撤出暂存区&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;提交 ID 可以使用完整 SHA-1，也可以只写前几位。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;撤销提交（git revert）：新建一个反向提交，保留历史，适合已推送的分支&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git revert &amp;lt;commit&amp;gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;找回提交（git reflog）：显示所有 HEAD 移动记录，可找回被 reset 掉的提交&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git reflog
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;标签（git tag）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git tag                    &lt;span class=&quot;c&quot;&gt;# 列出标签&lt;/span&gt;
+git tag &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; v2.0 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;描述&apos;&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 打附注标签&lt;/span&gt;
+git show v2.0              &lt;span class=&quot;c&quot;&gt;# 查看标签详情&lt;/span&gt;
+git push &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt;            &lt;span class=&quot;c&quot;&gt;# 推送所有标签&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;其他常用命令&quot;&gt;其他常用命令&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;暂存（git stash）：把当前未提交的修改暂存起来，工作区回到干净状态&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git stash                 &lt;span class=&quot;c&quot;&gt;# 暂存当前修改&lt;/span&gt;
+git stash list            &lt;span class=&quot;c&quot;&gt;# 查看暂存列表&lt;/span&gt;
+git stash show &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; stash@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;0&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 查看某次暂存内容&lt;/span&gt;
+git stash apply stash@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;0&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# 应用暂存&lt;/span&gt;
+git stash pop             &lt;span class=&quot;c&quot;&gt;# 应用并删除暂存&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;检索（git grep）：搜索文件内容&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;text&apos;&lt;/span&gt;           &lt;span class=&quot;c&quot;&gt;# 在工作区中搜索&lt;/span&gt;
+git &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;text&apos;&lt;/span&gt; v1.0      &lt;span class=&quot;c&quot;&gt;# 在指定版本中搜索&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;归档（git archive）：把某次提交的目录树打包&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git archive &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; latest.zip HEAD
+git archive &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; partial.tar HEAD src doc
+git archive &lt;span class=&quot;nt&quot;&gt;--format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1.0/ v1.0 | &lt;span class=&quot;nb&quot;&gt;gzip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; foo-1.0.tar.gz
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看 Git 对象（git cat-file）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git cat-file &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &amp;lt;object&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 查看对象类型（tree、commit、blob 等）&lt;/span&gt;
+git cat-file &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &amp;lt;object&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 查看对象内容&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;排查仓库（git fsck / git blame）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git fsck              &lt;span class=&quot;c&quot;&gt;# 检查仓库完整性&lt;/span&gt;
+git blame &amp;lt;file&amp;gt;      &lt;span class=&quot;c&quot;&gt;# 查看文件每行最后修改的提交&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;二分定位（git bisect）：在已知坏提交和好提交之间二分查找引入 bug 的提交&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git bisect start                  &lt;span class=&quot;c&quot;&gt;# 开始二分&lt;/span&gt;
+git bisect bad                    &lt;span class=&quot;c&quot;&gt;# 标记当前提交为坏&lt;/span&gt;
+git bisect good &amp;lt;commit&amp;gt;          &lt;span class=&quot;c&quot;&gt;# 标记一个已知的好提交&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Git 会检出中间提交，测试后标记：&lt;/span&gt;
+git bisect bad                    &lt;span class=&quot;c&quot;&gt;# 该提交仍坏&lt;/span&gt;
+git bisect good                   &lt;span class=&quot;c&quot;&gt;# 该提交正常&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 反复几次后 Git 会定位到首个坏提交；结束时：&lt;/span&gt;
+git bisect reset                  &lt;span class=&quot;c&quot;&gt;# 退出二分，回到原分支&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;补丁工作流（git format-patch / git am）：把提交导出为补丁文件，供邮件或他人应用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git format-patch &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt; &amp;lt;commit&amp;gt;      &lt;span class=&quot;c&quot;&gt;# 导出某次提交为补丁文件（如 0001-xxx.patch）&lt;/span&gt;
+git format-patch origin/master    &lt;span class=&quot;c&quot;&gt;# 导出 origin/master 之后的所有提交&lt;/span&gt;
+git apply &amp;lt;patch&amp;gt;                 &lt;span class=&quot;c&quot;&gt;# 应用补丁到工作区（不提交）&lt;/span&gt;
+git am &amp;lt;patch&amp;gt;                    &lt;span class=&quot;c&quot;&gt;# 应用补丁并生成提交（保留作者信息）&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;生成版本号（git describe）：基于最近标签生成形如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v1.0-3-gabc123&lt;/code&gt; 的描述，CI 版本号常用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git describe               &lt;span class=&quot;c&quot;&gt;# 最近标签 + 提交数 + 短哈希&lt;/span&gt;
+git describe &lt;span class=&quot;nt&quot;&gt;--tags&lt;/span&gt;        &lt;span class=&quot;c&quot;&gt;# 使用轻量标签&lt;/span&gt;
+git describe &lt;span class=&quot;nt&quot;&gt;--abbrev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0    &lt;span class=&quot;c&quot;&gt;# 只显示最近标签名&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;稀疏检出（git sparse-checkout）：只检出仓库的部分目录，适合超大仓库&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git clone &lt;span class=&quot;nt&quot;&gt;--filter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;blob:none &lt;span class=&quot;nt&quot;&gt;--sparse&lt;/span&gt; &amp;lt;repository&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 稀疏克隆（不下载文件内容）&lt;/span&gt;
+git sparse-checkout &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &amp;lt;&lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;        &lt;span class=&quot;c&quot;&gt;# 只检出指定目录&lt;/span&gt;
+git sparse-checkout add &amp;lt;dir2&amp;gt;       &lt;span class=&quot;c&quot;&gt;# 追加检出的目录&lt;/span&gt;
+git sparse-checkout list            &lt;span class=&quot;c&quot;&gt;# 查看当前检出的目录&lt;/span&gt;
+git sparse-checkout disable         &lt;span class=&quot;c&quot;&gt;# 取消稀疏检出，检出全部&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;子模块（git submodule）：在一个仓库中引用其他仓库，保持依赖版本独立&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git submodule add &amp;lt;repository&amp;gt; &amp;lt;path&amp;gt;  &lt;span class=&quot;c&quot;&gt;# 添加子模块&lt;/span&gt;
+git submodule update &lt;span class=&quot;nt&quot;&gt;--init&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--recursive&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 检出并初始化子模块（clone 后常用）&lt;/span&gt;
+git submodule update &lt;span class=&quot;nt&quot;&gt;--remote&lt;/span&gt;        &lt;span class=&quot;c&quot;&gt;# 更新子模块到远程最新提交&lt;/span&gt;
+git submodule foreach git pull      &lt;span class=&quot;c&quot;&gt;# 对所有子模块执行命令&lt;/span&gt;
+git submodule deinit &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &amp;lt;path&amp;gt;      &lt;span class=&quot;c&quot;&gt;# 取消子模块&lt;/span&gt;
+git &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &amp;lt;path&amp;gt;                    &lt;span class=&quot;c&quot;&gt;# 移除子模块&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;多个工作区（git worktree）：在不影响当前工作区的情况下，同时检出多个分支到不同目录&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;git worktree add &amp;lt;path&amp;gt; &amp;lt;branch&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 在新目录检出分支，形成一个独立工作区&lt;/span&gt;
+git worktree add &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &amp;lt;new-branch&amp;gt; &amp;lt;path&amp;gt;   &lt;span class=&quot;c&quot;&gt;# 基于当前 HEAD 创建新分支并检出&lt;/span&gt;
+git worktree list                  &lt;span class=&quot;c&quot;&gt;# 列出所有工作区及其目录、分支&lt;/span&gt;
+git worktree remove &amp;lt;path&amp;gt;         &lt;span class=&quot;c&quot;&gt;# 移除工作区（工作区须干净，否则加 -f）&lt;/span&gt;
+git worktree prune                 &lt;span class=&quot;c&quot;&gt;# 清理失效工作区记录（目录被手动删除后）&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;用法示例：修复线上 bug 时不需要 stash 或 clone，只需在另一个目录检出 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hotfix&lt;/code&gt; 分支，改完合并后删除该工作区即可；所有工作区共享同一个仓库对象库。&lt;/p&gt;
+
+&lt;h2 id=&quot;命令速查表&quot;&gt;命令速查表&lt;/h2&gt;
+
+&lt;h3 id=&quot;配置&quot;&gt;配置&lt;/h3&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -3105,343 +3093,461 @@ git archive &lt;span class=&quot;nt&quot;&gt;--format&lt;/span&gt;&lt;span class
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td&gt;git init&lt;/td&gt;
-      &lt;td&gt;# 初始化本地git仓库（创建新仓库）&lt;/td&gt;
+      &lt;td&gt;初始化本地 git 仓库（创建新仓库）&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git config –global user.name “xxx”&lt;/td&gt;
-      &lt;td&gt;# 配置用户名&lt;/td&gt;
+      &lt;td&gt;配置用户名&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git config –global user.email “xxx@xxx.com”&lt;/td&gt;
-      &lt;td&gt;# 配置邮件&lt;/td&gt;
+      &lt;td&gt;配置邮件&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git config –global color.ui true&lt;/td&gt;
-      &lt;td&gt;# git status等命令自动着色&lt;/td&gt;
+      &lt;td&gt;git status 等命令自动着色&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git config –global color.status auto&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;git config –unset –global user.name&lt;/td&gt;
+      &lt;td&gt;删除配置&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git config –global color.diff auto&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;git config –list&lt;/td&gt;
+      &lt;td&gt;查看所有配置&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git config –global color.branch auto&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;ssh-keygen -t rsa -C “xxx@xxx.com”&lt;/td&gt;
+      &lt;td&gt;生成 SSH 密钥对&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;仓库-1&quot;&gt;仓库&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;注释&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git clone &lt;repo&gt; &lt;dir&gt;&lt;/dir&gt;&lt;/repo&gt;&lt;/td&gt;
+      &lt;td&gt;克隆远程仓库&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git config –global color.interactive auto&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;git remote add origin &lt;url&gt;&lt;/url&gt;&lt;/td&gt;
+      &lt;td&gt;增加远程定义（用于 push/pull/fetch）&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git clone git+ssh://git@192.168.53.168/VT.git&lt;/td&gt;
-      &lt;td&gt;# clone远程仓库&lt;/td&gt;
+      &lt;td&gt;git remote -v&lt;/td&gt;
+      &lt;td&gt;查看远程仓库及 URL&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git status&lt;/td&gt;
-      &lt;td&gt;# 查看当前版本状态（是否修改）&lt;/td&gt;
+      &lt;td&gt;git remote show origin&lt;/td&gt;
+      &lt;td&gt;查看远程详情&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git add xyz&lt;/td&gt;
-      &lt;td&gt;# 添加xyz文件至index&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git add .&lt;/td&gt;
-      &lt;td&gt;# 增加当前子目录下所有更改过的文件至index&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git commit -m ‘xxx’&lt;/td&gt;
-      &lt;td&gt;# 提交&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git commit –amend -m ‘xxx’&lt;/td&gt;
-      &lt;td&gt;# 合并上一次提交（用于反复修改）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git commit -am ‘xxx’&lt;/td&gt;
-      &lt;td&gt;# 将add和commit合为一步&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git rm xxx&lt;/td&gt;
-      &lt;td&gt;# 删除index中的文件&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git rm -r *&lt;/td&gt;
-      &lt;td&gt;# 递归删除&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git log&lt;/td&gt;
-      &lt;td&gt;# 显示提交日志&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git log -1&lt;/td&gt;
-      &lt;td&gt;# 显示1行日志 -n为n行&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git log -5&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git log –stat&lt;/td&gt;
-      &lt;td&gt;# 显示提交日志及相关变动文件&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git log -p -m&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git show dfb02e6e4f2f7b573337763e5c0013802e392818&lt;/td&gt;
-      &lt;td&gt;# 显示某个提交的详细内容&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git show dfb02&lt;/td&gt;
-      &lt;td&gt;# 可只用commitid的前几位&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git show HEAD&lt;/td&gt;
-      &lt;td&gt;# 显示HEAD提交日志&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git show HEAD^&lt;/td&gt;
-      &lt;td&gt;# 显示HEAD的父（上一个版本）的提交日志 ^^为上两个版本 ^5为上5个版本&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git tag&lt;/td&gt;
-      &lt;td&gt;# 显示已存在的tag&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git tag -a v2.0 -m ‘xxx’&lt;/td&gt;
-      &lt;td&gt;# 增加v2.0的tag&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git show v2.0&lt;/td&gt;
-      &lt;td&gt;# 显示v2.0的日志及详细内容&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git log v2.0&lt;/td&gt;
-      &lt;td&gt;# 显示v2.0的日志&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git diff&lt;/td&gt;
-      &lt;td&gt;# 显示所有未添加至index的变更&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git diff –cached&lt;/td&gt;
-      &lt;td&gt;# 显示所有已添加index但还未commit的变更&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git diff HEAD^&lt;/td&gt;
-      &lt;td&gt;# 比较与上一个版本的差异&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git diff HEAD – ./lib&lt;/td&gt;
-      &lt;td&gt;# 比较与HEAD版本lib目录的差异&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git diff origin/master..master&lt;/td&gt;
-      &lt;td&gt;# 比较远程分支master上有本地分支master上没有的&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git diff origin/master..master –stat&lt;/td&gt;
-      &lt;td&gt;# 只显示差异的文件，不显示具体内容&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git remote add origin git+ssh://git@192.168.53.168/VT.git&lt;/td&gt;
-      &lt;td&gt;# 增加远程定义（用于push/pull/fetch）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git branch&lt;/td&gt;
-      &lt;td&gt;# 显示本地分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git branch –contains 50089&lt;/td&gt;
-      &lt;td&gt;# 显示包含提交50089的分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git branch -a&lt;/td&gt;
-      &lt;td&gt;# 显示所有分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git branch -r&lt;/td&gt;
-      &lt;td&gt;# 显示所有原创分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git branch –merged&lt;/td&gt;
-      &lt;td&gt;# 显示所有已合并到当前分支的分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git branch –no-merged&lt;/td&gt;
-      &lt;td&gt;# 显示所有未合并到当前分支的分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git branch -m master master_copy&lt;/td&gt;
-      &lt;td&gt;# 本地分支改名&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git checkout -b master_copy&lt;/td&gt;
-      &lt;td&gt;# 从当前分支创建新分支master_copy并检出&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git checkout -b master master_copy&lt;/td&gt;
-      &lt;td&gt;# 上面的完整版&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git checkout features/performance&lt;/td&gt;
-      &lt;td&gt;# 检出已存在的features/performance分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git checkout –track hotfixes/BJVEP933&lt;/td&gt;
-      &lt;td&gt;# 检出远程分支hotfixes/BJVEP933并创建本地跟踪分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git checkout v2.0&lt;/td&gt;
-      &lt;td&gt;# 检出版本v2.0&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git checkout -b devel origin/develop&lt;/td&gt;
-      &lt;td&gt;# 从远程分支develop创建新本地分支devel并检出&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git checkout – README&lt;/td&gt;
-      &lt;td&gt;# 检出head版本的README文件（可用于修改错误回退）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git merge origin/master&lt;/td&gt;
-      &lt;td&gt;# 合并远程master分支至当前分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git cherry-pick ff44785404a8e&lt;/td&gt;
-      &lt;td&gt;# 合并提交ff44785404a8e的修改&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git push origin master&lt;/td&gt;
-      &lt;td&gt;# 将当前分支push到远程master分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git push origin :hotfixes/BJVEP933&lt;/td&gt;
-      &lt;td&gt;# 删除远程仓库的hotfixes/BJVEP933分支&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;git push –tags&lt;/td&gt;
-      &lt;td&gt;# 把所有tag推送到远程仓库&lt;/td&gt;
+      &lt;td&gt;git remote set-url origin &lt;new-url&gt;&lt;/new-url&gt;&lt;/td&gt;
+      &lt;td&gt;修改远程 URL&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git fetch&lt;/td&gt;
-      &lt;td&gt;# 获取所有远程分支（不更新本地分支，另需merge）&lt;/td&gt;
+      &lt;td&gt;获取所有远程分支（不更新本地分支，另需 merge）&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git fetch –prune&lt;/td&gt;
-      &lt;td&gt;# 获取所有原创分支并清除服务器上已删掉的分支&lt;/td&gt;
+      &lt;td&gt;获取所有远程分支并清除服务器上已删掉的分支&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git pull origin master&lt;/td&gt;
-      &lt;td&gt;# 获取远程分支master并merge到当前分支&lt;/td&gt;
+      &lt;td&gt;获取远程分支 master 并 merge 到当前分支&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git mv README README2&lt;/td&gt;
-      &lt;td&gt;# 重命名文件README为README2&lt;/td&gt;
+      &lt;td&gt;git push origin master&lt;/td&gt;
+      &lt;td&gt;将当前分支 push 到远程 master 分支&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git reset –hard HEAD&lt;/td&gt;
-      &lt;td&gt;# 将当前版本重置为HEAD（通常用于merge失败回退）&lt;/td&gt;
+      &lt;td&gt;git push –force-with-lease origin master&lt;/td&gt;
+      &lt;td&gt;安全强推（拒绝覆盖他人新提交）&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git rebase&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;git push –tags&lt;/td&gt;
+      &lt;td&gt;把所有 tag 推送到远程仓库&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;文件操作-1&quot;&gt;文件操作&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;注释&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git status&lt;/td&gt;
+      &lt;td&gt;查看当前版本状态（是否修改）&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git branch -d hotfixes/BJVEP933&lt;/td&gt;
-      &lt;td&gt;# 删除分支hotfixes/BJVEP933（本分支修改已合并到其他分支）&lt;/td&gt;
+      &lt;td&gt;git status -s&lt;/td&gt;
+      &lt;td&gt;简短输出&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git branch -D hotfixes/BJVEP933&lt;/td&gt;
-      &lt;td&gt;# 强制删除分支hotfixes/BJVEP933&lt;/td&gt;
+      &lt;td&gt;git add &lt;file&gt;&lt;/file&gt;&lt;/td&gt;
+      &lt;td&gt;添加文件至暂存区&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git ls-files&lt;/td&gt;
-      &lt;td&gt;# 列出git index包含的文件&lt;/td&gt;
+      &lt;td&gt;git add .&lt;/td&gt;
+      &lt;td&gt;添加当前子目录下所有更改过的文件至暂存区&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git show-branch&lt;/td&gt;
-      &lt;td&gt;# 图示当前分支历史&lt;/td&gt;
+      &lt;td&gt;git add -u&lt;/td&gt;
+      &lt;td&gt;添加已跟踪文件的改动（含删除和修改）&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git show-branch –all&lt;/td&gt;
-      &lt;td&gt;# 图示所有分支历史&lt;/td&gt;
+      &lt;td&gt;git add -A&lt;/td&gt;
+      &lt;td&gt;添加所有改动（已跟踪 + 未跟踪）&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git whatchanged&lt;/td&gt;
-      &lt;td&gt;# 显示提交历史对应的文件修改&lt;/td&gt;
+      &lt;td&gt;git commit -m ‘xxx’&lt;/td&gt;
+      &lt;td&gt;提交&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git revert dfb02e6e4f2f7b573337763e5c0013802e392818&lt;/td&gt;
-      &lt;td&gt;# 撤销提交dfb02e6e4f2f7b573337763e5c0013802e392818&lt;/td&gt;
+      &lt;td&gt;git commit –amend -m ‘xxx’&lt;/td&gt;
+      &lt;td&gt;合并上一次提交（用于反复修改）&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git ls-tree HEAD&lt;/td&gt;
-      &lt;td&gt;# 内部命令：显示某个git对象&lt;/td&gt;
+      &lt;td&gt;git commit -am ‘xxx’&lt;/td&gt;
+      &lt;td&gt;将 add 和 commit 合为一步&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git rev-parse v2.0&lt;/td&gt;
-      &lt;td&gt;# 内部命令：显示某个ref对于的SHA1 HASH&lt;/td&gt;
+      &lt;td&gt;git rm &lt;file&gt;&lt;/file&gt;&lt;/td&gt;
+      &lt;td&gt;删除文件并加入暂存区&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git reflog&lt;/td&gt;
-      &lt;td&gt;# 显示所有提交，包括孤立节点&lt;/td&gt;
+      &lt;td&gt;git rm -r &lt;dir&gt;&lt;/dir&gt;&lt;/td&gt;
+      &lt;td&gt;递归删除&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git mv &lt;old&gt; &lt;new&gt;&lt;/new&gt;&lt;/old&gt;&lt;/td&gt;
+      &lt;td&gt;移动/重命名文件&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git clean -fd&lt;/td&gt;
+      &lt;td&gt;强制删除多余的未跟踪文件和目录&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git diff&lt;/td&gt;
+      &lt;td&gt;显示所有未添加至 index 的变更&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git diff –cached&lt;/td&gt;
+      &lt;td&gt;显示所有已添加 index 但还未 commit 的变更&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git diff HEAD – &lt;file&gt;&lt;/file&gt;&lt;/td&gt;
+      &lt;td&gt;比较与 HEAD 版本某文件的差异&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git checkout – &lt;file&gt;&lt;/file&gt;&lt;/td&gt;
+      &lt;td&gt;用暂存区覆盖工作区文件（丢弃修改）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;历史与标签&quot;&gt;历史与标签&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;注释&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git log&lt;/td&gt;
+      &lt;td&gt;显示提交日志&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git log –oneline –graph&lt;/td&gt;
+      &lt;td&gt;图示提交日志&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git log -1&lt;/td&gt;
+      &lt;td&gt;显示 1 行日志，-n 为 n 行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git log –stat&lt;/td&gt;
+      &lt;td&gt;显示提交日志及相关变动文件&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git log -p&lt;/td&gt;
+      &lt;td&gt;显示每个提交的完整差异&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git log –author=”名字”&lt;/td&gt;
+      &lt;td&gt;按作者过滤&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git log –since=”2 weeks ago”&lt;/td&gt;
+      &lt;td&gt;按时间过滤&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git log –grep=”关键字”&lt;/td&gt;
+      &lt;td&gt;按提交信息搜索&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git log -S”字符串”&lt;/td&gt;
+      &lt;td&gt;按代码内容变更搜索&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git log &lt;file&gt;&lt;/file&gt;&lt;/td&gt;
+      &lt;td&gt;只看某文件的提交历史&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git shortlog -sn&lt;/td&gt;
+      &lt;td&gt;按作者统计提交数&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git show &lt;commit&gt;&lt;/commit&gt;&lt;/td&gt;
+      &lt;td&gt;显示某个提交的详细内容（可只用 commitid 前几位）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git show HEAD&lt;/td&gt;
+      &lt;td&gt;显示 HEAD 提交日志&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git show HEAD^&lt;/td&gt;
+      &lt;td&gt;显示 HEAD 的父（上一个版本）的提交日志，^^ 为上两个版本&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git show HEAD@{5}&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;查看第 5 次之前的状态&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git show master@{yesterday}&lt;/td&gt;
-      &lt;td&gt;# 显示master分支昨天的状态&lt;/td&gt;
+      &lt;td&gt;git tag&lt;/td&gt;
+      &lt;td&gt;显示已存在的 tag&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git log –pretty=format:’%h %s’ –graph&lt;/td&gt;
-      &lt;td&gt;# 图示提交日志&lt;/td&gt;
+      &lt;td&gt;git tag -a v2.0 -m ‘xxx’&lt;/td&gt;
+      &lt;td&gt;增加附注 tag&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git show HEAD~3&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;git show v2.0&lt;/td&gt;
+      &lt;td&gt;显示 tag 的日志及详细内容&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;分支与合并&quot;&gt;分支与合并&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;注释&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git branch&lt;/td&gt;
+      &lt;td&gt;显示本地分支&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git show -s –pretty=raw 2be7fcb476&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;git branch -a&lt;/td&gt;
+      &lt;td&gt;显示所有分支&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git branch -r&lt;/td&gt;
+      &lt;td&gt;显示所有远程分支&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git branch &lt;name&gt;&lt;/name&gt;&lt;/td&gt;
+      &lt;td&gt;创建分支&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git branch -d &lt;name&gt;&lt;/name&gt;&lt;/td&gt;
+      &lt;td&gt;删除分支（已合并到其他分支才允许）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git branch -D &lt;name&gt;&lt;/name&gt;&lt;/td&gt;
+      &lt;td&gt;强制删除分支&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git branch -m &lt;old&gt; &lt;new&gt;&lt;/new&gt;&lt;/old&gt;&lt;/td&gt;
+      &lt;td&gt;本地分支改名&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git branch –merged&lt;/td&gt;
+      &lt;td&gt;显示所有已合并到当前分支的分支&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git branch –no-merged&lt;/td&gt;
+      &lt;td&gt;显示所有未合并到当前分支的分支&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git checkout -b &lt;branch&gt;&lt;/branch&gt;&lt;/td&gt;
+      &lt;td&gt;从当前分支创建新分支并检出&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git checkout –track &lt;remote&gt;/&lt;branch&gt;&lt;/branch&gt;&lt;/remote&gt;&lt;/td&gt;
+      &lt;td&gt;检出远程分支并创建本地跟踪分支&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git checkout &lt;tag&gt;&lt;/tag&gt;&lt;/td&gt;
+      &lt;td&gt;检出版本（tag）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git switch &lt;branch&gt;&lt;/branch&gt;&lt;/td&gt;
+      &lt;td&gt;切换分支（现代写法）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git switch -c &lt;branch&gt;&lt;/branch&gt;&lt;/td&gt;
+      &lt;td&gt;创建并切换分支&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git merge &lt;branch&gt;&lt;/branch&gt;&lt;/td&gt;
+      &lt;td&gt;合并分支到当前分支&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git cherry-pick &lt;commit&gt;&lt;/commit&gt;&lt;/td&gt;
+      &lt;td&gt;挑选某次提交应用到当前分支&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git rebase &lt;branch&gt;&lt;/branch&gt;&lt;/td&gt;
+      &lt;td&gt;变基当前分支&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;回滚与版本控制-1&quot;&gt;回滚与版本控制&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;注释&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git reset –hard &lt;commit&gt;&lt;/commit&gt;&lt;/td&gt;
+      &lt;td&gt;硬回退：重置引用、暂存区和工作区（危险）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git reset –soft &lt;commit&gt;&lt;/commit&gt;&lt;/td&gt;
+      &lt;td&gt;软回退：只移动 HEAD，不动暂存区和工作区&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git reset HEAD &lt;file&gt;&lt;/file&gt;&lt;/td&gt;
+      &lt;td&gt;将文件撤出暂存区&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git revert &lt;commit&gt;&lt;/commit&gt;&lt;/td&gt;
+      &lt;td&gt;新建反向提交撤销某次提交（保留历史）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git reflog&lt;/td&gt;
+      &lt;td&gt;显示所有提交记录，可找回被 reset 掉的提交&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git restore &lt;file&gt;&lt;/file&gt;&lt;/td&gt;
+      &lt;td&gt;用暂存区覆盖工作区文件（现代写法）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git restore –staged &lt;file&gt;&lt;/file&gt;&lt;/td&gt;
+      &lt;td&gt;把文件撤出暂存区&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git stash&lt;/td&gt;
-      &lt;td&gt;# 暂存当前修改，将所有至为HEAD状态&lt;/td&gt;
+      &lt;td&gt;暂存当前修改，将所有至为 HEAD 状态&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git stash list&lt;/td&gt;
-      &lt;td&gt;# 查看所有暂存&lt;/td&gt;
+      &lt;td&gt;查看所有暂存&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git stash show -p stash@{0}&lt;/td&gt;
-      &lt;td&gt;# 参考第一次暂存&lt;/td&gt;
+      &lt;td&gt;查看某次暂存内容&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git stash apply stash@{0}&lt;/td&gt;
-      &lt;td&gt;# 应用第一次暂存&lt;/td&gt;
+      &lt;td&gt;应用暂存&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git grep “delete from”&lt;/td&gt;
-      &lt;td&gt;# 文件中搜索文本“delete from”&lt;/td&gt;
+      &lt;td&gt;git stash pop&lt;/td&gt;
+      &lt;td&gt;应用并删除暂存&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;子模块与其他&quot;&gt;子模块与其他&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;注释&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git submodule add &lt;repo&gt; &lt;path&gt;&lt;/path&gt;&lt;/repo&gt;&lt;/td&gt;
+      &lt;td&gt;添加子模块&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git grep -e ‘#define’ –and -e SORT_DIRENT&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;git submodule update –init –recursive&lt;/td&gt;
+      &lt;td&gt;检出并初始化子模块&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;git gc&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;git worktree add &lt;path&gt; &lt;branch&gt;&lt;/branch&gt;&lt;/path&gt;&lt;/td&gt;
+      &lt;td&gt;在新目录检出分支，形成独立工作区&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git worktree list&lt;/td&gt;
+      &lt;td&gt;列出所有工作区&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git bisect start&lt;/td&gt;
+      &lt;td&gt;开始二分定位&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git format-patch -1 &lt;commit&gt;&lt;/commit&gt;&lt;/td&gt;
+      &lt;td&gt;导出提交为补丁文件&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git am &lt;patch&gt;&lt;/patch&gt;&lt;/td&gt;
+      &lt;td&gt;应用补丁并生成提交&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git describe&lt;/td&gt;
+      &lt;td&gt;基于最近标签生成版本号描述&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git sparse-checkout set &lt;dir&gt;&lt;/dir&gt;&lt;/td&gt;
+      &lt;td&gt;稀疏检出，只检出指定目录&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git grep “关键字”&lt;/td&gt;
+      &lt;td&gt;文件中搜索文本&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git blame &lt;file&gt;&lt;/file&gt;&lt;/td&gt;
+      &lt;td&gt;查看文件每行最后修改的提交&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;git fsck&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;检查仓库完整性&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;git gc&lt;/td&gt;
+      &lt;td&gt;压缩仓库，垃圾回收&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;

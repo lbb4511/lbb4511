@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="utf-8">
@@ -15,7 +15,7 @@
         content="Docker - 紫若丹枫">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="Docker命令
+    <meta property="og:description" content="Docker 与 Kubernetes 常用命令速查，含日常运维与故障排查。
 ">
     
     <meta property="article:published_time" content=" 2022-07-08T00:00:00Z">
@@ -31,7 +31,34 @@
     <meta property="og:url" content="https://4511.top/2022/07/08/docker/">
     <meta property="og:site_name" content="紫若丹枫">
 
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@lbb4511">
+    <meta name="twitter:creator" content="@lbb4511">
+    <meta name="twitter:title"
+        content="Docker - 紫若丹枫">
+    <meta name="twitter:description"
+        content="Docker 与 Kubernetes 常用命令速查，含日常运维与故障排查。
+">
+    <meta name="twitter:image" content="https://4511.tophttps://github.com/lbb4511.png">
+
     <title>Docker - 紫若丹枫</title>
+
+    <!-- JSON-LD: WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "紫若丹枫",
+      "url": "https://4511.top",
+      "description": "紫若丹枫",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://4511.top/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/assets/pwa/manifest.json">
@@ -119,6 +146,8 @@
                         <li>
                             <a href="/docs/">藏书</a>
                         </li>
+                        
+                        
                         
                         
                         
@@ -269,186 +298,379 @@
                 <!-- Multi-Lingual -->
                 
 
-				<h2 id="docker命令">Docker命令</h2>
+				<p>Docker 与 Kubernetes 常用命令速查，含日常运维与故障排查。</p>
 
-<h3 id="删除">删除</h3>
+<h2 id="docker-基础命令">Docker 基础命令</h2>
+
+<h3 id="镜像image">镜像（Image）</h3>
 
 <ul>
-  <li>停止所有的container
+  <li>检索镜像
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>docker stop $(docker ps -a -q)
+</pre></td><td class="rouge-code"><pre>docker search image_name
 </pre></td></tr></tbody></table></code></pre></div>    </div>
   </li>
-  <li>删除所有container的话再加一个指令
+  <li>下载镜像
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>docker rm $(docker ps -a -q)
+</pre></td><td class="rouge-code"><pre>docker pull image_name
 </pre></td></tr></tbody></table></code></pre></div>    </div>
   </li>
-  <li>查看当前有些什么images
+  <li>列出镜像；<code class="language-plaintext highlighter-rouge">-a</code> 显示所有，<code class="language-plaintext highlighter-rouge">-q</code> 仅显示 ID，<code class="language-plaintext highlighter-rouge">--no-trunc</code> 不截断输出
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 </pre></td><td class="rouge-code"><pre>docker images
 </pre></td></tr></tbody></table></code></pre></div>    </div>
   </li>
-  <li>删除images，通过image的id来指定删除谁
+  <li>删除镜像；<code class="language-plaintext highlighter-rouge">-f</code> 强制，按 ID 或名称指定
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>docker rmi &lt;image id&gt;
+</pre></td><td class="rouge-code"><pre>docker rmi image_name
 </pre></td></tr></tbody></table></code></pre></div>    </div>
   </li>
-  <li>删除untagged images，也就是那些id为<None>的image的话可以用
-</None>    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>docker rmi $(docker images | grep "^&lt;none&gt;" | awk "{print $3}")
+  <li>查看镜像的历史
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker history image_name
 </pre></td></tr></tbody></table></code></pre></div>    </div>
   </li>
-  <li>删除全部image的话
+  <li>查看镜像详细信息
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>docker rmi $(docker images -q)
+</pre></td><td class="rouge-code"><pre>docker inspect image_name
 </pre></td></tr></tbody></table></code></pre></div>    </div>
   </li>
 </ul>
 
-<hr />
+<h3 id="容器container">容器（Container）</h3>
 
-<ol>
-  <li>查看docker信息（version、info）
-    <ul>
-      <li>查看docker版本
-<code class="language-plaintext highlighter-rouge">$docker version</code></li>
-      <li>显示docker系统的信息
-<code class="language-plaintext highlighter-rouge">$docker info</code></li>
-    </ul>
-  </li>
-  <li>对image的操作（search、pull、images、rmi、history）
-    <ul>
-      <li>检索image
-<code class="language-plaintext highlighter-rouge">$docker search image_name</code></li>
-      <li>下载image
-<code class="language-plaintext highlighter-rouge">$docker pull image_name</code></li>
-      <li>列出镜像列表; -a, –all=false 显示所有镜像; –no-trunc=false 不要截断输出; -q, –quiet=false 仅显示数字ID
-<code class="language-plaintext highlighter-rouge">$docker images</code></li>
-      <li>删除一个或者多个镜像; -f, –force=false 强行; –no-prune=false 不要删除未标记的父级
-<code class="language-plaintext highlighter-rouge">$docker rmi image_name</code></li>
-      <li>显示一个镜像的历史; –no-trunc=false 不要截断输出; -q, –quiet=false 仅显示数字ID
-<code class="language-plaintext highlighter-rouge">$docker history image_name</code>
- 3. 启动容器（run）
-docker容器可以理解为在沙盒中运行的进程。这个沙盒包含了该进程运行所必须的资源，包括文件系统、系统类库、shell 环境等等。但这个沙盒默认是不会运行任何程序的。你需要在沙盒中运行一个进程来启动某一个容器。这个进程是该容器的唯一进程，所以当该进程结束的时候，容器也会完全的停止。</li>
-      <li>在容器中运行”echo”命令，输出”hello word”
-<code class="language-plaintext highlighter-rouge">$docker run image_name echo "hello word"</code></li>
-      <li>交互式进入容器中
-<code class="language-plaintext highlighter-rouge">$docker run -i -t image_name /bin/bash</code></li>
-      <li>在容器中安装新的程序
-<code class="language-plaintext highlighter-rouge">$docker run image_name apt-get install -y app_name</code>
-<em>注意：  在执行apt-get 命令的时候，要带上-y参数。如果不指定-y参数的话，apt-get命令会进入交互模式，需要用户输入命令来进行确认，但在docker环境中是无法响应这种交互的。apt-get 命令执行完毕之后，容器就会停止，但对容器的改动不会丢失。</em></li>
-    </ul>
-  </li>
-  <li>查看容器（ps）
-    <ul>
-      <li>列出当前所有正在运行的container
-<code class="language-plaintext highlighter-rouge">$docker ps</code></li>
-      <li>列出所有的container$docker ps -a</li>
-      <li>列出最近一次启动的container
-<code class="language-plaintext highlighter-rouge">$docker ps -l</code></li>
-    </ul>
-  </li>
-  <li>保存对容器的修改（commit）
-当你对某一个容器做了修改之后（通过在容器中运行某一个命令），可以把对容器的修改保存下来，这样下次可以从保存后的最新状态运行该容器。
-    <ul>
-      <li>保存对容器的修改; -a, –author=”” 作者; -m, –message=”” 提交消息
-<code class="language-plaintext highlighter-rouge">$docker commit ID new_image_name</code>
-<em>注意：  image相当于类，container相当于实例，不过可以动态给实例安装新软件，然后把这个container用commit命令固化成一个image。</em></li>
-    </ul>
-  </li>
-  <li>对容器的操作（rm、stop、start、kill、logs、diff、top、cp、restart、attach）
-    <ul>
-      <li>删除所有容器
-<code class="language-plaintext highlighter-rouge">$docker rm `docker ps -a -q`
-</code></li>
-      <li>删除单个容器; -f, –force=false; -l, –link=false 删除指定的链接，而不是基础容器; -v, –volumes=false 删除与容器关联的卷
-<code class="language-plaintext highlighter-rouge">$docker rm Name/ID</code></li>
-      <li>停止、启动、杀死一个容器
-<code class="language-plaintext highlighter-rouge">$docker stop Name/ID</code>
-<code class="language-plaintext highlighter-rouge">$docker start Name/ID</code>
-<code class="language-plaintext highlighter-rouge">$docker kill Name/ID</code></li>
-      <li>从一个容器中取日志; -f, –follow=false 按照日志输出; -t, –timestamps=false 显示时间戳
-<code class="language-plaintext highlighter-rouge">$docker logs Name/ID</code></li>
-      <li>列出一个容器里面被改变的文件或者目录，list列表会显示出三种事件，A 增加的，D 删除的，C 被改变的
-<code class="language-plaintext highlighter-rouge">$docker diff Name/ID</code></li>
-      <li>显示一个运行的容器里面的进程信息
-<code class="language-plaintext highlighter-rouge">$docker top Name/ID</code></li>
-      <li>从容器里面拷贝文件/目录到本地一个路径
-<code class="language-plaintext highlighter-rouge">$docker cp Name:/container_path to_path</code>
-<code class="language-plaintext highlighter-rouge">$docker cp ID:/container_path to_path</code></li>
-      <li>重启一个正在运行的容器; -t, –time=10 尝试在停止容器之前停止的秒数, 默认=10
-<code class="language-plaintext highlighter-rouge">$docker restart Name/ID</code></li>
-      <li>附加到一个运行的容器上面; –no-stdin=false 不要附加标准输入(stdin); –sig-proxy=true 将所有接收到的信号代理给进程
-<code class="language-plaintext highlighter-rouge">$docker attach ID</code>
-<em>注意： attach命令允许你查看或者影响一个运行的容器。你可以在同一时间attach同一个容器。你也可以从一个容器中脱离出来，是从CTRL-C。</em></li>
-    </ul>
-  </li>
-  <li>保存和加载镜像（save、load）
-当需要把一台机器上的镜像迁移到另一台机器的时候，需要保存镜像与加载镜像。
-    <ul>
-      <li>保存镜像到一个tar包; -o, –output=”” 写入文件
-<code class="language-plaintext highlighter-rouge">$docker save image_name -o file_path</code></li>
-      <li>加载一个tar包格式的镜像; -i, –input=”” 从tar存档文件读取
-<code class="language-plaintext highlighter-rouge">$docker load -i file_path</code></li>
-      <li>机器a
-<code class="language-plaintext highlighter-rouge">$docker save image_name &gt; /home/save.tar</code></li>
-      <li>使用scp将save.tar拷到机器b上，然后：
-<code class="language-plaintext highlighter-rouge">$docker load &lt; /home/save.tar</code>
- 8、 登录registry server（login）</li>
-      <li>登陆registry server; -e, –email=”” 电子邮件; -p, –password=”” 密码; -u, –username=”” 用户名
-<code class="language-plaintext highlighter-rouge">$docker login</code></li>
-    </ul>
-  </li>
-  <li>发布image（push）
-    <ul>
-      <li>发布docker镜像
-<code class="language-plaintext highlighter-rouge">$docker push new_image_name</code>
- 10.  根据Dockerfile 构建出一个容器</li>
-      <li>build 
-–no-cache=false 在构建映像时不要使用缓存
- -q, –quiet=false 抑制由容器生成的详细输出
- –rm=true 成功构建后删除中间容器
- -t, –tag=”” 在成功的情况下应用于生成的图像的存储库名称（以及可选的标记）
-<code class="language-plaintext highlighter-rouge">$docker build -t image_name Dockerfile_path</code></li>
-    </ul>
-  </li>
-</ol>
-
-<h2 id="docker源码分析">Docker源码分析</h2>
+<p>容器可以理解为在沙盒中运行的进程。沙盒包含进程运行所必需的资源（文件系统、系统类库、shell 环境等），默认不运行任何程序。你需要运行一个进程来启动容器，该进程是容器的唯一进程，进程结束容器也随之停止。</p>
 
 <ul>
-  <li>
-    <p>init函数的执行。在Golang中init函数的特性如下：</p>
-
-    <ul>
-      <li>init函数用于程序执行前包的初始化工作，比如初始化变量等；</li>
-      <li>每个包可以有多个init函数；</li>
-      <li>包的每一个源文件也可以有多个init函数；</li>
-      <li>同一个包内的init函数的执行顺序没有明确的定义；</li>
-      <li>不同包的init函数按照包导入的依赖关系决定初始化的顺序；</li>
-      <li>init函数不能被调用，而是在main函数调用前自动被调用。</li>
-    </ul>
+  <li>运行容器执行命令
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run image_name echo "hello world"
+</pre></td></tr></tbody></table></code></pre></div>    </div>
   </li>
-  <li>os.Setenv(“DEBUG”, “1”) 创建系统环境变量</li>
-  <li>
-    <p>Docker源码分析 孙宏亮 -infoQ</p>
+  <li>交互式进入容器
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run -i -t image_name /bin/bash
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>列出运行中的容器
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker ps
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>列出所有容器（含已停止）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker ps -a
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>列出最近一次启动的容器
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker ps -l
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>启动 / 停止 / 重启 / 杀死容器
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>docker start container_name
+docker stop container_name
+docker restart container_name
+docker kill container_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>删除容器；<code class="language-plaintext highlighter-rouge">-f</code> 强制，<code class="language-plaintext highlighter-rouge">-v</code> 同时删除关联卷
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker rm container_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>查看容器日志；<code class="language-plaintext highlighter-rouge">-f</code> 实时跟踪，<code class="language-plaintext highlighter-rouge">-t</code> 显示时间戳，<code class="language-plaintext highlighter-rouge">--tail N</code> 只看末尾 N 行
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker logs -f container_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>显示运行中容器的进程信息
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker top container_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>查看容器内被改动的文件/目录（<code class="language-plaintext highlighter-rouge">A</code> 增加，<code class="language-plaintext highlighter-rouge">D</code> 删除，<code class="language-plaintext highlighter-rouge">C</code> 修改）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker diff container_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>在容器与宿主机之间拷贝文件
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>docker cp container_name:/container_path to_path
+docker cp ID:/container_path to_path
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>附加到运行中的容器（<code class="language-plaintext highlighter-rouge">Ctrl-C</code> 退出，容器内进程会收到信号）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker attach container_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>进入运行中的容器（推荐，比 attach 更灵活）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker exec -it container_name /bin/bash
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>查看容器端口映射
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker port container_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
 
-    <ul>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part1">Docker源码分析（一）：Docker架构</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part2">Docker源码分析（二）：Docker Client创建与命令执行</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part3">Docker源码分析（三）：Docker Daemon启动</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part4">Docker源码分析（四）：Docker Daemon之NewDaemon实现</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part5">Docker源码分析（五）：Docker Server的创建</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part6">Docker源码分析（六）：Docker Daemon网络</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part7">Docker源码分析（七）：Docker Container网络 （上）</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part8">Docker源码分析（八）：Docker Container网络 （下）</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part9">Docker源码分析（九）：Docker镜像</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part10">Docker源码分析（十）：Docker镜像下载</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-source-code-analysis-part11">Docker源码分析（十一）：镜像存储</a></li>
-      <li><a href="http://www.infoq.com/cn/articles/docker-turns-3">Docker三年回顾：梦想依在，人生正当年</a></li>
-      <li><a href="http://www.infoq.com/cn/presentations/how-to-design-an-ultra-large-scale-container-scheduling-system">超大规模容器调度系统的设计与实现</a></li>
-    </ul>
+<h3 id="提交与发布">提交与发布</h3>
+
+<ul>
+  <li>将容器固化为镜像（image 相当于类，container 相当于实例）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker commit container_id new_image_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>登录 registry
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker login
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>推送镜像
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker push new_image_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="镜像迁移">镜像迁移</h3>
+
+<p>把一台机器上的镜像迁移到另一台机器：</p>
+
+<ul>
+  <li>保存镜像为 tar 包
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker save image_name -o image.tar
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>从 tar 包加载镜像
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker load -i image.tar
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>或配合 scp 使用
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>docker save image_name &gt; image.tar
+docker load &lt; image.tar
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="构建镜像">构建镜像</h3>
+
+<ul>
+  <li>根据 Dockerfile 构建镜像；<code class="language-plaintext highlighter-rouge">-t</code> 指定名称和标签，<code class="language-plaintext highlighter-rouge">--no-cache</code> 不使用缓存，<code class="language-plaintext highlighter-rouge">-q</code> 抑制输出
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker build -t image_name Dockerfile_path
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="清理">清理</h3>
+
+<ul>
+  <li>停止所有容器
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker stop $(docker ps -a -q)
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>删除所有容器
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker rm $(docker ps -a -q)
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>删除所有镜像
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker rmi $(docker images -q)
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>删除悬空镜像（<code class="language-plaintext highlighter-rouge">&lt;none&gt;</code> 的 untagged 镜像）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker rmi $(docker images -f "dangling=true" -q)
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>清理不用的镜像、容器、网络、构建缓存（<code class="language-plaintext highlighter-rouge">-f</code> 跳过确认，慎用）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>docker system prune -af
+docker volume prune
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="docker-运维与排查命令">Docker 运维与排查命令</h2>
+
+<h3 id="常用运维命令">常用运维命令</h3>
+
+<ul>
+  <li>查看磁盘占用（镜像、容器、卷、构建缓存）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker system df
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>查看容器/镜像资源占用（CPU、内存），<code class="language-plaintext highlighter-rouge">--no-stream</code> 只输出一次
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>docker stats
+docker stats --no-stream
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>查看容器详情（JSON：环境变量、挂载、网络、健康状态）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker inspect container_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>查看网络
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>docker network ls
+docker network inspect network_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="排查命令">排查命令</h3>
+
+<ul>
+  <li>容器启动失败/异常退出：看退出码与错误
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker inspect -f ' ' container_name
+docker logs container_name
+docker events --since 30m
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>容器不断重启：查看重启次数与健康检查状态
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>docker inspect -f '' container_name
+docker inspect -f '' container_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>端口映射与占用排查
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>docker ps -a --format 'table \t\t'
+ss -lntp | grep 8080
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>镜像拉取失败/认证失败：观察报错，确认仓库权限后重新登录
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>docker pull image_name
+docker login registry_host
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>容器内 DNS/网络不通
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker exec container_name cat /etc/resolv.conf
+docker exec container_name nslookup host
+docker network inspect network_name
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="kubernetesk8s常用命令">Kubernetes（K8s）常用命令</h2>
+
+<h3 id="资源查看">资源查看</h3>
+
+<ul>
+  <li>查看节点、Pod、Service 等资源；<code class="language-plaintext highlighter-rouge">-A</code> 全部命名空间，<code class="language-plaintext highlighter-rouge">-o wide</code> 显示更多信息
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>kubectl get nodes
+kubectl get nodes -o wide
+kubectl get pods -A
+kubectl get pods -n &lt;ns&gt; -o wide
+kubectl get svc,deploy,rs,cm,secret -n &lt;ns&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>查看资源详情（含 Events 调度信息）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>kubectl describe pod &lt;pod&gt; -n &lt;ns&gt;
+kubectl describe node &lt;node&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="日志与进入容器">日志与进入容器</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>kubectl logs &lt;pod&gt; -n &lt;ns&gt;
+kubectl logs -f --tail 100 &lt;pod&gt; -n &lt;ns&gt;
+kubectl logs &lt;pod&gt; -c &lt;container&gt; -n &lt;ns&gt;          # 多容器场景指定容器
+kubectl exec -it &lt;pod&gt; -n &lt;ns&gt; -- /bin/sh
+kubectl exec -it &lt;pod&gt; -c &lt;container&gt; -n &lt;ns&gt; -- /bin/sh
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="排查命令-1">排查命令</h3>
+
+<ul>
+  <li>Pod 状态异常：常见 CrashLoopBackOff / ImagePullBackOff / Pending / Error
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>kubectl get pods -n &lt;ns&gt;            # 先看状态
+kubectl describe pod &lt;pod&gt; -n &lt;ns&gt;  # 再看 Events
+kubectl get events --sort-by=.lastTimestamp -n &lt;ns&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>CrashLoopBackOff：查看上一次崩溃的日志与退出码
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>kubectl logs --previous &lt;pod&gt; -n &lt;ns&gt;
+kubectl describe pod &lt;pod&gt; -n &lt;ns&gt; | grep -A5 ExitCode
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>ImagePullBackOff：Events 会写明具体报错（镜像名拼写、仓库权限、认证）</li>
+  <li>Pending：多为节点资源不足或调度失败
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>kubectl top nodes
+kubectl top pods -n &lt;ns&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>端口转发（调试用）
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>kubectl port-forward &lt;pod&gt; 8080:80 -n &lt;ns&gt;
+kubectl port-forward svc/&lt;svc&gt; 8080:80 -n &lt;ns&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>重启应用：Deployment 场景下滚动重建
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>kubectl rollout restart deploy/&lt;name&gt; -n &lt;ns&gt;
+kubectl delete pod &lt;pod&gt; -n &lt;ns&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>查看容器环境变量与配置
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>kubectl exec &lt;pod&gt; -n &lt;ns&gt; -- env
+kubectl get cm &lt;name&gt; -n &lt;ns&gt; -o yaml
+</pre></td></tr></tbody></table></code></pre></div>    </div>
   </li>
 </ul>
 
